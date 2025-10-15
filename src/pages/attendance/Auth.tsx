@@ -25,6 +25,10 @@ export default function AttendanceAuth() {
     setIsLoading(true);
     try {
       const student = await registerMutation(registerData);
+      // Add null check to satisfy TS
+      if (!student) {
+        throw new Error("Registration failed");
+      }
       localStorage.setItem("studentName", student.name);
       localStorage.setItem("studentRollNumber", student.roll_number);
       toast.success("Registration successful!");
@@ -41,6 +45,10 @@ export default function AttendanceAuth() {
     setIsLoading(true);
     try {
       const student = await loginMutation({ roll_number: loginRollNumber });
+      // Add null check to satisfy TS
+      if (!student) {
+        throw new Error("Student not found. Please register first.");
+      }
       localStorage.setItem("studentName", student.name);
       localStorage.setItem("studentRollNumber", student.roll_number);
       toast.success("Login successful!");
