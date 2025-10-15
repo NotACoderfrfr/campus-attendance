@@ -32,12 +32,25 @@ const schema = defineSchema(
       role: v.optional(roleValidator), // role of the user. do not remove
     }).index("email", ["email"]), // index for the email. do not remove or modify
 
-    // add other tables here
+    // Student attendance system tables
+    students: defineTable({
+      name: v.string(),
+      roll_number: v.string(),
+      created_at: v.number(),
+    }).index("by_roll_number", ["roll_number"]),
 
-    // tableName: defineTable({
-    //   ...
-    //   // table fields
-    // }).index("by_field", ["field"])
+    attendanceRecords: defineTable({
+      roll_number: v.string(),
+      subject: v.string(),
+      date: v.string(), // YYYY-MM-DD format
+      periods_held: v.number(),
+      periods_attended: v.number(),
+      timestamp: v.number(),
+    })
+      .index("by_roll_number", ["roll_number"])
+      .index("by_roll_number_and_subject", ["roll_number", "subject"])
+      .index("by_roll_number_and_date", ["roll_number", "date"])
+      .index("by_roll_number_and_subject_and_date", ["roll_number", "subject", "date"]),
   },
   {
     schemaValidation: false,
