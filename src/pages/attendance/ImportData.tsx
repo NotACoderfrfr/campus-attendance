@@ -31,30 +31,94 @@ export default function ImportData() {
     }
   }, [rollNumber, navigate]);
 
+  const parseHTMLTable = (htmlContent: string) => {
+    // Create a temporary DOM element to parse HTML
+    const parser = new DOMParser();
+    const doc = parser.parseFromString(htmlContent, "text/html");
+    const rows = doc.querySelectorAll("tr");
+    
+    const records: Array<{
+      subject: string;
+      date: string;
+      periods_held: number;
+      periods_attended: number;
+    }> = [];
+
+    // Skip header row, start from index 1
+    for (let i = 1; i < rows.length; i++) {
+      const cells = rows[i].querySelectorAll("td, th");
+      if (cells.length >= 4) {
+        const subject = cells[0]?.textContent?.trim() || "";
+        const date = cells[1]?.textContent?.trim() || "";
+        const held = parseInt(cells[2]?.textContent?.trim() || "0");
+        const attended = parseInt(cells[3]?.textContent?.trim() || "0");
+
+        if (subject && date) {
+          // Try to parse date in various formats
+          let formattedDate = date;
+          try {
+            const parsedDate = new Date(date);
+            if (!isNaN(parsedDate.getTime())) {
+              formattedDate = parsedDate.toISOString().split("T")[0];
+            }
+          } catch (e) {
+            // Keep original date format if parsing fails
+          }
+
+          records.push({
+            subject,
+            date: formattedDate,
+            periods_held: held,
+            periods_attended: attended,
+          });
+        }
+      }
+    }
+
+    return records;
+  };
+
   const handleFileUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (!file || !rollNumber) return;
 
     setIsLoading(true);
     try {
-      // Simple CSV parsing (expecting: subject,date,held,attended)
       const text = await file.text();
-      const lines = text.split("\n").slice(1); // Skip header
-      const records = lines
-        .filter((line) => line.trim())
-        .map((line) => {
-          const [subject, date, held, attended] = line.split(",");
-          return {
-            subject: subject.trim(),
-            date: date.trim(),
-            periods_held: parseInt(held.trim()),
-            periods_attended: parseInt(attended.trim()),
-          };
-        });
+      let records;
+
+      // Check if it's HTML content (college attendance format)
+      if (text.trim().startsWith("<") || text.includes("<table") || text.includes("<tr")) {
+        records = parseHTMLTable(text);
+        toast.success(`Detected HTML format. Parsing ${records.length} records...`);
+      } else {
+        // Fallback to CSV parsing
+        const lines = text.split("\n").slice(1); // Skip header
+        records = lines
+          .filter((line) => line.trim())
+          .map((line) => {
+            const [subject, date, held, attended] = line.split(",");
+            return {
+              subject: subject.trim(),
+              date: date.trim(),
+              periods_held: parseInt(held.trim()),
+              periods_attended: parseInt(attended.trim()),
+            };
+          });
+      }
+
+      if (records.length === 0) {
+        toast.error("No valid records found in the file");
+        return;
+      }
 
       await importExcelMutation({ roll_number: rollNumber, records });
       toast.success(`Imported ${records.length} records successfully`);
+      
+      // Reset file input
+      e.target.value = "";
     } catch (error) {
+      console.error("Import error:", error);
       toast.error("Failed to import data. Please check file format.");
     } finally {
       setIsLoading(false);
@@ -101,7 +165,7 @@ export default function ImportData() {
         <Card>
           <CardHeader>
             <CardTitle>Import Attendance Data</CardTitle>
-            <CardDescription>Upload a CSV file or enter data manually</CardDescription>
+            <CardDescription>Upload an Excel/HTML file from college website or enter data manually</CardDescription>
           </CardHeader>
           <CardContent>
             <Tabs defaultValue="file" className="w-full">
@@ -115,12 +179,15 @@ export default function ImportData() {
                   <FileUp className="mx-auto h-12 w-12 text-muted-foreground mb-4" />
                   <Label htmlFor="file-upload" className="cursor-pointer">
                     <div className="text-sm text-muted-foreground mb-2">
-                      Upload CSV file (subject, date, held, attended)
+                      Upload Excel/HTML file from college website
+                    </div>
+                    <div className="text-xs text-muted-foreground mb-4">
+                      Supports: .xls, .xlsx, .html, .csv formats
                     </div>
                     <Input
                       id="file-upload"
                       type="file"
-                      accept=".csv"
+                      accept=".csv,.xls,.xlsx,.html"
                       onChange={handleFileUpload}
                       disabled={isLoading}
                       className="hidden"
