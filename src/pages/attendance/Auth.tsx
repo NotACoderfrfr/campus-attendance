@@ -42,9 +42,13 @@ export default function AttendanceAuth() {
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
+    if (!loginRollNumber.trim()) {
+      toast.error("Please enter your roll number");
+      return;
+    }
     setIsLoading(true);
     try {
-      const student = await loginQuery({ roll_number: loginRollNumber });
+      const student = await loginQuery({ roll_number: loginRollNumber.trim() });
       // Add null check to satisfy TS
       if (!student) {
         throw new Error("Student not found. Please register first.");
@@ -54,7 +58,9 @@ export default function AttendanceAuth() {
       toast.success("Login successful!");
       navigate("/attendance/dashboard");
     } catch (error) {
-      toast.error(error instanceof Error ? error.message : "Login failed");
+      const errorMessage = error instanceof Error ? error.message : "Login failed";
+      toast.error(errorMessage);
+      console.error("Login error:", error);
     } finally {
       setIsLoading(false);
     }
