@@ -14,7 +14,7 @@ import { api } from "@/convex/_generated/api";
 export default function AttendanceAuth() {
   const navigate = useNavigate();
   const registerMutation = useMutation(api.students.register);
-  const loginMutation = useMutation(api.students.login);
+  const loginQuery = useMutation(api.students.login);
   
   const [isLoading, setIsLoading] = useState(false);
   const [registerData, setRegisterData] = useState({ name: "", roll_number: "" });
@@ -44,7 +44,7 @@ export default function AttendanceAuth() {
     e.preventDefault();
     setIsLoading(true);
     try {
-      const student = await loginMutation({ roll_number: loginRollNumber });
+      const student = await loginQuery({ roll_number: loginRollNumber });
       // Add null check to satisfy TS
       if (!student) {
         throw new Error("Student not found. Please register first.");
