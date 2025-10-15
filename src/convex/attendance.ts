@@ -269,3 +269,25 @@ export const importExcel = mutation({
     return results;
   },
 });
+
+// Delete all attendance records for a specific subject
+export const deleteSubject = mutation({
+  args: {
+    roll_number: v.string(),
+    subject: v.string(),
+  },
+  handler: async (ctx, args) => {
+    const records = await ctx.db
+      .query("attendanceRecords")
+      .withIndex("by_roll_number_and_subject", (q) =>
+        q.eq("roll_number", args.roll_number).eq("subject", args.subject)
+      )
+      .collect();
+
+    for (const record of records) {
+      await ctx.db.delete(record._id);
+    }
+
+    return { deleted: records.length };
+  },
+});

@@ -6,7 +6,7 @@ import { Label } from "@/components/ui/label";
 import { api } from "@/convex/_generated/api";
 import { useMutation, useQuery } from "convex/react";
 import { motion } from "framer-motion";
-import { ArrowLeft, Loader2, Minus, Plus } from "lucide-react";
+import { ArrowLeft, Loader2, Minus, Plus, Trash2, RefreshCw } from "lucide-react";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
 import { toast } from "sonner";
@@ -15,6 +15,7 @@ export default function Subjects() {
   const navigate = useNavigate();
   const rollNumber = localStorage.getItem("studentRollNumber");
   const [isAddDialogOpen, setIsAddDialogOpen] = useState(false);
+  const [isRefreshing, setIsRefreshing] = useState(false);
   const [newSubject, setNewSubject] = useState({
     subject: "",
     date: new Date().toISOString().split("T")[0],
@@ -36,6 +37,7 @@ export default function Subjects() {
   const incrementMutation = useMutation(api.attendance.incrementAttendance);
   const decrementMutation = useMutation(api.attendance.decrementAttendance);
   const addSubjectMutation = useMutation(api.attendance.addSubjectManual);
+  const deleteSubjectMutation = useMutation(api.attendance.deleteSubject);
 
   const handleIncrement = async (subject: string, field: "held" | "attended") => {
     if (!rollNumber) return;
@@ -67,6 +69,31 @@ export default function Subjects() {
     }
   };
 
+  const handleDeleteSubject = async (subject: string) => {
+    if (!rollNumber) return;
+    if (!confirm(`Are you sure you want to delete all attendance records for "${subject}"?`)) {
+      return;
+    }
+    try {
+      await deleteSubjectMutation({
+        roll_number: rollNumber,
+        subject,
+      });
+      toast.success(`Subject "${subject}" deleted successfully`);
+    } catch (error) {
+      toast.error("Failed to delete subject");
+    }
+  };
+
+  const handleRefresh = async () => {
+    setIsRefreshing(true);
+    // The query will automatically refresh due to Convex's reactivity
+    setTimeout(() => {
+      setIsRefreshing(false);
+      toast.success("Attendance data refreshed");
+    }, 500);
+  };
+
   const handleAddSubject = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!rollNumber) return;
@@ -90,6 +117,10 @@ export default function Subjects() {
 
   if (!rollNumber) return null;
 
+  const totalHeld = attendanceSummary?.reduce((sum, s) => sum + s.periods_held, 0) || 0;
+  const totalAttended = attendanceSummary?.reduce((sum, s) => sum + s.periods_attended, 0) || 0;
+  const overallPercentage = totalHeld > 0 ? Math.round((totalAttended / totalHeld) * 10000) / 100 : 0;
+
   return (
     <motion.div
       initial={{ opacity: 0 }}
@@ -102,66 +133,91 @@ export default function Subjects() {
             <ArrowLeft className="mr-2 h-4 w-4" />
             Back to Dashboard
           </Button>
-          <Dialog open={isAddDialogOpen} onOpenChange={setIsAddDialogOpen}>
-            <DialogTrigger asChild>
-              <Button>Add Subject</Button>
-            </DialogTrigger>
-            <DialogContent>
-              <DialogHeader>
-                <DialogTitle>Add New Subject</DialogTitle>
-                <DialogDescription>Add a new subject with initial attendance</DialogDescription>
-              </DialogHeader>
-              <form onSubmit={handleAddSubject}>
-                <div className="space-y-4">
-                  <div className="space-y-2">
-                    <Label htmlFor="subject">Subject Name</Label>
-                    <Input
-                      id="subject"
-                      value={newSubject.subject}
-                      onChange={(e) => setNewSubject({ ...newSubject, subject: e.target.value })}
-                      required
-                    />
+          <div className="flex gap-2">
+            <Button variant="outline" onClick={handleRefresh} disabled={isRefreshing}>
+              <RefreshCw className={`mr-2 h-4 w-4 ${isRefreshing ? "animate-spin" : ""}`} />
+              Refresh
+            </Button>
+            <Dialog open={isAddDialogOpen} onOpenChange={setIsAddDialogOpen}>
+              <DialogTrigger asChild>
+                <Button>Add Subject</Button>
+              </DialogTrigger>
+              <DialogContent>
+                <DialogHeader>
+                  <DialogTitle>Add New Subject</DialogTitle>
+                  <DialogDescription>Add a new subject with initial attendance</DialogDescription>
+                </DialogHeader>
+                <form onSubmit={handleAddSubject}>
+                  <div className="space-y-4">
+                    <div className="space-y-2">
+                      <Label htmlFor="subject">Subject Name</Label>
+                      <Input
+                        id="subject"
+                        value={newSubject.subject}
+                        onChange={(e) => setNewSubject({ ...newSubject, subject: e.target.value })}
+                        required
+                      />
+                    </div>
+                    <div className="space-y-2">
+                      <Label htmlFor="date">Date</Label>
+                      <Input
+                        id="date"
+                        type="date"
+                        value={newSubject.date}
+                        onChange={(e) => setNewSubject({ ...newSubject, date: e.target.value })}
+                        required
+                      />
+                    </div>
+                    <div className="space-y-2">
+                      <Label htmlFor="held">Periods Held</Label>
+                      <Input
+                        id="held"
+                        type="number"
+                        min="0"
+                        value={newSubject.periods_held}
+                        onChange={(e) => setNewSubject({ ...newSubject, periods_held: parseInt(e.target.value) || 0 })}
+                        required
+                      />
+                    </div>
+                    <div className="space-y-2">
+                      <Label htmlFor="attended">Periods Attended</Label>
+                      <Input
+                        id="attended"
+                        type="number"
+                        min="0"
+                        value={newSubject.periods_attended}
+                        onChange={(e) => setNewSubject({ ...newSubject, periods_attended: parseInt(e.target.value) || 0 })}
+                        required
+                      />
+                    </div>
                   </div>
-                  <div className="space-y-2">
-                    <Label htmlFor="date">Date</Label>
-                    <Input
-                      id="date"
-                      type="date"
-                      value={newSubject.date}
-                      onChange={(e) => setNewSubject({ ...newSubject, date: e.target.value })}
-                      required
-                    />
-                  </div>
-                  <div className="space-y-2">
-                    <Label htmlFor="held">Periods Held</Label>
-                    <Input
-                      id="held"
-                      type="number"
-                      min="0"
-                      value={newSubject.periods_held}
-                      onChange={(e) => setNewSubject({ ...newSubject, periods_held: parseInt(e.target.value) || 0 })}
-                      required
-                    />
-                  </div>
-                  <div className="space-y-2">
-                    <Label htmlFor="attended">Periods Attended</Label>
-                    <Input
-                      id="attended"
-                      type="number"
-                      min="0"
-                      value={newSubject.periods_attended}
-                      onChange={(e) => setNewSubject({ ...newSubject, periods_attended: parseInt(e.target.value) || 0 })}
-                      required
-                    />
-                  </div>
-                </div>
-                <DialogFooter className="mt-6">
-                  <Button type="submit">Add Subject</Button>
-                </DialogFooter>
-              </form>
-            </DialogContent>
-          </Dialog>
+                  <DialogFooter className="mt-6">
+                    <Button type="submit">Add Subject</Button>
+                  </DialogFooter>
+                </form>
+              </DialogContent>
+            </Dialog>
+          </div>
         </div>
+
+        {/* Overall Attendance Summary Card */}
+        <Card className="bg-gradient-to-r from-blue-500 to-purple-600 text-white">
+          <CardContent className="pt-6">
+            <div className="flex items-center justify-between">
+              <div>
+                <p className="text-sm opacity-90">Overall Attendance</p>
+                <p className="text-4xl font-bold mt-1">{overallPercentage}%</p>
+                <p className="text-sm opacity-90 mt-1">
+                  {totalAttended} / {totalHeld} periods
+                </p>
+              </div>
+              <div className="text-right">
+                <p className="text-sm opacity-90">Total Subjects</p>
+                <p className="text-3xl font-bold">{attendanceSummary?.length || 0}</p>
+              </div>
+            </div>
+          </CardContent>
+        </Card>
 
         <Card>
           <CardHeader>
@@ -183,7 +239,17 @@ export default function Subjects() {
                       <div className="space-y-4">
                         <div className="flex items-center justify-between">
                           <h3 className="text-lg font-semibold">{subject.subject}</h3>
-                          <div className="text-2xl font-bold">{subject.percentage}%</div>
+                          <div className="flex items-center gap-2">
+                            <div className="text-2xl font-bold">{subject.percentage}%</div>
+                            <Button
+                              size="icon"
+                              variant="destructive"
+                              onClick={() => handleDeleteSubject(subject.subject)}
+                              title="Delete subject"
+                            >
+                              <Trash2 className="h-4 w-4" />
+                            </Button>
+                          </div>
                         </div>
                         
                         <div className="grid grid-cols-2 gap-4">
