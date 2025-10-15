@@ -44,30 +44,31 @@ export default function ImportData() {
       periods_attended: number;
     }> = [];
 
+    // Use today's date as default since the table doesn't have date column
+    const today = new Date().toISOString().split("T")[0];
+
     // Skip header row, start from index 1
     for (let i = 1; i < rows.length; i++) {
       const cells = rows[i].querySelectorAll("td, th");
+      
+      // Check if this is the total row (usually has "Total" or empty first cell)
+      const firstCell = cells[0]?.textContent?.trim().toLowerCase() || "";
+      if (firstCell === "total" || firstCell === "" || cells.length < 4) {
+        continue; // Skip total row and invalid rows
+      }
+
+      // College format: Sl No. (0), Subject (1), Held (2), Attend (3), % (4)
       if (cells.length >= 4) {
-        const subject = cells[0]?.textContent?.trim() || "";
-        const date = cells[1]?.textContent?.trim() || "";
+        const slNo = cells[0]?.textContent?.trim() || "";
+        const subject = cells[1]?.textContent?.trim() || "";
         const held = parseInt(cells[2]?.textContent?.trim() || "0");
         const attended = parseInt(cells[3]?.textContent?.trim() || "0");
 
-        if (subject && date) {
-          // Try to parse date in various formats
-          let formattedDate = date;
-          try {
-            const parsedDate = new Date(date);
-            if (!isNaN(parsedDate.getTime())) {
-              formattedDate = parsedDate.toISOString().split("T")[0];
-            }
-          } catch (e) {
-            // Keep original date format if parsing fails
-          }
-
+        // Only add if we have a valid serial number and subject
+        if (slNo && subject && !isNaN(parseInt(slNo))) {
           records.push({
             subject,
-            date: formattedDate,
+            date: today,
             periods_held: held,
             periods_attended: attended,
           });
