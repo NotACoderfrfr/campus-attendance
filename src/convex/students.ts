@@ -29,7 +29,7 @@ export const register = mutation({
 });
 
 // Login - verify student exists
-export const login = query({
+export const login = mutation({
   args: {
     roll_number: v.string(),
   },
