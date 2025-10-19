@@ -1,0 +1,2202 @@
+{
+  "achievements": [
+    {
+      "_creationTime": 1760770048682.4226,
+      "_id": "k971pey2s71154hb89w0zmpjr17spwct",
+      "achievement_type": "first_step",
+      "roll_number": "160524737048",
+      "timestamp": 1760770048682,
+      "unlocked_date": "2025-10-18"
+    },
+    {
+      "_creationTime": 1760770048682.4229,
+      "_id": "k97ap6zq2gm4tddjmsrkn5gyqn7sqge9",
+      "achievement_type": "perfect_subject",
+      "roll_number": "160524737048",
+      "timestamp": 1760770048682,
+      "unlocked_date": "2025-10-18"
+    },
+    {
+      "_creationTime": 1760770939726.6587,
+      "_id": "k97adz8nxz42rsf34rq78q6tzn7sqc1x",
+      "achievement_type": "first_step",
+      "roll_number": "160524737029",
+      "timestamp": 1760770939726,
+      "unlocked_date": "2025-10-18"
+    },
+    {
+      "_creationTime": 1760770939726.659,
+      "_id": "k972h91m2cm8bfps1fvzhtz4a17spgpa",
+      "achievement_type": "perfect_subject",
+      "roll_number": "160524737029",
+      "timestamp": 1760770939726,
+      "unlocked_date": "2025-10-18"
+    },
+    {
+      "_creationTime": 1760784129431.4185,
+      "_id": "k9781m3arrdrp61g4t9wf1x3dd7spnbh",
+      "achievement_type": "first_step",
+      "roll_number": "160524737046",
+      "timestamp": 1760784129431,
+      "unlocked_date": "2025-10-18"
+    },
+    {
+      "_creationTime": 1760784129431.4187,
+      "_id": "k971f7ykrm89sdh4cy62305vvh7sqm9d",
+      "achievement_type": "perfect_subject",
+      "roll_number": "160524737046",
+      "timestamp": 1760784129431,
+      "unlocked_date": "2025-10-18"
+    }
+  ],
+  "actionHistory": [
+    {
+      "_creationTime": 1760770343802.0671,
+      "_id": "kd72b82vq3dsqh9ny2dy0emfn97sqy94",
+      "action_type": "mark_present",
+      "new_value": [
+        {
+          "date": "2025-10-18",
+          "periods_attended": 1,
+          "periods_held": 1,
+          "subject": "BDE"
+        },
+        {
+          "date": "2025-10-18",
+          "periods_attended": 1,
+          "periods_held": 1,
+          "subject": "M-IT"
+        },
+        {
+          "date": "2025-10-18",
+          "periods_attended": 2,
+          "periods_held": 2,
+          "subject": "PYT LAB"
+        }
+      ],
+      "previous_value": [
+        null,
+        null,
+        null
+      ],
+      "roll_number": "160524737048",
+      "subject": "BDE, M-IT, PYT LAB",
+      "timestamp": 1760770343806,
+      "undone": true
+    }
+  ],
+  "attendanceRecords": [
+    {
+      "_creationTime": 1760566439679.3997,
+      "_id": "j57a3d0kvn6wmh5ct3eww6m4zs7sgaay",
+      "date": "2025-10-15",
+      "periods_attended": 17,
+      "periods_held": 31,
+      "roll_number": "160524737048",
+      "subject": "F&A",
+      "timestamp": 1760566439679
+    },
+    {
+      "_creationTime": 1760566439679.4,
+      "_id": "j573c8gnvd73k59r977wns8cn97shqvj",
+      "date": "2025-10-15",
+      "periods_attended": 12,
+      "periods_held": 20,
+      "roll_number": "160524737048",
+      "subject": "M-IT",
+      "timestamp": 1760566439679
+    },
+    {
+      "_creationTime": 1760566439679.4001,
+      "_id": "j570fnrzbdf6t3d9w057xhf92x7shk3p",
+      "date": "2025-10-15",
+      "periods_attended": 12,
+      "periods_held": 19,
+      "roll_number": "160524737048",
+      "subject": "BDE",
+      "timestamp": 1760566439679
+    },
+    {
+      "_creationTime": 1760566439679.4004,
+      "_id": "j5749gjvhcx1302516jpbtbcwx7sg49r",
+      "date": "2025-10-15",
+      "periods_attended": 17,
+      "periods_held": 25,
+      "roll_number": "160524737048",
+      "subject": "PYT",
+      "timestamp": 1760566439679
+    },
+    {
+      "_creationTime": 1760566439679.4006,
+      "_id": "j572051mj3k3e55djwnmz74yy57shp02",
+      "date": "2025-10-15",
+      "periods_attended": 2,
+      "periods_held": 14,
+      "roll_number": "160524737048",
+      "subject": "BDE LAB",
+      "timestamp": 1760566439679
+    },
+    {
+      "_creationTime": 1760566439679.401,
+      "_id": "j5782ztqtjz0w0m1j0yr2jevdd7sg787",
+      "date": "2025-10-15",
+      "periods_attended": 8,
+      "periods_held": 14,
+      "roll_number": "160524737048",
+      "subject": "DS Lab",
+      "timestamp": 1760566439679
+    },
+    {
+      "_creationTime": 1760566439679.4011,
+      "_id": "j578xnfatb4kzb64qf9smh78sx7sh05y",
+      "date": "2025-10-15",
+      "periods_attended": 16,
+      "periods_held": 24,
+      "roll_number": "160524737048",
+      "subject": "DM",
+      "timestamp": 1760566439679
+    },
+    {
+      "_creationTime": 1760566439679.4014,
+      "_id": "j57981w5exct9hzg6tq6vpnswd7shp6d",
+      "date": "2025-10-15",
+      "periods_attended": 16,
+      "periods_held": 24,
+      "roll_number": "160524737048",
+      "subject": "DS",
+      "timestamp": 1760566439679
+    },
+    {
+      "_creationTime": 1760566439679.4016,
+      "_id": "j570733vkr0mxb47s73p03h08s7sgn18",
+      "date": "2025-10-15",
+      "periods_attended": 4,
+      "periods_held": 6,
+      "roll_number": "160524737048",
+      "subject": "PYT LAB",
+      "timestamp": 1760566439679
+    },
+    {
+      "_creationTime": 1760566439679.4019,
+      "_id": "j5700k54j9411x285bj4x29nph7sham9",
+      "date": "2025-10-15",
+      "periods_attended": 0,
+      "periods_held": 0,
+      "roll_number": "160524737048",
+      "subject": "TUTORIAL",
+      "timestamp": 1760566439679
+    },
+    {
+      "_creationTime": 1760566439679.402,
+      "_id": "j5702ecjcdjc4jtqg256kp5yph7sgymb",
+      "date": "2025-10-15",
+      "periods_attended": 1,
+      "periods_held": 1,
+      "roll_number": "160524737048",
+      "subject": "SPORTS",
+      "timestamp": 1760566439679
+    },
+    {
+      "_creationTime": 1760566439679.4023,
+      "_id": "j5734svqch5pe96tjwpeb4yjj97sh2bz",
+      "date": "2025-10-15",
+      "periods_attended": 1,
+      "periods_held": 1,
+      "roll_number": "160524737048",
+      "subject": "LIBRARY",
+      "timestamp": 1760566439679
+    },
+    {
+      "_creationTime": 1760585466831.8167,
+      "_id": "j57fs62j8xjvvmnhh0egr6jgf57sjb8y",
+      "date": "2025-10-16",
+      "periods_attended": 1,
+      "periods_held": 1,
+      "roll_number": "160524737048",
+      "subject": "M-IT",
+      "timestamp": 1760588784078
+    },
+    {
+      "_creationTime": 1760587450938.373,
+      "_id": "j570mb0x1ex60h5fm9hwk81crx7sk4sq",
+      "date": "2025-10-16",
+      "periods_attended": 19,
+      "periods_held": 33,
+      "roll_number": "160524737040",
+      "subject": "F&A",
+      "timestamp": 1760595013142
+    },
+    {
+      "_creationTime": 1760587450938.3733,
+      "_id": "j5792j3fhpzr0xeh0481xbqae17sjp03",
+      "date": "2025-10-16",
+      "periods_attended": 13,
+      "periods_held": 21,
+      "roll_number": "160524737040",
+      "subject": "M-IT",
+      "timestamp": 1760588777135
+    },
+    {
+      "_creationTime": 1760587450938.3735,
+      "_id": "j57dhk0de771vx580xzy4j343x7sk8s7",
+      "date": "2025-10-16",
+      "periods_attended": 12,
+      "periods_held": 19,
+      "roll_number": "160524737040",
+      "subject": "BDE",
+      "timestamp": 1760587450938
+    },
+    {
+      "_creationTime": 1760587450938.3738,
+      "_id": "j573ev1wkw5rmyb2nrnb2emrp57skgd5",
+      "date": "2025-10-16",
+      "periods_attended": 15,
+      "periods_held": 25,
+      "roll_number": "160524737040",
+      "subject": "PYT",
+      "timestamp": 1760587450938
+    },
+    {
+      "_creationTime": 1760587450938.374,
+      "_id": "j5763sk8hde0s2c3mg8w8kbqrn7sjxw4",
+      "date": "2025-10-16",
+      "periods_attended": 8,
+      "periods_held": 8,
+      "roll_number": "160524737040",
+      "subject": "BDE LAB",
+      "timestamp": 1760587450938
+    },
+    {
+      "_creationTime": 1760587450938.3743,
+      "_id": "j572a5yhmyb0re15hmhensh8vd7skz5k",
+      "date": "2025-10-16",
+      "periods_attended": 10,
+      "periods_held": 16,
+      "roll_number": "160524737040",
+      "subject": "DS Lab",
+      "timestamp": 1760610068278
+    },
+    {
+      "_creationTime": 1760587450938.3745,
+      "_id": "j57ab90rfd6nhrq4v1j5sjbjrd7sk97g",
+      "date": "2025-10-16",
+      "periods_attended": 15,
+      "periods_held": 25,
+      "roll_number": "160524737040",
+      "subject": "DM",
+      "timestamp": 1760595019211
+    },
+    {
+      "_creationTime": 1760587450938.3748,
+      "_id": "j574x4r56jgmxn0hay545rx1p97sj3pr",
+      "date": "2025-10-16",
+      "periods_attended": 19,
+      "periods_held": 26,
+      "roll_number": "160524737040",
+      "subject": "DS",
+      "timestamp": 1760601751339
+    },
+    {
+      "_creationTime": 1760587450938.375,
+      "_id": "j576ywjmzmgwfdhaw2p3qwbcyh7skpdc",
+      "date": "2025-10-16",
+      "periods_attended": 6,
+      "periods_held": 12,
+      "roll_number": "160524737040",
+      "subject": "PYT LAB",
+      "timestamp": 1760587450938
+    },
+    {
+      "_creationTime": 1760587450938.3752,
+      "_id": "j575dszefjesq18eaykpz0bm157sk96r",
+      "date": "2025-10-16",
+      "periods_attended": 0,
+      "periods_held": 0,
+      "roll_number": "160524737040",
+      "subject": "TUTORIAL",
+      "timestamp": 1760587450938
+    },
+    {
+      "_creationTime": 1760587450938.3755,
+      "_id": "j574p8teemb2693mdte3881pw97sjfwr",
+      "date": "2025-10-16",
+      "periods_attended": 1,
+      "periods_held": 1,
+      "roll_number": "160524737040",
+      "subject": "SPORTS",
+      "timestamp": 1760587450938
+    },
+    {
+      "_creationTime": 1760587450938.3757,
+      "_id": "j57de8x95c2fqdcbwde69npebs7sjyf3",
+      "date": "2025-10-16",
+      "periods_attended": 1,
+      "periods_held": 1,
+      "roll_number": "160524737040",
+      "subject": "LIBRARY",
+      "timestamp": 1760587450938
+    },
+    {
+      "_creationTime": 1760587496897.4084,
+      "_id": "j575fegafvepryec9tr6gmdj2s7sjv8m",
+      "date": "2025-10-16",
+      "periods_attended": 26,
+      "periods_held": 33,
+      "roll_number": "160524737046",
+      "subject": "F&A",
+      "timestamp": 1760595151734
+    },
+    {
+      "_creationTime": 1760587496897.4087,
+      "_id": "j57cq7b7sp1xx4q34az71vepbx7skayt",
+      "date": "2025-10-16",
+      "periods_attended": 21,
+      "periods_held": 21,
+      "roll_number": "160524737046",
+      "subject": "M-IT",
+      "timestamp": 1760592568987
+    },
+    {
+      "_creationTime": 1760587496897.409,
+      "_id": "j57ee2gan7sdcrfgj5z3qkg4b57skyfz",
+      "date": "2025-10-16",
+      "periods_attended": 18,
+      "periods_held": 19,
+      "roll_number": "160524737046",
+      "subject": "BDE",
+      "timestamp": 1760587496897
+    },
+    {
+      "_creationTime": 1760587496897.4092,
+      "_id": "j57crp1aa0ne95pfpex5h6m8qs7sjzew",
+      "date": "2025-10-16",
+      "periods_attended": 20,
+      "periods_held": 25,
+      "roll_number": "160524737046",
+      "subject": "PYT",
+      "timestamp": 1760587496897
+    },
+    {
+      "_creationTime": 1760587496897.4094,
+      "_id": "j578b58p00kzkhqpy6mb67bm3h7skk66",
+      "date": "2025-10-16",
+      "periods_attended": 16,
+      "periods_held": 16,
+      "roll_number": "160524737046",
+      "subject": "BDE LAB",
+      "timestamp": 1760610221953
+    },
+    {
+      "_creationTime": 1760587496897.4097,
+      "_id": "j574wczcwkgh71k9zm4p523fms7sj003",
+      "date": "2025-10-16",
+      "periods_attended": 10,
+      "periods_held": 14,
+      "roll_number": "160524737046",
+      "subject": "DS Lab",
+      "timestamp": 1760587496897
+    },
+    {
+      "_creationTime": 1760587496897.41,
+      "_id": "j578665xfd9p9e0zhh4t4tasb97skez5",
+      "date": "2025-10-16",
+      "periods_attended": 19,
+      "periods_held": 25,
+      "roll_number": "160524737046",
+      "subject": "DM",
+      "timestamp": 1760595145369
+    },
+    {
+      "_creationTime": 1760587496897.4102,
+      "_id": "j576vvqraeznqyd5d6qm2qq4617skw0h",
+      "date": "2025-10-16",
+      "periods_attended": 24,
+      "periods_held": 26,
+      "roll_number": "160524737046",
+      "subject": "DS",
+      "timestamp": 1760603531894
+    },
+    {
+      "_creationTime": 1760587496897.4104,
+      "_id": "j578jpyfq420yehw2sjgt75v6h7sjksx",
+      "date": "2025-10-16",
+      "periods_attended": 6,
+      "periods_held": 6,
+      "roll_number": "160524737046",
+      "subject": "PYT LAB",
+      "timestamp": 1760587496897
+    },
+    {
+      "_creationTime": 1760587496897.4106,
+      "_id": "j57d9tpejnpq9ahthrmebem5z57sk05f",
+      "date": "2025-10-16",
+      "periods_attended": 0,
+      "periods_held": 0,
+      "roll_number": "160524737046",
+      "subject": "TUTORIAL",
+      "timestamp": 1760587496897
+    },
+    {
+      "_creationTime": 1760587496897.411,
+      "_id": "j57ar8ybqvrathm76dh4txacv57sj1b6",
+      "date": "2025-10-16",
+      "periods_attended": 1,
+      "periods_held": 1,
+      "roll_number": "160524737046",
+      "subject": "SPORTS",
+      "timestamp": 1760587496897
+    },
+    {
+      "_creationTime": 1760587496897.4111,
+      "_id": "j570nytz08fdr3hb0k7z3wg0397sjc4t",
+      "date": "2025-10-16",
+      "periods_attended": 1,
+      "periods_held": 1,
+      "roll_number": "160524737046",
+      "subject": "LIBRARY",
+      "timestamp": 1760587496897
+    },
+    {
+      "_creationTime": 1760587573389.3643,
+      "_id": "j574mgnacx550b8cx5z2qsbnr17skrzv",
+      "date": "2025-10-16",
+      "periods_attended": 22,
+      "periods_held": 33,
+      "roll_number": "160524737058",
+      "subject": "F&A",
+      "timestamp": 1760601569468
+    },
+    {
+      "_creationTime": 1760587573389.3645,
+      "_id": "j575ehf9pc294d00x9g0cj7nmx7skzda",
+      "date": "2025-10-16",
+      "periods_attended": 16,
+      "periods_held": 21,
+      "roll_number": "160524737058",
+      "subject": "M-IT",
+      "timestamp": 1760588771297
+    },
+    {
+      "_creationTime": 1760587573389.3647,
+      "_id": "j571vped3vqtyp0g19ex48cy757skqs2",
+      "date": "2025-10-16",
+      "periods_attended": 14,
+      "periods_held": 19,
+      "roll_number": "160524737058",
+      "subject": "BDE",
+      "timestamp": 1760587573389
+    },
+    {
+      "_creationTime": 1760587573389.365,
+      "_id": "j57ac45zsdnwd0407yvkmwac1h7sjccc",
+      "date": "2025-10-16",
+      "periods_attended": 18,
+      "periods_held": 25,
+      "roll_number": "160524737058",
+      "subject": "PYT",
+      "timestamp": 1760587573389
+    },
+    {
+      "_creationTime": 1760587573389.3652,
+      "_id": "j5793h7t83g7kk927r19vdcgm57sjrae",
+      "date": "2025-10-16",
+      "periods_attended": 10,
+      "periods_held": 16,
+      "roll_number": "160524737058",
+      "subject": "BDE LAB",
+      "timestamp": 1760608969596
+    },
+    {
+      "_creationTime": 1760587573389.3655,
+      "_id": "j57amz8ecds1mdb2yhbakjvw5x7sktxk",
+      "date": "2025-10-16",
+      "periods_attended": 8,
+      "periods_held": 14,
+      "roll_number": "160524737058",
+      "subject": "DS Lab",
+      "timestamp": 1760595397484
+    },
+    {
+      "_creationTime": 1760587573389.3657,
+      "_id": "j57bzm461emz50st6xavws8c0s7sj06e",
+      "date": "2025-10-16",
+      "periods_attended": 18,
+      "periods_held": 25,
+      "roll_number": "160524737058",
+      "subject": "DM",
+      "timestamp": 1760595111498
+    },
+    {
+      "_creationTime": 1760587573389.366,
+      "_id": "j572xyw4vgs3w1f6f472j525457sknen",
+      "date": "2025-10-16",
+      "periods_attended": 21,
+      "periods_held": 26,
+      "roll_number": "160524737058",
+      "subject": "DS",
+      "timestamp": 1760601534145
+    },
+    {
+      "_creationTime": 1760587573389.3662,
+      "_id": "j571w0t9zda59c2paym1rwj7xn7sk6z8",
+      "date": "2025-10-16",
+      "periods_attended": 6,
+      "periods_held": 6,
+      "roll_number": "160524737058",
+      "subject": "PYT LAB",
+      "timestamp": 1760587573389
+    },
+    {
+      "_creationTime": 1760587573389.3665,
+      "_id": "j57ffw51eskqtjn9e1e23wr6ad7sknc5",
+      "date": "2025-10-16",
+      "periods_attended": 0,
+      "periods_held": 0,
+      "roll_number": "160524737058",
+      "subject": "TUTORIAL",
+      "timestamp": 1760587573389
+    },
+    {
+      "_creationTime": 1760587573389.3667,
+      "_id": "j570h3g2vpayy06vxsk1kcwp1n7sjqm0",
+      "date": "2025-10-16",
+      "periods_attended": 1,
+      "periods_held": 1,
+      "roll_number": "160524737058",
+      "subject": "SPORTS",
+      "timestamp": 1760587573389
+    },
+    {
+      "_creationTime": 1760587573389.367,
+      "_id": "j57apgrsed0prdty87reynn67h7skpxs",
+      "date": "2025-10-16",
+      "periods_attended": 1,
+      "periods_held": 1,
+      "roll_number": "160524737058",
+      "subject": "LIBRARY",
+      "timestamp": 1760587573389
+    },
+    {
+      "_creationTime": 1760587689257.8186,
+      "_id": "j57c85tdhstccjhvgs0xn44ajn7sk32f",
+      "date": "2025-10-16",
+      "periods_attended": 27,
+      "periods_held": 33,
+      "roll_number": "160524737066",
+      "subject": "F&A",
+      "timestamp": 1760594034597
+    },
+    {
+      "_creationTime": 1760587689257.8188,
+      "_id": "j570f53hh8xzyy4ky9f0zcsb0h7skrsa",
+      "date": "2025-10-16",
+      "periods_attended": 16,
+      "periods_held": 21,
+      "roll_number": "160524737066",
+      "subject": "M-IT",
+      "timestamp": 1760593893292
+    },
+    {
+      "_creationTime": 1760587689257.819,
+      "_id": "j57ebcz2t77tt2p8ct80qm2w8s7skmx0",
+      "date": "2025-10-16",
+      "periods_attended": 12,
+      "periods_held": 19,
+      "roll_number": "160524737066",
+      "subject": "BDE",
+      "timestamp": 1760587689262
+    },
+    {
+      "_creationTime": 1760587689257.8193,
+      "_id": "j572egtyqvhjxjp34ekjfefnfx7sj2cw",
+      "date": "2025-10-16",
+      "periods_attended": 18,
+      "periods_held": 25,
+      "roll_number": "160524737066",
+      "subject": "PYT",
+      "timestamp": 1760587689262
+    },
+    {
+      "_creationTime": 1760587689257.8196,
+      "_id": "j57319211g2mbz8501s4nteqpn7sjsc1",
+      "date": "2025-10-16",
+      "periods_attended": 13,
+      "periods_held": 15,
+      "roll_number": "160524737066",
+      "subject": "BDE LAB",
+      "timestamp": 1760605384179
+    },
+    {
+      "_creationTime": 1760587689257.8198,
+      "_id": "j577fkgmbes0jrgp8dmbzh6mj17sjg33",
+      "date": "2025-10-16",
+      "periods_attended": 10,
+      "periods_held": 14,
+      "roll_number": "160524737066",
+      "subject": "DS Lab",
+      "timestamp": 1760587689262
+    },
+    {
+      "_creationTime": 1760587689257.82,
+      "_id": "j574zavnqs14xre0j54dbp8mw17sk81z",
+      "date": "2025-10-16",
+      "periods_attended": 19,
+      "periods_held": 26,
+      "roll_number": "160524737066",
+      "subject": "DM",
+      "timestamp": 1760613706751
+    },
+    {
+      "_creationTime": 1760587689257.8203,
+      "_id": "j57dkg7zkdw02ygjamezygxtcx7skn12",
+      "date": "2025-10-16",
+      "periods_attended": 18,
+      "periods_held": 25,
+      "roll_number": "160524737066",
+      "subject": "DS",
+      "timestamp": 1760605367936
+    },
+    {
+      "_creationTime": 1760587689257.8206,
+      "_id": "j57cdrmx8696rq66yb7etknn2h7sjcbr",
+      "date": "2025-10-16",
+      "periods_attended": 4,
+      "periods_held": 6,
+      "roll_number": "160524737066",
+      "subject": "PYT LAB",
+      "timestamp": 1760587689262
+    },
+    {
+      "_creationTime": 1760587689257.8208,
+      "_id": "j576f6yxe9w32c490dxceqz7n17skb7f",
+      "date": "2025-10-16",
+      "periods_attended": 0,
+      "periods_held": 0,
+      "roll_number": "160524737066",
+      "subject": "TUTORIAL",
+      "timestamp": 1760587689262
+    },
+    {
+      "_creationTime": 1760587689257.821,
+      "_id": "j576je7xy4gz02n1wrgh9c0bx17skm2e",
+      "date": "2025-10-16",
+      "periods_attended": 1,
+      "periods_held": 1,
+      "roll_number": "160524737066",
+      "subject": "SPORTS",
+      "timestamp": 1760587689262
+    },
+    {
+      "_creationTime": 1760587689257.8213,
+      "_id": "j575kp7mz69c1hpcnbxn4d8zg97sk5qg",
+      "date": "2025-10-16",
+      "periods_attended": 1,
+      "periods_held": 1,
+      "roll_number": "160524737066",
+      "subject": "LIBRARY",
+      "timestamp": 1760587689262
+    },
+    {
+      "_creationTime": 1760589153603.046,
+      "_id": "j57eg63va8e3b9eypxr4hzk0697sjsxy",
+      "date": "2025-10-16",
+      "periods_attended": 24,
+      "periods_held": 33,
+      "roll_number": "160524737043",
+      "subject": "F&A",
+      "timestamp": 1760594252733
+    },
+    {
+      "_creationTime": 1760589153603.0461,
+      "_id": "j573pw2z5xjskkzxy7cmgb65557skxj8",
+      "date": "2025-10-16",
+      "periods_attended": 13,
+      "periods_held": 21,
+      "roll_number": "160524737043",
+      "subject": "M-IT",
+      "timestamp": 1760589174822
+    },
+    {
+      "_creationTime": 1760589153603.0464,
+      "_id": "j579057t3vrt5fyh4k5e5pp0jn7sk9fs",
+      "date": "2025-10-16",
+      "periods_attended": 18,
+      "periods_held": 19,
+      "roll_number": "160524737043",
+      "subject": "BDE",
+      "timestamp": 1760589153603
+    },
+    {
+      "_creationTime": 1760589153603.0466,
+      "_id": "j572a0wjbnxyampbbdx9dpmhnh7skqfq",
+      "date": "2025-10-16",
+      "periods_attended": 18,
+      "periods_held": 25,
+      "roll_number": "160524737043",
+      "subject": "PYT",
+      "timestamp": 1760589153603
+    },
+    {
+      "_creationTime": 1760589153603.0469,
+      "_id": "j574j8mhpdbv0eejch80e1a55s7skewv",
+      "date": "2025-10-16",
+      "periods_attended": 6,
+      "periods_held": 8,
+      "roll_number": "160524737043",
+      "subject": "BDE LAB",
+      "timestamp": 1760589153603
+    },
+    {
+      "_creationTime": 1760589153603.047,
+      "_id": "j576v35x1sy7t8t9nvggjhqt7n7sj1cf",
+      "date": "2025-10-16",
+      "periods_attended": 12,
+      "periods_held": 16,
+      "roll_number": "160524737043",
+      "subject": "DS Lab",
+      "timestamp": 1760619341868
+    },
+    {
+      "_creationTime": 1760589153603.0474,
+      "_id": "j575hr15301mz2v5enyeprd7r97sj92e",
+      "date": "2025-10-16",
+      "periods_attended": 15,
+      "periods_held": 25,
+      "roll_number": "160524737043",
+      "subject": "DM",
+      "timestamp": 1760595056221
+    },
+    {
+      "_creationTime": 1760589153603.0476,
+      "_id": "j579tz4gv7k18y50xxy5q77mw97sk4r4",
+      "date": "2025-10-16",
+      "periods_attended": 23,
+      "periods_held": 26,
+      "roll_number": "160524737043",
+      "subject": "DS",
+      "timestamp": 1760619314489
+    },
+    {
+      "_creationTime": 1760589153603.0479,
+      "_id": "j5721v9bea6yj09amp60xra5c97skpdg",
+      "date": "2025-10-16",
+      "periods_attended": 6,
+      "periods_held": 12,
+      "roll_number": "160524737043",
+      "subject": "PYT LAB",
+      "timestamp": 1760619333369
+    },
+    {
+      "_creationTime": 1760589153603.048,
+      "_id": "j575crk7p81wp4jn31y5wttt7n7skgbx",
+      "date": "2025-10-16",
+      "periods_attended": 0,
+      "periods_held": 0,
+      "roll_number": "160524737043",
+      "subject": "TUTORIAL",
+      "timestamp": 1760589153603
+    },
+    {
+      "_creationTime": 1760589153603.0483,
+      "_id": "j579ytzdkdcw06c6anzvzag6657sk1an",
+      "date": "2025-10-16",
+      "periods_attended": 1,
+      "periods_held": 1,
+      "roll_number": "160524737043",
+      "subject": "SPORTS",
+      "timestamp": 1760589153603
+    },
+    {
+      "_creationTime": 1760589153603.0486,
+      "_id": "j572khbrkaykk7y49kat7pf3rh7sjs4q",
+      "date": "2025-10-16",
+      "periods_attended": 1,
+      "periods_held": 1,
+      "roll_number": "160524737043",
+      "subject": "LIBRARY",
+      "timestamp": 1760589153603
+    },
+    {
+      "_creationTime": 1760591634816.8457,
+      "_id": "j570fcz86hvchhdsb886k2kf7h7sjr83",
+      "date": "2025-10-16",
+      "periods_attended": 2,
+      "periods_held": 2,
+      "roll_number": "160524737048",
+      "subject": "F&A",
+      "timestamp": 1760598692526
+    },
+    {
+      "_creationTime": 1760591886844.1353,
+      "_id": "j57enqx7fgvdpgcqgwty3km9ks7sjbkn",
+      "date": "2025-10-16",
+      "periods_attended": 26,
+      "periods_held": 33,
+      "roll_number": "160524737023",
+      "subject": "F&A",
+      "timestamp": 1760593533783
+    },
+    {
+      "_creationTime": 1760591886844.1355,
+      "_id": "j5764ztj3vn42mm5w8y3tztszx7sjk6c",
+      "date": "2025-10-16",
+      "periods_attended": 11,
+      "periods_held": 21,
+      "roll_number": "160524737023",
+      "subject": "M-IT",
+      "timestamp": 1760592378431
+    },
+    {
+      "_creationTime": 1760591886844.1357,
+      "_id": "j57e0m2ebz2vggvzxd4e7qv3vd7sj5nh",
+      "date": "2025-10-16",
+      "periods_attended": 14,
+      "periods_held": 19,
+      "roll_number": "160524737023",
+      "subject": "BDE",
+      "timestamp": 1760591886847
+    },
+    {
+      "_creationTime": 1760591886844.136,
+      "_id": "j574pbvwc8ffxpx9try6pfvmas7sjhby",
+      "date": "2025-10-16",
+      "periods_attended": 14,
+      "periods_held": 25,
+      "roll_number": "160524737023",
+      "subject": "PYT",
+      "timestamp": 1760591886847
+    },
+    {
+      "_creationTime": 1760591886844.1362,
+      "_id": "j57688ajbkfaghwbndb645tha17sjvew",
+      "date": "2025-10-16",
+      "periods_attended": 4,
+      "periods_held": 8,
+      "roll_number": "160524737023",
+      "subject": "BDE LAB",
+      "timestamp": 1760591886847
+    },
+    {
+      "_creationTime": 1760591886844.1365,
+      "_id": "j571zpr7t0enjq4e13a1wb31q17sjdtv",
+      "date": "2025-10-16",
+      "periods_attended": 8,
+      "periods_held": 14,
+      "roll_number": "160524737023",
+      "subject": "DS Lab",
+      "timestamp": 1760591886847
+    },
+    {
+      "_creationTime": 1760591886844.1367,
+      "_id": "j5752s6s26wq9tphdvtpjaz82d7sjg5c",
+      "date": "2025-10-16",
+      "periods_attended": 16,
+      "periods_held": 25,
+      "roll_number": "160524737023",
+      "subject": "DM",
+      "timestamp": 1760595360927
+    },
+    {
+      "_creationTime": 1760591886844.137,
+      "_id": "j5796n04vw1skb9yt230w1vrkh7sk5st",
+      "date": "2025-10-16",
+      "periods_attended": 18,
+      "periods_held": 25,
+      "roll_number": "160524737023",
+      "subject": "DS",
+      "timestamp": 1760591886847
+    },
+    {
+      "_creationTime": 1760591886844.1372,
+      "_id": "j57drxn6wzdmanknwzevrbrnf57skkgs",
+      "date": "2025-10-16",
+      "periods_attended": 6,
+      "periods_held": 12,
+      "roll_number": "160524737023",
+      "subject": "PYT LAB",
+      "timestamp": 1760591886847
+    },
+    {
+      "_creationTime": 1760591886844.1375,
+      "_id": "j570xsjcb6trs36g6d7bc8h2zn7sjx8d",
+      "date": "2025-10-16",
+      "periods_attended": 0,
+      "periods_held": 0,
+      "roll_number": "160524737023",
+      "subject": "TUTORIAL",
+      "timestamp": 1760591886847
+    },
+    {
+      "_creationTime": 1760591886844.1377,
+      "_id": "j57caf7p0nyhsmtz9wf1m0xrm57sjwbx",
+      "date": "2025-10-16",
+      "periods_attended": 1,
+      "periods_held": 1,
+      "roll_number": "160524737023",
+      "subject": "SPORTS",
+      "timestamp": 1760591886847
+    },
+    {
+      "_creationTime": 1760591886844.138,
+      "_id": "j572248kkceq2k2f72dxxy04gn7sj0hd",
+      "date": "2025-10-16",
+      "periods_attended": 1,
+      "periods_held": 1,
+      "roll_number": "160524737023",
+      "subject": "LIBRARY",
+      "timestamp": 1760591886847
+    },
+    {
+      "_creationTime": 1760592404723.482,
+      "_id": "j575q24t5vnasdtbzw2tyrrjg57skcrn",
+      "date": "2025-10-16",
+      "periods_attended": 2,
+      "periods_held": 2,
+      "roll_number": "160524737048",
+      "subject": "DS",
+      "timestamp": 1760601756874
+    },
+    {
+      "_creationTime": 1760595012148.567,
+      "_id": "j57dmm3fkve3a42jva6st4xmcn7sk8ef",
+      "date": "2025-10-16",
+      "periods_attended": 1,
+      "periods_held": 1,
+      "roll_number": "160524737048",
+      "subject": "DM",
+      "timestamp": 1760595013318
+    },
+    {
+      "_creationTime": 1760603476760.076,
+      "_id": "j5744pbcdd59bcnw4c0qhkpyw97skc67",
+      "date": "2025-10-16",
+      "periods_attended": 2,
+      "periods_held": 2,
+      "roll_number": "160524737048",
+      "subject": "BDE LAB",
+      "timestamp": 1760608969514
+    },
+    {
+      "_creationTime": 1760603678517.5442,
+      "_id": "j571z0dxfjze74s5cmg4q65xjs7skd74",
+      "date": "2025-10-16",
+      "periods_attended": 0,
+      "periods_held": 0,
+      "roll_number": "160524737048",
+      "subject": "TUTORIAL",
+      "timestamp": 1760603745542
+    },
+    {
+      "_creationTime": 1760670894203.2988,
+      "_id": "j57e3haaar0bz4yt48etrjhfb57snxtp",
+      "date": "2025-10-17",
+      "periods_attended": 1,
+      "periods_held": 1,
+      "roll_number": "160524737048",
+      "subject": "F&A",
+      "timestamp": 1760677054144
+    },
+    {
+      "_creationTime": 1760674114145.7073,
+      "_id": "j571n4ssagwf2df9ak9f5d2gdx7snn4g",
+      "date": "2025-10-17",
+      "periods_attended": 32,
+      "periods_held": 33,
+      "roll_number": "160524737302",
+      "subject": "F&A",
+      "timestamp": 1760674114145
+    },
+    {
+      "_creationTime": 1760674114145.7075,
+      "_id": "j5710spqkzyg2z4dyg1hkfpmn97sm1va",
+      "date": "2025-10-17",
+      "periods_attended": 20,
+      "periods_held": 20,
+      "roll_number": "160524737302",
+      "subject": "M-IT",
+      "timestamp": 1760674114145
+    },
+    {
+      "_creationTime": 1760674114145.7078,
+      "_id": "j57b2qs7wjygrgc1h18jxa62gd7smrp6",
+      "date": "2025-10-17",
+      "periods_attended": 18,
+      "periods_held": 19,
+      "roll_number": "160524737302",
+      "subject": "BDE",
+      "timestamp": 1760674114145
+    },
+    {
+      "_creationTime": 1760674114145.708,
+      "_id": "j577gn2xbnrhxq0x2w3wb5xe357sm5w3",
+      "date": "2025-10-17",
+      "periods_attended": 24,
+      "periods_held": 25,
+      "roll_number": "160524737302",
+      "subject": "PYT",
+      "timestamp": 1760674114145
+    },
+    {
+      "_creationTime": 1760674114145.7083,
+      "_id": "j57dm783mf97jkfr594yvhjwfs7snxe6",
+      "date": "2025-10-17",
+      "periods_attended": 16,
+      "periods_held": 16,
+      "roll_number": "160524737302",
+      "subject": "BDE LAB",
+      "timestamp": 1760674114145
+    },
+    {
+      "_creationTime": 1760674114145.7085,
+      "_id": "j572r9gx2nx2t1xnb12zm9sqcs7sm2pk",
+      "date": "2025-10-17",
+      "periods_attended": 12,
+      "periods_held": 14,
+      "roll_number": "160524737302",
+      "subject": "DS Lab",
+      "timestamp": 1760674114145
+    },
+    {
+      "_creationTime": 1760674114145.7087,
+      "_id": "j57bk5nvmxbck268z9bnayffzn7snwz9",
+      "date": "2025-10-17",
+      "periods_attended": 23,
+      "periods_held": 25,
+      "roll_number": "160524737302",
+      "subject": "DM",
+      "timestamp": 1760674114145
+    },
+    {
+      "_creationTime": 1760674114145.709,
+      "_id": "j57477svfd9g25d67b2am8m9r97sn135",
+      "date": "2025-10-17",
+      "periods_attended": 24,
+      "periods_held": 26,
+      "roll_number": "160524737302",
+      "subject": "DS",
+      "timestamp": 1760674114145
+    },
+    {
+      "_creationTime": 1760674114145.7092,
+      "_id": "j57b2mntd5pg12h8axps9gf1vn7sns7a",
+      "date": "2025-10-17",
+      "periods_attended": 6,
+      "periods_held": 6,
+      "roll_number": "160524737302",
+      "subject": "PYT LAB",
+      "timestamp": 1760674114145
+    },
+    {
+      "_creationTime": 1760674114145.7095,
+      "_id": "j571cw1k8fv20jryz7nbrts0xn7smpmh",
+      "date": "2025-10-17",
+      "periods_attended": 0,
+      "periods_held": 0,
+      "roll_number": "160524737302",
+      "subject": "TUTORIAL",
+      "timestamp": 1760674114145
+    },
+    {
+      "_creationTime": 1760674114145.7097,
+      "_id": "j57fx4mq6jche9yv13vavaj4ws7smn3a",
+      "date": "2025-10-17",
+      "periods_attended": 1,
+      "periods_held": 1,
+      "roll_number": "160524737302",
+      "subject": "SPORTS",
+      "timestamp": 1760674114145
+    },
+    {
+      "_creationTime": 1760674114145.71,
+      "_id": "j57884n260f2k8xgx4t7c6a95x7snvmh",
+      "date": "2025-10-17",
+      "periods_attended": 1,
+      "periods_held": 1,
+      "roll_number": "160524737302",
+      "subject": "LIBRARY",
+      "timestamp": 1760674114145
+    },
+    {
+      "_creationTime": 1760674131778.319,
+      "_id": "j57a7vt89j327pakd0s9mg7c0h7sm9zs",
+      "date": "2025-10-17",
+      "periods_attended": 31,
+      "periods_held": 34,
+      "roll_number": "160524737087",
+      "subject": "F&A",
+      "timestamp": 1760706241988
+    },
+    {
+      "_creationTime": 1760674131778.3193,
+      "_id": "j5777han01kdec3bjxny92257d7sm6rb",
+      "date": "2025-10-17",
+      "periods_attended": 17,
+      "periods_held": 21,
+      "roll_number": "160524737087",
+      "subject": "M-IT",
+      "timestamp": 1760706241988
+    },
+    {
+      "_creationTime": 1760674131778.3196,
+      "_id": "j57583c60r87yza599jjq39sw17sn1gv",
+      "date": "2025-10-17",
+      "periods_attended": 18,
+      "periods_held": 19,
+      "roll_number": "160524737087",
+      "subject": "BDE",
+      "timestamp": 1760706241988
+    },
+    {
+      "_creationTime": 1760674131778.3198,
+      "_id": "j570yq0wrs4y1vrkeg8f4smb817snssn",
+      "date": "2025-10-17",
+      "periods_attended": 21,
+      "periods_held": 26,
+      "roll_number": "160524737087",
+      "subject": "PYT",
+      "timestamp": 1760706241988
+    },
+    {
+      "_creationTime": 1760674131778.32,
+      "_id": "j577k42wb2zwcbgcfcac7n1x7n7sns4b",
+      "date": "2025-10-17",
+      "periods_attended": 6,
+      "periods_held": 16,
+      "roll_number": "160524737087",
+      "subject": "BDE LAB",
+      "timestamp": 1760706241988
+    },
+    {
+      "_creationTime": 1760674131778.3203,
+      "_id": "j57c5cjx10k8zj3vy8y27teaf97sm5yx",
+      "date": "2025-10-17",
+      "periods_attended": 14,
+      "periods_held": 14,
+      "roll_number": "160524737087",
+      "subject": "DS Lab",
+      "timestamp": 1760706241988
+    },
+    {
+      "_creationTime": 1760674131778.3206,
+      "_id": "j576x5rjjzxzvdd309j65w1rmh7smpqw",
+      "date": "2025-10-17",
+      "periods_attended": 23,
+      "periods_held": 25,
+      "roll_number": "160524737087",
+      "subject": "DM",
+      "timestamp": 1760706241988
+    },
+    {
+      "_creationTime": 1760674131778.3208,
+      "_id": "j578yj4d58ncxta15xwhwssnrd7sn7b8",
+      "date": "2025-10-17",
+      "periods_attended": 23,
+      "periods_held": 27,
+      "roll_number": "160524737087",
+      "subject": "DS",
+      "timestamp": 1760706241988
+    },
+    {
+      "_creationTime": 1760674131778.321,
+      "_id": "j577w9y0ve9v0yvc8abx1www217smypy",
+      "date": "2025-10-17",
+      "periods_attended": 6,
+      "periods_held": 8,
+      "roll_number": "160524737087",
+      "subject": "PYT LAB",
+      "timestamp": 1760706241988
+    },
+    {
+      "_creationTime": 1760674131778.3213,
+      "_id": "j57dscb10wbqcb3xpzv4x4ryyh7sn4rw",
+      "date": "2025-10-17",
+      "periods_attended": 0,
+      "periods_held": 1,
+      "roll_number": "160524737087",
+      "subject": "TUTORIAL",
+      "timestamp": 1760706241988
+    },
+    {
+      "_creationTime": 1760674131778.3215,
+      "_id": "j573cg454vs5dnnj9zezs16kr17sny0z",
+      "date": "2025-10-17",
+      "periods_attended": 1,
+      "periods_held": 1,
+      "roll_number": "160524737087",
+      "subject": "SPORTS",
+      "timestamp": 1760706241988
+    },
+    {
+      "_creationTime": 1760674131778.3218,
+      "_id": "j571vx23q1pppaac27nmhv6dhn7snayd",
+      "date": "2025-10-17",
+      "periods_attended": 1,
+      "periods_held": 2,
+      "roll_number": "160524737087",
+      "subject": "LIBRARY",
+      "timestamp": 1760706241988
+    },
+    {
+      "_creationTime": 1760674331679.3364,
+      "_id": "j57fhv9s8qdqcv1dnycazz3aa57sngqy",
+      "date": "2025-10-17",
+      "periods_attended": 29,
+      "periods_held": 33,
+      "roll_number": "160524737029",
+      "subject": "F&A",
+      "timestamp": 1760674373766
+    },
+    {
+      "_creationTime": 1760674331679.3367,
+      "_id": "j5772n89ww5bf60sstanh8y5757smk43",
+      "date": "2025-10-17",
+      "periods_attended": 19,
+      "periods_held": 20,
+      "roll_number": "160524737029",
+      "subject": "M-IT",
+      "timestamp": 1760674331679
+    },
+    {
+      "_creationTime": 1760674331679.337,
+      "_id": "j57ef1m0e6ngw79fe8ras3yp4h7sm0kx",
+      "date": "2025-10-17",
+      "periods_attended": 17,
+      "periods_held": 19,
+      "roll_number": "160524737029",
+      "subject": "BDE",
+      "timestamp": 1760674331679
+    },
+    {
+      "_creationTime": 1760674331679.3372,
+      "_id": "j5769z0fccd4e0gd8xwvs78bp57snqw2",
+      "date": "2025-10-17",
+      "periods_attended": 22,
+      "periods_held": 25,
+      "roll_number": "160524737029",
+      "subject": "PYT",
+      "timestamp": 1760674331679
+    },
+    {
+      "_creationTime": 1760674331679.3374,
+      "_id": "j57d8pzdx191ppksxdh9b6h02h7snf7k",
+      "date": "2025-10-17",
+      "periods_attended": 8,
+      "periods_held": 8,
+      "roll_number": "160524737029",
+      "subject": "BDE LAB",
+      "timestamp": 1760674331679
+    },
+    {
+      "_creationTime": 1760674331679.3376,
+      "_id": "j57atkxm5zwjb9ajwvs2pmv6cs7snqgm",
+      "date": "2025-10-17",
+      "periods_attended": 14,
+      "periods_held": 16,
+      "roll_number": "160524737029",
+      "subject": "DS Lab",
+      "timestamp": 1760674331679
+    },
+    {
+      "_creationTime": 1760674331679.338,
+      "_id": "j575kyebxxz02q9wv8acjh7g2h7sntrf",
+      "date": "2025-10-17",
+      "periods_attended": 22,
+      "periods_held": 25,
+      "roll_number": "160524737029",
+      "subject": "DM",
+      "timestamp": 1760674331679
+    },
+    {
+      "_creationTime": 1760674331679.3381,
+      "_id": "j57fv4g9yn2xnwtb5ye4h2yard7snq9m",
+      "date": "2025-10-17",
+      "periods_attended": 23,
+      "periods_held": 26,
+      "roll_number": "160524737029",
+      "subject": "DS",
+      "timestamp": 1760674331679
+    },
+    {
+      "_creationTime": 1760674331679.3384,
+      "_id": "j5757xxmt1p15eqbd5nq8sb7b17sm9cg",
+      "date": "2025-10-17",
+      "periods_attended": 8,
+      "periods_held": 12,
+      "roll_number": "160524737029",
+      "subject": "PYT LAB",
+      "timestamp": 1760674331679
+    },
+    {
+      "_creationTime": 1760674331679.3386,
+      "_id": "j575x9xehkshj0j006xfcedg8x7smdj0",
+      "date": "2025-10-17",
+      "periods_attended": 0,
+      "periods_held": 0,
+      "roll_number": "160524737029",
+      "subject": "TUTORIAL",
+      "timestamp": 1760674331679
+    },
+    {
+      "_creationTime": 1760674331679.3389,
+      "_id": "j57apd0825c4mp993eper2dnt57sm9k2",
+      "date": "2025-10-17",
+      "periods_attended": 1,
+      "periods_held": 1,
+      "roll_number": "160524737029",
+      "subject": "SPORTS",
+      "timestamp": 1760674331679
+    },
+    {
+      "_creationTime": 1760674331679.339,
+      "_id": "j57ec3wk83yne0frbsmnzzz9sh7sndwa",
+      "date": "2025-10-17",
+      "periods_attended": 1,
+      "periods_held": 1,
+      "roll_number": "160524737029",
+      "subject": "LIBRARY",
+      "timestamp": 1760674331679
+    },
+    {
+      "_creationTime": 1760674685994.3108,
+      "_id": "j576gmfe3hh2ppyq8b0z42s74s7sn5rx",
+      "date": "2025-10-17",
+      "periods_attended": 33,
+      "periods_held": 33,
+      "roll_number": "160524737077",
+      "subject": "F&A",
+      "timestamp": 1760674776209
+    },
+    {
+      "_creationTime": 1760674685994.311,
+      "_id": "j57bh1d2hxr1pmfr6jm3mmm6ss7snhqx",
+      "date": "2025-10-17",
+      "periods_attended": 10,
+      "periods_held": 20,
+      "roll_number": "160524737077",
+      "subject": "M-IT",
+      "timestamp": 1760674685997
+    },
+    {
+      "_creationTime": 1760674685994.3113,
+      "_id": "j5732ands8acb3dv2c6z9rgrd17smcfz",
+      "date": "2025-10-17",
+      "periods_attended": 12,
+      "periods_held": 19,
+      "roll_number": "160524737077",
+      "subject": "BDE",
+      "timestamp": 1760674685997
+    },
+    {
+      "_creationTime": 1760674685994.3115,
+      "_id": "j5715x48s1k4pnwhpgrq7s1n7s7smsp7",
+      "date": "2025-10-17",
+      "periods_attended": 18,
+      "periods_held": 25,
+      "roll_number": "160524737077",
+      "subject": "PYT",
+      "timestamp": 1760674685997
+    },
+    {
+      "_creationTime": 1760674685994.3118,
+      "_id": "j574w5c4mj1bsjrwm2p7nqxyf57smn53",
+      "date": "2025-10-17",
+      "periods_attended": 4,
+      "periods_held": 16,
+      "roll_number": "160524737077",
+      "subject": "BDE LAB",
+      "timestamp": 1760674685997
+    },
+    {
+      "_creationTime": 1760674685994.312,
+      "_id": "j5740853pc9r6pdtg2p790k4gn7smcgq",
+      "date": "2025-10-17",
+      "periods_attended": 10,
+      "periods_held": 14,
+      "roll_number": "160524737077",
+      "subject": "DS Lab",
+      "timestamp": 1760674685997
+    },
+    {
+      "_creationTime": 1760674685994.3123,
+      "_id": "j57fsef8dpbyqd2rndk5k8jrk97smqj5",
+      "date": "2025-10-17",
+      "periods_attended": 16,
+      "periods_held": 25,
+      "roll_number": "160524737077",
+      "subject": "DM",
+      "timestamp": 1760674685997
+    },
+    {
+      "_creationTime": 1760674685994.3125,
+      "_id": "j579f75xt9xt109z38p325kerh7sm95d",
+      "date": "2025-10-17",
+      "periods_attended": 26,
+      "periods_held": 26,
+      "roll_number": "160524737077",
+      "subject": "DS",
+      "timestamp": 1760674742147
+    },
+    {
+      "_creationTime": 1760674685994.3127,
+      "_id": "j57an3tzncrmgtw30s6p62mcph7smwp2",
+      "date": "2025-10-17",
+      "periods_attended": 2,
+      "periods_held": 6,
+      "roll_number": "160524737077",
+      "subject": "PYT LAB",
+      "timestamp": 1760674685997
+    },
+    {
+      "_creationTime": 1760674685994.313,
+      "_id": "j5774gzj1waft5z1rcphm8mn157smmaa",
+      "date": "2025-10-17",
+      "periods_attended": 0,
+      "periods_held": 0,
+      "roll_number": "160524737077",
+      "subject": "TUTORIAL",
+      "timestamp": 1760674685997
+    },
+    {
+      "_creationTime": 1760674685994.3132,
+      "_id": "j57bx54xk7gpyk6wkwhm73pyj57snjqm",
+      "date": "2025-10-17",
+      "periods_attended": 1,
+      "periods_held": 1,
+      "roll_number": "160524737077",
+      "subject": "SPORTS",
+      "timestamp": 1760674685997
+    },
+    {
+      "_creationTime": 1760674685994.3135,
+      "_id": "j572vqzfk96kz6c8r1w7w73bns7snxfe",
+      "date": "2025-10-17",
+      "periods_attended": 1,
+      "periods_held": 1,
+      "roll_number": "160524737077",
+      "subject": "LIBRARY",
+      "timestamp": 1760674685997
+    },
+    {
+      "_creationTime": 1760677036592.5771,
+      "_id": "j5760g6qgraebx8v2rmwj2zdq97sn26j",
+      "date": "2025-10-17",
+      "periods_attended": 1,
+      "periods_held": 1,
+      "roll_number": "160524737040",
+      "subject": "F&A",
+      "timestamp": 1760677038284
+    },
+    {
+      "_creationTime": 1760677050182.0327,
+      "_id": "j579k84kc1w3qka455dzxd7xgd7smvnv",
+      "date": "2025-10-17",
+      "periods_attended": 1,
+      "periods_held": 1,
+      "roll_number": "160524737046",
+      "subject": "F&A",
+      "timestamp": 1760677051655
+    },
+    {
+      "_creationTime": 1760677085035.34,
+      "_id": "j5758s2ymdmv9p9nc3dgs05ftx7sny94",
+      "date": "2025-10-17",
+      "periods_attended": 1,
+      "periods_held": 1,
+      "roll_number": "160524737058",
+      "subject": "F&A",
+      "timestamp": 1760677086137
+    },
+    {
+      "_creationTime": 1760677298727.612,
+      "_id": "j57a893qn6sxkccdar674nq5dh7snxeq",
+      "date": "2025-10-17",
+      "periods_attended": 1,
+      "periods_held": 1,
+      "roll_number": "160524737023",
+      "subject": "F&A",
+      "timestamp": 1760677309198
+    },
+    {
+      "_creationTime": 1760680026262.281,
+      "_id": "j5722erntsqed2b7p82nzda59d7snbmf",
+      "date": "2025-10-17",
+      "periods_attended": 1,
+      "periods_held": 1,
+      "roll_number": "160524737058",
+      "subject": "M-IT",
+      "timestamp": 1760680027542
+    },
+    {
+      "_creationTime": 1760680516174.9,
+      "_id": "j57ewrxrjs549pern71rdcajjx7smcnc",
+      "date": "2025-10-17",
+      "periods_attended": 1,
+      "periods_held": 1,
+      "roll_number": "160524737048",
+      "subject": "M-IT",
+      "timestamp": 1760680517370
+    },
+    {
+      "_creationTime": 1760680521768.7734,
+      "_id": "j57e5851gxe3n01k3tyt4f7pad7snf9y",
+      "date": "2025-10-17",
+      "periods_attended": 1,
+      "periods_held": 1,
+      "roll_number": "160524737040",
+      "subject": "M-IT",
+      "timestamp": 1760680523060
+    },
+    {
+      "_creationTime": 1760680743544.6306,
+      "_id": "j575qnmh98ps5gd4ehzq8x0hpx7sn6xg",
+      "date": "2025-10-17",
+      "periods_attended": 1,
+      "periods_held": 1,
+      "roll_number": "160524737023",
+      "subject": "M-IT",
+      "timestamp": 1760680744671
+    },
+    {
+      "_creationTime": 1760680747461.8447,
+      "_id": "j574fpq9s9yve0pcvrp7d1df797sn35j",
+      "date": "2025-10-17",
+      "periods_attended": 0,
+      "periods_held": 1,
+      "roll_number": "160524737066",
+      "subject": "F&A",
+      "timestamp": 1760680747462
+    },
+    {
+      "_creationTime": 1760680750046.6345,
+      "_id": "j57b9gm5dgq3rhfwjkxh5ycrx57snx93",
+      "date": "2025-10-17",
+      "periods_attended": 1,
+      "periods_held": 1,
+      "roll_number": "160524737066",
+      "subject": "M-IT",
+      "timestamp": 1760680751241
+    },
+    {
+      "_creationTime": 1760680799318.2747,
+      "_id": "j5795s97xdtjzrpspvk8d9r7ms7sm9ms",
+      "date": "2025-10-17",
+      "periods_attended": 1,
+      "periods_held": 1,
+      "roll_number": "160524737046",
+      "subject": "M-IT",
+      "timestamp": 1760680800241
+    },
+    {
+      "_creationTime": 1760680808443.6426,
+      "_id": "j5785x8k39v0xbpdmckkj30fj57sm6hw",
+      "date": "2025-10-17",
+      "periods_attended": 26,
+      "periods_held": 33,
+      "roll_number": "160524737081",
+      "subject": "F&A",
+      "timestamp": 1760680808447
+    },
+    {
+      "_creationTime": 1760680808443.6428,
+      "_id": "j57effvgnq5b33j32a242yrp4x7smsg2",
+      "date": "2025-10-17",
+      "periods_attended": 13,
+      "periods_held": 20,
+      "roll_number": "160524737081",
+      "subject": "M-IT",
+      "timestamp": 1760680808447
+    },
+    {
+      "_creationTime": 1760680808443.643,
+      "_id": "j57fnt2fpjam16t1x3nctqke757sm0g6",
+      "date": "2025-10-17",
+      "periods_attended": 15,
+      "periods_held": 19,
+      "roll_number": "160524737081",
+      "subject": "BDE",
+      "timestamp": 1760680808447
+    },
+    {
+      "_creationTime": 1760680808443.6433,
+      "_id": "j57bc5kj6a08cag71wajr83e517smxcg",
+      "date": "2025-10-17",
+      "periods_attended": 18,
+      "periods_held": 25,
+      "roll_number": "160524737081",
+      "subject": "PYT",
+      "timestamp": 1760680808447
+    },
+    {
+      "_creationTime": 1760680808443.6436,
+      "_id": "j57ea3hs23kme4zre52v7ytw197sm1rh",
+      "date": "2025-10-17",
+      "periods_attended": 8,
+      "periods_held": 16,
+      "roll_number": "160524737081",
+      "subject": "BDE LAB",
+      "timestamp": 1760680808447
+    },
+    {
+      "_creationTime": 1760680808443.6438,
+      "_id": "j579ncs7gnmyzcshz7ypsck2j97sm1bk",
+      "date": "2025-10-17",
+      "periods_attended": 12,
+      "periods_held": 14,
+      "roll_number": "160524737081",
+      "subject": "DS Lab",
+      "timestamp": 1760680808447
+    },
+    {
+      "_creationTime": 1760680808443.644,
+      "_id": "j576hdr5124nqq2myyq82h0zes7sm1rj",
+      "date": "2025-10-17",
+      "periods_attended": 20,
+      "periods_held": 25,
+      "roll_number": "160524737081",
+      "subject": "DM",
+      "timestamp": 1760680808447
+    },
+    {
+      "_creationTime": 1760680808443.6443,
+      "_id": "j57c572zvnq7nstzygsnjy2m4s7sm0hz",
+      "date": "2025-10-17",
+      "periods_attended": 23,
+      "periods_held": 26,
+      "roll_number": "160524737081",
+      "subject": "DS",
+      "timestamp": 1760680852683
+    },
+    {
+      "_creationTime": 1760680808443.6445,
+      "_id": "j575rp2vsy0c1yv771gd6rgr717smsfe",
+      "date": "2025-10-17",
+      "periods_attended": 6,
+      "periods_held": 6,
+      "roll_number": "160524737081",
+      "subject": "PYT LAB",
+      "timestamp": 1760680849996
+    },
+    {
+      "_creationTime": 1760680808443.6448,
+      "_id": "j5761fsr67ky67xm8z6br3wfah7snbhc",
+      "date": "2025-10-17",
+      "periods_attended": 0,
+      "periods_held": 0,
+      "roll_number": "160524737081",
+      "subject": "TUTORIAL",
+      "timestamp": 1760680808447
+    },
+    {
+      "_creationTime": 1760680808443.645,
+      "_id": "j57a2ez2snhkma77fqgqahsmyn7smgmj",
+      "date": "2025-10-17",
+      "periods_attended": 1,
+      "periods_held": 1,
+      "roll_number": "160524737081",
+      "subject": "SPORTS",
+      "timestamp": 1760680808447
+    },
+    {
+      "_creationTime": 1760680808443.6453,
+      "_id": "j57748tgv2dn9pj5dj8yypsk3d7sma63",
+      "date": "2025-10-17",
+      "periods_attended": 1,
+      "periods_held": 1,
+      "roll_number": "160524737081",
+      "subject": "LIBRARY",
+      "timestamp": 1760680808447
+    },
+    {
+      "_creationTime": 1760680813655.1233,
+      "_id": "j57ejddjzt4bvmrsjzzbw5bz5x7snqck",
+      "date": "2025-10-17",
+      "periods_attended": 1,
+      "periods_held": 1,
+      "roll_number": "160524737023",
+      "subject": "DS",
+      "timestamp": 1760680815171
+    },
+    {
+      "_creationTime": 1760681470876.8643,
+      "_id": "j575hbn9s39e7k2jdeeg2k6qs57sm1zz",
+      "date": "2025-10-17",
+      "periods_attended": 1,
+      "periods_held": 1,
+      "roll_number": "160524737046",
+      "subject": "PYT",
+      "timestamp": 1760681472264
+    },
+    {
+      "_creationTime": 1760681562526.61,
+      "_id": "j57emtfkrnftffgk7wt81snsnh7snt1c",
+      "date": "2025-10-17",
+      "periods_attended": 1,
+      "periods_held": 1,
+      "roll_number": "160524737058",
+      "subject": "PYT",
+      "timestamp": 1760681563791
+    },
+    {
+      "_creationTime": 1760684088125.7537,
+      "_id": "j577c3qgam8a9grnwybja1sj4s7sm7zp",
+      "date": "2025-10-17",
+      "periods_attended": 1,
+      "periods_held": 1,
+      "roll_number": "160524737048",
+      "subject": "PYT",
+      "timestamp": 1760684089191
+    },
+    {
+      "_creationTime": 1760684098181.8013,
+      "_id": "j5730jtr4mampsvya99eajy6s97smtbg",
+      "date": "2025-10-17",
+      "periods_attended": 1,
+      "periods_held": 1,
+      "roll_number": "160524737048",
+      "subject": "DS",
+      "timestamp": 1760684099283
+    },
+    {
+      "_creationTime": 1760684098761.6848,
+      "_id": "j57116qyqj76mp9ccnf5few0a97smm5b",
+      "date": "2025-10-17",
+      "periods_attended": 1,
+      "periods_held": 1,
+      "roll_number": "160524737058",
+      "subject": "DS",
+      "timestamp": 1760684099575
+    },
+    {
+      "_creationTime": 1760684205100.2505,
+      "_id": "j576brxq68005znbk0rbqzc2h97smc6f",
+      "date": "2025-10-17",
+      "periods_attended": 1,
+      "periods_held": 1,
+      "roll_number": "160524737040",
+      "subject": "PYT",
+      "timestamp": 1760684213240
+    },
+    {
+      "_creationTime": 1760684801801.4365,
+      "_id": "j573handryd3yf0e2fw1509mqs7snmdx",
+      "date": "2025-10-17",
+      "periods_attended": 1,
+      "periods_held": 1,
+      "roll_number": "160524737040",
+      "subject": "DS",
+      "timestamp": 1760684803222
+    },
+    {
+      "_creationTime": 1760691039960.3193,
+      "_id": "j5717b0f99z0722n1n3zmnc8s57smcgz",
+      "date": "2025-10-17",
+      "periods_attended": 25,
+      "periods_held": 34,
+      "roll_number": "160524737027",
+      "subject": "F&A",
+      "timestamp": 1760691400595
+    },
+    {
+      "_creationTime": 1760691039960.3196,
+      "_id": "j5747h32pk63e2w0mfkmt9sbqs7smpkz",
+      "date": "2025-10-17",
+      "periods_attended": 16,
+      "periods_held": 22,
+      "roll_number": "160524737027",
+      "subject": "M-IT",
+      "timestamp": 1760691088137
+    },
+    {
+      "_creationTime": 1760691039960.3198,
+      "_id": "j571t63h9m23q1fgp8ek5ehqwd7smh7g",
+      "date": "2025-10-17",
+      "periods_attended": 15,
+      "periods_held": 19,
+      "roll_number": "160524737027",
+      "subject": "BDE",
+      "timestamp": 1760691039960
+    },
+    {
+      "_creationTime": 1760691039960.32,
+      "_id": "j57bwkpztjw6c7f2dfbx39wvkx7sn661",
+      "date": "2025-10-17",
+      "periods_attended": 16,
+      "periods_held": 26,
+      "roll_number": "160524737027",
+      "subject": "PYT",
+      "timestamp": 1760691102442
+    },
+    {
+      "_creationTime": 1760691039960.3203,
+      "_id": "j5701n4dkeskd9s580zha67xed7sn58y",
+      "date": "2025-10-17",
+      "periods_attended": 2,
+      "periods_held": 8,
+      "roll_number": "160524737027",
+      "subject": "BDE LAB",
+      "timestamp": 1760691039960
+    },
+    {
+      "_creationTime": 1760691039960.3206,
+      "_id": "j57bm7kp8h8d4kv4g8gqg8rk2d7sn4sx",
+      "date": "2025-10-17",
+      "periods_attended": 14,
+      "periods_held": 16,
+      "roll_number": "160524737027",
+      "subject": "DS Lab",
+      "timestamp": 1760691039960
+    },
+    {
+      "_creationTime": 1760691039960.3208,
+      "_id": "j576a6kzfr4es57k89zj1e1ggn7sm3ed",
+      "date": "2025-10-17",
+      "periods_attended": 20,
+      "periods_held": 25,
+      "roll_number": "160524737027",
+      "subject": "DM",
+      "timestamp": 1760691039960
+    },
+    {
+      "_creationTime": 1760691039960.321,
+      "_id": "j577metqdf0hdx6vvdgbh2w2k97smzvc",
+      "date": "2025-10-17",
+      "periods_attended": 23,
+      "periods_held": 27,
+      "roll_number": "160524737027",
+      "subject": "DS",
+      "timestamp": 1760691125383
+    },
+    {
+      "_creationTime": 1760691039960.3213,
+      "_id": "j572wtcb1vywzxpq7rxp43wk697smg71",
+      "date": "2025-10-17",
+      "periods_attended": 4,
+      "periods_held": 12,
+      "roll_number": "160524737027",
+      "subject": "PYT LAB",
+      "timestamp": 1760691039960
+    },
+    {
+      "_creationTime": 1760691039960.3215,
+      "_id": "j576cwgggjjv863pdcw9m7hek97smfk0",
+      "date": "2025-10-17",
+      "periods_attended": 0,
+      "periods_held": 0,
+      "roll_number": "160524737027",
+      "subject": "TUTORIAL",
+      "timestamp": 1760691039960
+    },
+    {
+      "_creationTime": 1760691039960.3218,
+      "_id": "j5794eqppg9h9b2727wh0b1agd7smjvh",
+      "date": "2025-10-17",
+      "periods_attended": 1,
+      "periods_held": 1,
+      "roll_number": "160524737027",
+      "subject": "SPORTS",
+      "timestamp": 1760691039960
+    },
+    {
+      "_creationTime": 1760691039960.322,
+      "_id": "j57a2w7zvzsnpsstxs4d4rck8d7sns98",
+      "date": "2025-10-17",
+      "periods_attended": 1,
+      "periods_held": 1,
+      "roll_number": "160524737027",
+      "subject": "LIBRARY",
+      "timestamp": 1760691039960
+    },
+    {
+      "_creationTime": 1760691237353.2146,
+      "_id": "j5707zewh8rhrksyg63f1q46917snafq",
+      "date": "2025-10-17",
+      "periods_attended": 1,
+      "periods_held": 1,
+      "roll_number": "160524737046",
+      "subject": "DS",
+      "timestamp": 1760691238614
+    },
+    {
+      "_creationTime": 1760702242678.9458,
+      "_id": "j573dsek3p957yhh0gz5h6j6797sn5zp",
+      "date": "2025-10-17",
+      "periods_attended": 2,
+      "periods_held": 2,
+      "roll_number": "160524737048",
+      "subject": "PYT LAB",
+      "timestamp": 1760702245136
+    },
+    {
+      "_creationTime": 1760702364161.076,
+      "_id": "j577bbf9mdvpgw11bsct32g8yn7snhbv",
+      "date": "2025-10-17",
+      "periods_attended": 0,
+      "periods_held": 1,
+      "roll_number": "160524737048",
+      "subject": "TUTORIAL",
+      "timestamp": 1760705122700
+    },
+    {
+      "_creationTime": 1760702365309.0198,
+      "_id": "j57659xycrqfd7wntw3fd8j1n57snb0f",
+      "date": "2025-10-17",
+      "periods_attended": 0,
+      "periods_held": 1,
+      "roll_number": "160524737048",
+      "subject": "LIBRARY",
+      "timestamp": 1760705127609
+    },
+    {
+      "_creationTime": 1760702389268.3154,
+      "_id": "j57dtanq2nx373h5neradad3ex7snfzx",
+      "date": "2025-10-17",
+      "periods_attended": 2,
+      "periods_held": 2,
+      "roll_number": "160524737058",
+      "subject": "PYT LAB",
+      "timestamp": 1760702393441
+    },
+    {
+      "_creationTime": 1760702524708.2654,
+      "_id": "j57dbbe6b4n37r2dc95q7krfr57sncjv",
+      "date": "2025-10-17",
+      "periods_attended": 0,
+      "periods_held": 1,
+      "roll_number": "160524737058",
+      "subject": "LIBRARY",
+      "timestamp": 1760702605111
+    },
+    {
+      "_creationTime": 1760702526862.144,
+      "_id": "j57e1p1ath5fb5f2be60q79xmh7sn97j",
+      "date": "2025-10-17",
+      "periods_attended": 0,
+      "periods_held": 1,
+      "roll_number": "160524737058",
+      "subject": "TUTORIAL",
+      "timestamp": 1760702609034
+    },
+    {
+      "_creationTime": 1760702776976.1685,
+      "_id": "j577ka29z6dr48fhq39j3d4hcx7sncm8",
+      "date": "2025-10-17",
+      "periods_attended": 0,
+      "periods_held": 1,
+      "roll_number": "160524737040",
+      "subject": "TUTORIAL",
+      "timestamp": 1760702879409
+    },
+    {
+      "_creationTime": 1760702780058.7356,
+      "_id": "j571231qbm4pg665gs512yfjcx7smype",
+      "date": "2025-10-17",
+      "periods_attended": 0,
+      "periods_held": 1,
+      "roll_number": "160524737040",
+      "subject": "LIBRARY",
+      "timestamp": 1760702780058
+    },
+    {
+      "_creationTime": 1760703110487.362,
+      "_id": "j573kaey11hyhjnm6993gffq9n7sn5m1",
+      "date": "2025-10-17",
+      "periods_attended": 0,
+      "periods_held": 1,
+      "roll_number": "160524737046",
+      "subject": "TUTORIAL",
+      "timestamp": 1760703683268
+    },
+    {
+      "_creationTime": 1760703117355.2607,
+      "_id": "j57bxkrg3h741vh35ykz9xcqy57smswd",
+      "date": "2025-10-17",
+      "periods_attended": 0,
+      "periods_held": 1,
+      "roll_number": "160524737046",
+      "subject": "LIBRARY",
+      "timestamp": 1760703641710
+    },
+    {
+      "_creationTime": 1760703472194.3535,
+      "_id": "j57b9c01t8ag4hzcnzdk85y13n7snz3z",
+      "date": "2025-10-17",
+      "periods_attended": 2,
+      "periods_held": 2,
+      "roll_number": "160524737046",
+      "subject": "PYT LAB",
+      "timestamp": 1760703476090
+    },
+    {
+      "_creationTime": 1760749475222.9292,
+      "_id": "j57cj11a33rfrh7hh9h7y2fkjs7sqxph",
+      "date": "2025-10-18",
+      "periods_attended": 1,
+      "periods_held": 1,
+      "roll_number": "160524737302",
+      "subject": "F&A",
+      "timestamp": 1760749476813
+    },
+    {
+      "_creationTime": 1760749484243.2688,
+      "_id": "j57byjkx44wtnepr0tp7mcg5zd7spgzq",
+      "date": "2025-10-18",
+      "periods_attended": 1,
+      "periods_held": 1,
+      "roll_number": "160524737302",
+      "subject": "M-IT",
+      "timestamp": 1760749485423
+    },
+    {
+      "_creationTime": 1760749496824.8992,
+      "_id": "j5711zgwv8yqmr1r9kf0y2dgt57sqqrk",
+      "date": "2025-10-18",
+      "periods_attended": 1,
+      "periods_held": 1,
+      "roll_number": "160524737302",
+      "subject": "PYT",
+      "timestamp": 1760749497966
+    }
+  ],
+  "metadata": {
+    "exportDate": "2025-10-19T12:12:04.695Z",
+    "exportedBy": "all_students",
+    "totalAchievements": 6,
+    "totalActionHistory": 1,
+    "totalAttendanceRecords": 197,
+    "totalStreaks": 3,
+    "totalStudents": 14
+  },
+  "streaks": [
+    {
+      "_creationTime": 1760770048281.7947,
+      "_id": "kh72cjqspy3wwcnb2qgdvnd0597sq5t0",
+      "current_streak": 0,
+      "last_updated": "2025-10-19",
+      "longest_streak": 0,
+      "roll_number": "160524737048"
+    },
+    {
+      "_creationTime": 1760770939376.8252,
+      "_id": "kh7d3dy8z0fp9xt74radykacq57spj37",
+      "current_streak": 1,
+      "last_updated": "2025-10-18",
+      "longest_streak": 1,
+      "roll_number": "160524737029"
+    },
+    {
+      "_creationTime": 1760784129036.475,
+      "_id": "kh71qgbwekp9akdhghr35xtj657sqfy6",
+      "current_streak": 1,
+      "last_updated": "2025-10-18",
+      "longest_streak": 1,
+      "roll_number": "160524737046"
+    }
+  ],
+  "students": [
+    {
+      "_creationTime": 1760566426132.5498,
+      "_id": "k175gdcbm7afm5r1pad8ndpkmn7sgw6y",
+      "created_at": 1760566426132,
+      "name": "Habeeb Salam Fadaq",
+      "phone_number": "+917842845953",
+      "roll_number": "160524737048"
+    },
+    {
+      "_creationTime": 1760587431372.4373,
+      "_id": "k170m8ehsyx7fz8n2hkfacmtys7sj3bn",
+      "created_at": 1760587431376,
+      "name": "Mohammed Amjad ",
+      "phone_number": "+917286083935",
+      "roll_number": "160524737040"
+    },
+    {
+      "_creationTime": 1760587481347.2273,
+      "_id": "k17e7q1d8bc3y505wt02dk19y17sk7e7",
+      "created_at": 1760587481347,
+      "name": "Mohd Shehbaaz ",
+      "phone_number": "+91 9618780023",
+      "roll_number": "160524737046"
+    },
+    {
+      "_creationTime": 1760587522237.763,
+      "_id": "k174d5wdhkfbhaddgmnts2z5hn7sj2be",
+      "created_at": 1760587522237,
+      "name": "Subhan khan",
+      "roll_number": "160524737058"
+    },
+    {
+      "_creationTime": 1760587631763.2295,
+      "_id": "k17bmm6htn914nbxm3xhcvv2s17skzk5",
+      "created_at": 1760587631763,
+      "name": "Syed rahmath ali ",
+      "roll_number": "160524737066"
+    },
+    {
+      "_creationTime": 1760589137132.0354,
+      "_id": "k17esat35d9ts83j6vdk5870b97sj0e4",
+      "created_at": 1760589137135,
+      "name": "Mohd imtiyaz ali ",
+      "roll_number": "160524737043"
+    },
+    {
+      "_creationTime": 1760591613879.8604,
+      "_id": "k1767t5qj30mnqqv0s7qxfjzmn7skpap",
+      "created_at": 1760591613880,
+      "name": "Maryam Osmani ",
+      "roll_number": "160525733215"
+    },
+    {
+      "_creationTime": 1760591817512.9473,
+      "_id": "k174y9vy7fhfg07yxw5qb409517sj1ae",
+      "created_at": 1760591817513,
+      "name": "Syed Nibras Ahmed ",
+      "roll_number": "160524737023"
+    },
+    {
+      "_creationTime": 1760598416614.925,
+      "_id": "k17b9zr49bt0sg6akam00e5nkh7sj97p",
+      "created_at": 1760598416618,
+      "name": "Safi Ahamad Khan ",
+      "phone_number": "+919121973668",
+      "roll_number": "160524737027"
+    },
+    {
+      "_creationTime": 1760674089485.1619,
+      "_id": "k17ah682181a2f3ezftgh19bz97sm2tj",
+      "created_at": 1760674089489,
+      "name": "Mohammed Fahad Pasha",
+      "phone_number": "9030614600",
+      "roll_number": "160524737087"
+    },
+    {
+      "_creationTime": 1760674091937.7349,
+      "_id": "k1791ny50g6qryjkzzckh3k41x7smsg2",
+      "created_at": 1760674091937,
+      "name": "Maher khan",
+      "phone_number": "8978607745",
+      "roll_number": "160524737302"
+    },
+    {
+      "_creationTime": 1760674296789.1938,
+      "_id": "k170es0f8xdgbafrn1m4z70p0s7sna04",
+      "created_at": 1760674296793,
+      "name": "Ahmed abdul raheem baumran ",
+      "phone_number": "9703427364",
+      "roll_number": "160524737029"
+    },
+    {
+      "_creationTime": 1760674558548.3604,
+      "_id": "k17dqg8qn8d7nv46d6p29r4k2n7snwrw",
+      "created_at": 1760674558552,
+      "name": "Owais Uddin",
+      "roll_number": "160524737077"
+    },
+    {
+      "_creationTime": 1760680754834.222,
+      "_id": "k17e0q0pcm0a8cqbks64ghzngh7smec9",
+      "created_at": 1760680754834,
+      "name": "Mohammed abdul haadi ",
+      "roll_number": "160524737081"
+    }
+  ]
+}
