@@ -10,6 +10,7 @@
 
 import type * as achievements from "../achievements.js";
 import type * as actionHistory from "../actionHistory.js";
+import type * as adminImport from "../adminImport.js";
 import type * as ai from "../ai.js";
 import type * as attendance from "../attendance.js";
 import type * as auth_emailOtp from "../auth/emailOtp.js";
@@ -18,6 +19,7 @@ import type * as crons from "../crons.js";
 import type * as dataExport from "../dataExport.js";
 import type * as dataExportQueries from "../dataExportQueries.js";
 import type * as http from "../http.js";
+import type * as importData from "../importData.js";
 import type * as quickActions from "../quickActions.js";
 import type * as sms from "../sms.js";
 import type * as students from "../students.js";
@@ -41,6 +43,7 @@ import type {
 declare const fullApi: ApiFromModules<{
   achievements: typeof achievements;
   actionHistory: typeof actionHistory;
+  adminImport: typeof adminImport;
   ai: typeof ai;
   attendance: typeof attendance;
   "auth/emailOtp": typeof auth_emailOtp;
@@ -49,6 +52,7 @@ declare const fullApi: ApiFromModules<{
   dataExport: typeof dataExport;
   dataExportQueries: typeof dataExportQueries;
   http: typeof http;
+  importData: typeof importData;
   quickActions: typeof quickActions;
   sms: typeof sms;
   students: typeof students;

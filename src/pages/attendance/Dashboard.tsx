@@ -1,3 +1,4 @@
+import AttendanceAIChatbot from "@/components/AttendanceAIChatbot";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { api } from "@/convex/_generated/api";
@@ -389,6 +390,10 @@ export default function Dashboard() {
 
       {/* Quick Actions FAB */}
       <QuickActionsFAB rollNumber={rollNumber} />
+
+      {/* AI Chatbot */}
+      <AttendanceAIChatbot userId={rollNumber} />
     </motion.div>
   );
 }
+

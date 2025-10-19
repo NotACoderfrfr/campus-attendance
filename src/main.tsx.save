@@ -5,7 +5,7 @@ import AuthPage from "@/pages/Auth.tsx";
 import AttendanceAuth from "@/pages/attendance/Auth.tsx";
 import Dashboard from "@/pages/attendance/Dashboard.tsx";
 import History from "@/pages/attendance/History.tsx";
-import ImportData from "@/pages/attendance/ImportData.tsx"
+import ImportData from "@/pages/attendance/ImportData.tsx";
 import AdminImport from "@/pages/attendance/AdminImport.tsx";
 import Peers from "@/pages/attendance/Peers.tsx";
 import Subjects from "@/pages/attendance/Subjects.tsx";
@@ -66,8 +66,8 @@ createRoot(document.getElementById("root")!).render(
             <Route path="/attendance/subjects" element={<Subjects />} />
             <Route path="/attendance/history" element={<History />} />
             <Route path="/attendance/history/undo" element={<UndoHistory />} />
-            <Route path="/attendance/import" element={<ImportData />} />
-<Route path="/attendance/admin-import" element={<AdminImport />} />
+            <Route path="/attendance/import" element={<ImportData />} />	
+	    <Route path="/attendance/admin-import" element={<AdminImport />} />
 
             <Route path="/attendance/peers" element={<Peers />} />
             <Route path="/attendance/bunk-calculator" element={<BunkCalculatorPage />} />
