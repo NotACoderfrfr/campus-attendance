@@ -8,6 +8,11 @@ import History from "@/pages/attendance/History.tsx";
 import ImportData from "@/pages/attendance/ImportData.tsx";
 import Peers from "@/pages/attendance/Peers.tsx";
 import Subjects from "@/pages/attendance/Subjects.tsx";
+import BunkCalculatorPage from "@/pages/attendance/BunkCalculator.tsx";
+import Achievements from "@/pages/attendance/Achievements.tsx";
+import UndoHistory from "@/pages/attendance/UndoHistory.tsx";
+import WeeklyProgress from "@/pages/attendance/WeeklyProgress.tsx";
+import ExportData from "@/pages/attendance/ExportData.tsx";
 import { ConvexAuthProvider } from "@convex-dev/auth/react";
 import { ConvexReactClient } from "convex/react";
 import { StrictMode, useEffect } from "react";
@@ -19,8 +24,6 @@ import NotFound from "./pages/NotFound.tsx";
 import "./types/global.d.ts";
 
 const convex = new ConvexReactClient(import.meta.env.VITE_CONVEX_URL as string);
-
-
 
 function RouteSyncer() {
   const location = useLocation();
@@ -45,7 +48,6 @@ function RouteSyncer() {
   return null;
 }
 
-
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
     <VlyToolbar />
@@ -62,8 +64,13 @@ createRoot(document.getElementById("root")!).render(
             <Route path="/attendance/dashboard" element={<Dashboard />} />
             <Route path="/attendance/subjects" element={<Subjects />} />
             <Route path="/attendance/history" element={<History />} />
+            <Route path="/attendance/history/undo" element={<UndoHistory />} />
             <Route path="/attendance/import" element={<ImportData />} />
             <Route path="/attendance/peers" element={<Peers />} />
+            <Route path="/attendance/bunk-calculator" element={<BunkCalculatorPage />} />
+            <Route path="/attendance/achievements" element={<Achievements />} />
+            <Route path="/attendance/weekly-progress" element={<WeeklyProgress />} />
+            <Route path="/attendance/export" element={<ExportData />} />
             
             <Route path="*" element={<NotFound />} />
           </Routes>

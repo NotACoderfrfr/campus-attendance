@@ -36,6 +36,7 @@ const schema = defineSchema(
     students: defineTable({
       name: v.string(),
       roll_number: v.string(),
+      phone_number: v.optional(v.string()),
       created_at: v.number(),
     }).index("by_roll_number", ["roll_number"]),
 
@@ -51,6 +52,37 @@ const schema = defineSchema(
       .index("by_roll_number_and_subject", ["roll_number", "subject"])
       .index("by_roll_number_and_date", ["roll_number", "date"])
       .index("by_roll_number_and_subject_and_date", ["roll_number", "subject", "date"]),
+
+    // Achievements system
+    achievements: defineTable({
+      roll_number: v.string(),
+      achievement_type: v.string(),
+      unlocked_date: v.string(), // YYYY-MM-DD format
+      timestamp: v.number(),
+    })
+      .index("by_roll_number", ["roll_number"])
+      .index("by_roll_number_and_type", ["roll_number", "achievement_type"]),
+
+    streaks: defineTable({
+      roll_number: v.string(),
+      current_streak: v.number(),
+      longest_streak: v.number(),
+      last_updated: v.string(), // YYYY-MM-DD format
+    })
+      .index("by_roll_number", ["roll_number"]),
+
+    // Action history for undo/redo functionality
+    action_history: defineTable({
+      roll_number: v.string(),
+      action_type: v.string(), // "mark_present", "mark_absent", "delete_subject", "import_data"
+      subject: v.string(),
+      previous_value: v.any(), // stores old data before change
+      new_value: v.any(), // stores new data after change
+      timestamp: v.number(),
+      undone: v.boolean(),
+    })
+      .index("by_roll_number", ["roll_number"])
+      .index("by_roll_number_and_timestamp", ["roll_number", "timestamp"]),
   },
   {
     schemaValidation: false,

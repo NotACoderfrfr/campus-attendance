@@ -32,19 +32,19 @@ export default function Landing() {
             />
           </div>
 
-          <h1 className="text-5xl md:text-6xl font-bold tracking-tight bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+          <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold tracking-tight bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
             Student Attendance Tracker
           </h1>
           
-          <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
+          <p className="text-lg sm:text-xl text-muted-foreground max-w-2xl mx-auto px-4">
             Track your attendance, manage subjects, and stay on top of your academic progress with our intuitive attendance management system.
           </p>
 
-          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center pt-4">
+          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center pt-4 px-4">
             <Button 
               size="lg" 
               onClick={() => navigate("/attendance/auth")}
-              className="text-lg px-8 py-6"
+              className="text-base sm:text-lg px-6 sm:px-8 py-5 sm:py-6 w-full sm:w-auto"
             >
               Get Started
               <ArrowRight className="ml-2 h-5 w-5" />
@@ -53,7 +53,7 @@ export default function Landing() {
               size="lg" 
               variant="outline"
               onClick={() => navigate("/attendance/auth")}
-              className="text-lg px-8 py-6"
+              className="text-base sm:text-lg px-6 sm:px-8 py-5 sm:py-6 w-full sm:w-auto"
             >
               Login
             </Button>
@@ -65,7 +65,7 @@ export default function Landing() {
           initial={{ y: 40, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
           transition={{ delay: 0.4 }}
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mt-20 max-w-6xl w-full"
+          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mt-20 max-w-6xl w-full px-4"
         >
           <Card className="border-2 hover:border-primary transition-colors">
             <CardHeader>

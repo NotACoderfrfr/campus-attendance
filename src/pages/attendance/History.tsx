@@ -41,11 +41,11 @@ export default function History() {
 
         <Card>
           <CardHeader>
-            <CardTitle>Attendance History</CardTitle>
-            <CardDescription>View your attendance records by date</CardDescription>
+            <CardTitle className="text-xl sm:text-2xl">Attendance History</CardTitle>
+            <CardDescription className="text-sm sm:text-base">View your attendance records by date</CardDescription>
           </CardHeader>
           <CardContent className="space-y-4">
-            <div className="flex gap-4">
+            <div className="flex flex-col sm:flex-row gap-4">
               <Input
                 type="date"
                 value={selectedDate}
@@ -66,33 +66,35 @@ export default function History() {
             ) : attendanceHistory.length === 0 ? (
               <p className="text-center text-muted-foreground py-8">No attendance records found</p>
             ) : (
-              <Table>
-                <TableHeader>
-                  <TableRow>
-                    <TableHead>Date</TableHead>
-                    <TableHead>Subject</TableHead>
-                    <TableHead>Held</TableHead>
-                    <TableHead>Attended</TableHead>
-                    <TableHead>Percentage</TableHead>
-                  </TableRow>
-                </TableHeader>
-                <TableBody>
-                  {attendanceHistory.map((record) => {
-                    const percentage = record.periods_held > 0
-                      ? Math.round((record.periods_attended / record.periods_held) * 100)
-                      : 0;
-                    return (
-                      <TableRow key={record._id}>
-                        <TableCell>{record.date}</TableCell>
-                        <TableCell>{record.subject}</TableCell>
-                        <TableCell>{record.periods_held}</TableCell>
-                        <TableCell>{record.periods_attended}</TableCell>
-                        <TableCell>{percentage}%</TableCell>
-                      </TableRow>
-                    );
-                  })}
-                </TableBody>
-              </Table>
+              <div className="overflow-x-auto">
+                <Table>
+                  <TableHeader>
+                    <TableRow>
+                      <TableHead>Date</TableHead>
+                      <TableHead>Subject</TableHead>
+                      <TableHead>Held</TableHead>
+                      <TableHead>Attended</TableHead>
+                      <TableHead>Percentage</TableHead>
+                    </TableRow>
+                  </TableHeader>
+                  <TableBody>
+                    {attendanceHistory.map((record) => {
+                      const percentage = record.periods_held > 0
+                        ? Math.round((record.periods_attended / record.periods_held) * 100)
+                        : 0;
+                      return (
+                        <TableRow key={record._id}>
+                          <TableCell>{record.date}</TableCell>
+                          <TableCell>{record.subject}</TableCell>
+                          <TableCell>{record.periods_held}</TableCell>
+                          <TableCell>{record.periods_attended}</TableCell>
+                          <TableCell>{percentage}%</TableCell>
+                        </TableRow>
+                      );
+                    })}
+                  </TableBody>
+                </Table>
+              </div>
             )}
           </CardContent>
         </Card>

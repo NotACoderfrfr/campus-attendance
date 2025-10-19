@@ -109,3 +109,36 @@ export const getStudent = query({
     };
   },
 });
+
+// Get all students with phone numbers (internal query for SMS)
+export const getStudentsWithPhones = query({
+  args: {},
+  handler: async (ctx) => {
+    const students = await ctx.db.query("students").collect();
+    return students.filter(s => s.phone_number && s.phone_number.trim() !== "");
+  },
+});
+
+// Update student phone number
+export const updatePhoneNumber = mutation({
+  args: {
+    roll_number: v.string(),
+    phone_number: v.string(),
+  },
+  handler: async (ctx, args) => {
+    const student = await ctx.db
+      .query("students")
+      .withIndex("by_roll_number", (q) => q.eq("roll_number", args.roll_number))
+      .unique();
+
+    if (!student) {
+      throw new Error("Student not found");
+    }
+
+    await ctx.db.patch(student._id, {
+      phone_number: args.phone_number,
+    });
+
+    return await ctx.db.get(student._id);
+  },
+});

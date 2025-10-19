@@ -6,7 +6,7 @@ import { Label } from "@/components/ui/label";
 import { api } from "@/convex/_generated/api";
 import { useMutation, useQuery } from "convex/react";
 import { motion } from "framer-motion";
-import { ArrowLeft, Loader2, Minus, Plus, Trash2, RefreshCw } from "lucide-react";
+import { ArrowLeft, Loader2, Minus, Plus, Trash2, RefreshCw, Undo2 } from "lucide-react";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
 import { toast } from "sonner";
@@ -16,6 +16,7 @@ export default function Subjects() {
   const rollNumber = localStorage.getItem("studentRollNumber");
   const [isAddDialogOpen, setIsAddDialogOpen] = useState(false);
   const [isRefreshing, setIsRefreshing] = useState(false);
+  const [undoHistory, setUndoHistory] = useState<Record<string, { held: number; attended: number }>>({});
   const [newSubject, setNewSubject] = useState({
     subject: "",
     date: new Date().toISOString().split("T")[0],
@@ -38,9 +39,25 @@ export default function Subjects() {
   const decrementMutation = useMutation(api.attendance.decrementAttendance);
   const addSubjectMutation = useMutation(api.attendance.addSubjectManual);
   const deleteSubjectMutation = useMutation(api.attendance.deleteSubject);
+  const updateAttendanceMutation = useMutation(api.attendance.updateAttendance);
+
+  // Store current state before making changes
+  const saveUndoState = (subject: string, held: number, attended: number) => {
+    setUndoHistory(prev => ({
+      ...prev,
+      [subject]: { held, attended }
+    }));
+  };
 
   const handleIncrement = async (subject: string, field: "held" | "attended") => {
     if (!rollNumber) return;
+    
+    // Find current values and save BEFORE making changes
+    const currentSubject = attendanceSummary?.find(s => s.subject === subject);
+    if (!currentSubject) return;
+    
+    saveUndoState(subject, currentSubject.periods_held, currentSubject.periods_attended);
+    
     try {
       await incrementMutation({
         roll_number: rollNumber,
@@ -56,6 +73,13 @@ export default function Subjects() {
 
   const handleDecrement = async (subject: string, field: "held" | "attended") => {
     if (!rollNumber) return;
+    
+    // Find current values and save BEFORE making changes
+    const currentSubject = attendanceSummary?.find(s => s.subject === subject);
+    if (!currentSubject) return;
+    
+    saveUndoState(subject, currentSubject.periods_held, currentSubject.periods_attended);
+    
     try {
       await decrementMutation({
         roll_number: rollNumber,
@@ -66,6 +90,37 @@ export default function Subjects() {
       toast.success(`${field === "held" ? "Held" : "Attended"} periods decremented`);
     } catch (error) {
       toast.error(error instanceof Error ? error.message : "Failed to update attendance");
+    }
+  };
+
+  const handleUndo = async (subject: string) => {
+    if (!rollNumber) return;
+    
+    const previousState = undoHistory[subject];
+    if (!previousState) {
+      toast.error("No previous state to undo");
+      return;
+    }
+
+    try {
+      await updateAttendanceMutation({
+        roll_number: rollNumber,
+        subject,
+        date: new Date().toISOString().split("T")[0],
+        periods_held: previousState.held,
+        periods_attended: previousState.attended,
+      });
+      
+      // Remove from undo history after successful undo
+      setUndoHistory(prev => {
+        const newHistory = { ...prev };
+        delete newHistory[subject];
+        return newHistory;
+      });
+      
+      toast.success("Changes undone successfully");
+    } catch (error) {
+      toast.error("Failed to undo changes");
     }
   };
 
@@ -115,6 +170,30 @@ export default function Subjects() {
     }
   };
 
+  const formatLastUpdated = (timestamp: number) => {
+    const date = new Date(timestamp);
+    const now = new Date();
+    const diffMs = now.getTime() - date.getTime();
+    const diffMins = Math.floor(diffMs / 60000);
+    const diffHours = Math.floor(diffMs / 3600000);
+    const diffDays = Math.floor(diffMs / 86400000);
+
+    if (diffMins < 1) return "Just now";
+    if (diffMins < 60) return `${diffMins} minute${diffMins > 1 ? "s" : ""} ago`;
+    if (diffHours < 24) return `${diffHours} hour${diffHours > 1 ? "s" : ""} ago`;
+    if (diffDays < 7) return `${diffDays} day${diffDays > 1 ? "s" : ""} ago`;
+    
+    return date.toLocaleDateString("en-US", {
+      month: "short",
+      day: "numeric",
+      year: date.getFullYear() !== now.getFullYear() ? "numeric" : undefined,
+    }) + " at " + date.toLocaleTimeString("en-US", {
+      hour: "numeric",
+      minute: "2-digit",
+      hour12: true,
+    });
+  };
+
   if (!rollNumber) return null;
 
   const totalHeld = attendanceSummary?.reduce((sum, s) => sum + s.periods_held, 0) || 0;
@@ -128,12 +207,12 @@ export default function Subjects() {
       className="min-h-screen bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 p-4"
     >
       <div className="max-w-4xl mx-auto space-y-6">
-        <div className="flex items-center justify-between">
+        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
           <Button variant="ghost" onClick={() => navigate("/attendance/dashboard")}>
             <ArrowLeft className="mr-2 h-4 w-4" />
             Back to Dashboard
           </Button>
-          <div className="flex gap-2">
+          <div className="flex gap-2 flex-wrap">
             <Button variant="outline" onClick={handleRefresh} disabled={isRefreshing}>
               <RefreshCw className={`mr-2 h-4 w-4 ${isRefreshing ? "animate-spin" : ""}`} />
               Refresh
@@ -238,9 +317,24 @@ export default function Subjects() {
                     <CardContent className="pt-6">
                       <div className="space-y-4">
                         <div className="flex items-center justify-between">
-                          <h3 className="text-lg font-semibold">{subject.subject}</h3>
+                          <div>
+                            <h3 className="text-lg font-semibold">{subject.subject}</h3>
+                            <p className="text-xs text-muted-foreground mt-1">
+                              Last updated: {formatLastUpdated(subject.lastUpdated)}
+                            </p>
+                          </div>
                           <div className="flex items-center gap-2">
                             <div className="text-2xl font-bold">{subject.percentage}%</div>
+                            {undoHistory[subject.subject] && (
+                              <Button
+                                size="icon"
+                                variant="outline"
+                                onClick={() => handleUndo(subject.subject)}
+                                title="Undo last change"
+                              >
+                                <Undo2 className="h-4 w-4" />
+                              </Button>
+                            )}
                             <Button
                               size="icon"
                               variant="destructive"

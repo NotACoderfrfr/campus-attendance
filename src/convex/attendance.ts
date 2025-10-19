@@ -26,13 +26,14 @@ export const getAttendanceSummary = query({
       .collect();
 
     // Group by subject
-    const subjectMap = new Map<string, { held: number; attended: number }>();
+    const subjectMap = new Map<string, { held: number; attended: number; lastUpdated: number }>();
 
     records.forEach((record) => {
-      const existing = subjectMap.get(record.subject) || { held: 0, attended: 0 };
+      const existing = subjectMap.get(record.subject) || { held: 0, attended: 0, lastUpdated: 0 };
       subjectMap.set(record.subject, {
         held: existing.held + record.periods_held,
         attended: existing.attended + record.periods_attended,
+        lastUpdated: Math.max(existing.lastUpdated, record.timestamp),
       });
     });
 
@@ -41,6 +42,7 @@ export const getAttendanceSummary = query({
       periods_held: data.held,
       periods_attended: data.attended,
       percentage: data.held > 0 ? Math.round((data.attended / data.held) * 10000) / 100 : 0,
+      lastUpdated: data.lastUpdated,
     }));
   },
 });
@@ -65,6 +67,55 @@ export const getAttendanceHistory = query({
 
     // Sort by date descending
     return filtered.sort((a, b) => b.date.localeCompare(a.date));
+  },
+});
+
+// Get daily attendance percentage trend
+export const getDailyAttendanceTrend = query({
+  args: {
+    roll_number: v.string(),
+  },
+  handler: async (ctx, args) => {
+    const records = await ctx.db
+      .query("attendanceRecords")
+      .withIndex("by_roll_number", (q) => q.eq("roll_number", args.roll_number))
+      .collect();
+
+    // Group by date and calculate cumulative attendance
+    const dateMap = new Map<string, { held: number; attended: number }>();
+
+    records.forEach((record) => {
+      const existing = dateMap.get(record.date) || { held: 0, attended: 0 };
+      dateMap.set(record.date, {
+        held: existing.held + record.periods_held,
+        attended: existing.attended + record.periods_attended,
+      });
+    });
+
+    // Sort by date and calculate cumulative percentages
+    const sortedDates = Array.from(dateMap.entries()).sort((a, b) => 
+      a[0].localeCompare(b[0])
+    );
+
+    let cumulativeHeld = 0;
+    let cumulativeAttended = 0;
+
+    const trend = sortedDates.map(([date, data]) => {
+      cumulativeHeld += data.held;
+      cumulativeAttended += data.attended;
+      const percentage = cumulativeHeld > 0 
+        ? Math.round((cumulativeAttended / cumulativeHeld) * 10000) / 100 
+        : 0;
+
+      return {
+        date,
+        percentage,
+        held: cumulativeHeld,
+        attended: cumulativeAttended,
+      };
+    });
+
+    return trend;
   },
 });
 
