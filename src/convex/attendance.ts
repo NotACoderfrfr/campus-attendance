@@ -342,3 +342,64 @@ export const deleteSubject = mutation({
     return { deleted: records.length };
   },
 });
+
+// Decrement total (works across all dates)
+export const decrementTotal = mutation({
+  args: {
+    roll_number: v.string(),
+    subject: v.string(),
+    field: v.string(),
+  },
+  handler: async (ctx, args) => {
+    console.log("=== DECREMENT CALLED ===");
+    console.log("Roll:", args.roll_number);
+    console.log("Subject:", args.subject);
+    
+    const allRecords = await ctx.db
+      .query("attendanceRecords")
+      .filter((q) =>
+        q.and(
+          q.eq(q.field("roll_number"), args.roll_number),
+          q.eq(q.field("subject"), args.subject)
+        )
+      )
+      .collect();
+
+    console.log("Records found:", allRecords.length);
+    
+    if (allRecords.length === 0) {
+      const allSubjects = await ctx.db
+        .query("attendanceRecords")
+        .filter((q) => q.eq(q.field("roll_number"), args.roll_number))
+        .collect();
+      
+      console.log("All subjects:", allSubjects.map(r => r.subject));
+      throw new Error(`No records for "${args.subject}". Available: ${allSubjects.map(r => r.subject).join(", ")}`);
+    }
+
+    const latestRecord = allRecords.sort((a, b) => b.timestamp - a.timestamp)[0];
+    console.log("Latest record:", latestRecord);
+    
+    let newHeld = latestRecord.periods_held;
+    let newAttended = latestRecord.periods_attended;
+
+    if (args.field === "held") {
+      newHeld = Math.max(0, latestRecord.periods_held - 1);
+      newAttended = Math.min(latestRecord.periods_attended, newHeld);
+    } else {
+      newAttended = Math.max(0, latestRecord.periods_attended - 1);
+    }
+
+    console.log("Updating from:", { held: latestRecord.periods_held, attended: latestRecord.periods_attended });
+    console.log("Updating to:", { held: newHeld, attended: newAttended });
+
+    await ctx.db.patch(latestRecord._id, {
+      periods_held: newHeld,
+      periods_attended: newAttended,
+      timestamp: Date.now(),
+    });
+
+    console.log("=== DONE ===");
+    return { success: true, newHeld, newAttended };
+  },
+});

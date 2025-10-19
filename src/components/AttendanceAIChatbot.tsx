@@ -1,15 +1,14 @@
 import { useState, useRef, useEffect } from "react";
-import { GoogleGenerativeAI } from "@google/generative-ai";
-import { useQuery } from "convex/react";
+import { useQuery, useAction } from "convex/react";
 import { api } from "@/convex/_generated/api";
 import { motion, AnimatePresence } from "framer-motion";
-import { Sparkles, X, Send } from "lucide-react";
+import { Sparkles, X, Send, Loader2 } from "lucide-react";
 import ReactMarkdown from "react-markdown";
 
 export default function AttendanceAIChatbot({ userId }: { userId: string }) {
   const [isOpen, setIsOpen] = useState(false);
   const [messages, setMessages] = useState<{ role: string; text: string }[]>([
-    { role: "assistant", text: "Hi! I'm your AI attendance assistant. How can I help you today?" }
+    { role: "assistant", text: "Hi! 👋 I'm your AI attendance assistant. How can I help you today?" }
   ]);
   const [input, setInput] = useState("");
   const [loading, setLoading] = useState(false);
@@ -21,11 +20,38 @@ export default function AttendanceAIChatbot({ userId }: { userId: string }) {
     userId ? { roll_number: userId } : "skip"
   );
 
+  const chatWithAI = useAction(api.ai.chatWithAI);
+
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   };
 
   useEffect(scrollToBottom, [messages, streamingText]);
+
+  useEffect(() => {
+    if (isOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'unset';
+    }
+    return () => {
+      document.body.style.overflow = 'unset';
+    };
+  }, [isOpen]);
+
+  const simulateStreaming = async (text: string) => {
+    const words = text.split(" ");
+    let current = "";
+    
+    for (let i = 0; i < words.length; i++) {
+      current += (i > 0 ? " " : "") + words[i];
+      setStreamingText(current);
+      await new Promise(resolve => setTimeout(resolve, 30));
+    }
+    
+    setMessages(prev => [...prev, { role: "assistant", text }]);
+    setStreamingText("");
+  };
 
   const handleSend = async () => {
     if (!input.trim() || loading) return;
@@ -36,100 +62,30 @@ export default function AttendanceAIChatbot({ userId }: { userId: string }) {
     setLoading(true);
 
     try {
-      const totalHeld = attendanceSummary?.reduce((sum, s) => sum + s.periods_held, 0) || 0;
-      const totalAttended = attendanceSummary?.reduce((sum, s) => sum + s.periods_attended, 0) || 0;
-      const overallPercentage = totalHeld > 0 ? Math.round((totalAttended / totalHeld) * 100) : 0;
-
-      const studentName = localStorage.getItem("studentName") || "Student";
+      // Try multiple possible keys for student name
+      const studentName = 
+        localStorage.getItem("studentName") || 
+        localStorage.getItem("student_name") ||
+        localStorage.getItem("name") ||
+        localStorage.getItem("userName") ||
+        localStorage.getItem("user_name") ||
+        undefined;
       
-      const today = new Date();
-      const dayNames = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
-      const currentDay = dayNames[today.getDay()];
-      const currentDate = today.toLocaleDateString("en-US", { 
-        weekday: "long", 
-        year: "numeric", 
-        month: "long", 
-        day: "numeric" 
+      console.log("Sending student name:", studentName); // Debug log
+      
+      const result = await chatWithAI({
+        roll_number: userId,
+        message: userMessage,
+        student_name: studentName,
       });
 
-      const tomorrow = new Date(today);
-      tomorrow.setDate(tomorrow.getDate() + 1);
-      const tomorrowDay = dayNames[tomorrow.getDay()];
-      const tomorrowDate = tomorrow.toLocaleDateString("en-US", { 
-        weekday: "long", 
-        month: "long", 
-        day: "numeric" 
-      });
-
-      const apiKey = import.meta.env.VITE_GEMINI_API_KEY;
-if (!apiKey) {
-  throw new Error("Gemini API key not found");
-}
-
-const genAI = new GoogleGenerativeAI(apiKey);
-const model = genAI.getGenerativeModel({ model: "gemini-2.0-flash-exp" });
-
-// Get roll number and determine batch
-const rollNumber = localStorage.getItem("studentRollNumber") || "Unknown";
-const rollNumeric = parseInt(rollNumber.match(/\d+/)?.[0] || "0");
-const batch = rollNumeric >= 1 && rollNumeric <= 45 ? "Batch 1 (Roll 001-045)" : "Batch 2 (Roll 046+)";
-
-// Build conversation history for context
-const conversationHistory = messages.map(m => 
-  `${m.role === "user" ? "Student" : "Assistant"}: ${m.text}`
-).join("\n");
-
-const prompt = `You are a friendly AI attendance advisor having a natural conversation. Continue this chat smoothly.
-
-CONVERSATION HISTORY:
-${conversationHistory}
-
-STUDENT DATA (use only when relevant to their question):
-- Name: ${studentName}, Roll: ${rollNumber}, ${batch}
-- Attendance: ${overallPercentage}% (${totalAttended}/${totalHeld} classes)
-- Today: ${currentDay}, Tomorrow: ${tomorrowDay}
-- Subjects: ${attendanceSummary?.map((s: any) => `${s.subject} ${s.percentage}%`).join(', ')}
-
-Schedule: Mon(6): M-IT,DM,BDE,PYT,DS,F&A | Tue(6): F&A,DM,BDE,PYT,Lab | Wed(5): PYT,DS,BDE,F&A,DM | Thu(6): M-IT,F&A,DM,DS,Lab | Fri(4): F&A,M-IT,DS,PYT | Sat(4): BDE,M-IT,Lab | Sun: Off
-${batch === "Batch 1 (Roll 001-045)" ? "Labs: Tue-PYT, Thu-DS, Sat-BDE" : "Labs: Tue-DS, Thu-BDE, Sat-PYT"}
-
-LATEST QUESTION: "${userMessage}"
-
-RULES:
-1. Continue conversation naturally - don't repeat info they already know
-2. Be conversational and brief (2-3 sentences max unless calculation needed)
-3. Only mention roll/batch if they specifically ask about it
-4. Don't repeat greetings or restate their details every response
-5. Answer ONLY what's asked - be helpful, not verbose
-6. Use markdown (** for bold) properly
-
-Answer naturally:`;
-
-
-
-      const result = await model.generateContent(prompt);
-      const response = await result.response;
-      const aiAnswer = response.text();
-
-      // Simulate streaming effect
-      setStreamingText("");
-      const words = aiAnswer.split(" ");
-      let currentText = "";
-      
-      for (let i = 0; i < words.length; i++) {
-        currentText += (i > 0 ? " " : "") + words[i];
-        setStreamingText(currentText);
-        await new Promise(resolve => setTimeout(resolve, 30));
+      if (result.success) {
+        await simulateStreaming(result.message);
+      } else {
+        await simulateStreaming(result.message || "Sorry, I couldn't process your request.");
       }
-
-      setMessages(prev => [...prev, { role: "assistant", text: aiAnswer }]);
-      setStreamingText("");
     } catch (error: any) {
-      setMessages(prev => [...prev, { 
-        role: "assistant", 
-        text: `Sorry, I encountered an error. Please try again!` 
-      }]);
-      setStreamingText("");
+      await simulateStreaming("Sorry, I encountered an error. Please try again!");
       console.error(error);
     } finally {
       setLoading(false);
@@ -140,179 +96,194 @@ Answer naturally:`;
 
   return (
     <>
-      {/* Floating AI Button */}
       <AnimatePresence>
         <motion.button
           onClick={() => setIsOpen(!isOpen)}
-          initial={{ scale: 0 }}
-          animate={{ scale: 1 }}
-          whileHover={{ scale: 1.1 }}
-          whileTap={{ scale: 0.95 }}
-          className="fixed bottom-6 right-6 w-16 h-16 rounded-full shadow-2xl flex items-center justify-center z-[1000] bg-gradient-to-br from-purple-600 via-blue-600 to-indigo-700"
+          initial={{ scale: 0, rotate: -180 }}
+          animate={{ scale: 1, rotate: 0 }}
+          whileHover={{ scale: 1.1, rotate: 5 }}
+          whileTap={{ scale: 0.9 }}
+          transition={{ type: "spring", stiffness: 260, damping: 20 }}
+          className="fixed bottom-4 right-4 md:bottom-6 md:right-6 w-14 h-14 md:w-16 md:h-16 rounded-full shadow-2xl flex items-center justify-center z-[1000] bg-gradient-to-br from-purple-600 via-blue-600 to-indigo-700 hover:shadow-purple-500/50"
         >
           <AnimatePresence mode="wait">
             {isOpen ? (
-              <motion.div
-                key="close"
-                initial={{ rotate: -90, opacity: 0 }}
-                animate={{ rotate: 0, opacity: 1 }}
-                exit={{ rotate: 90, opacity: 0 }}
+              <motion.div 
+                key="close" 
+                initial={{ rotate: -90, scale: 0 }} 
+                animate={{ rotate: 0, scale: 1 }} 
+                exit={{ rotate: 90, scale: 0 }} 
                 transition={{ duration: 0.2 }}
               >
-                <X className="w-7 h-7 text-white" />
+                <X className="w-6 h-6 md:w-7 md:h-7 text-white" />
               </motion.div>
             ) : (
-              <motion.div
-                key="sparkles"
-                initial={{ rotate: 90, opacity: 0 }}
-                animate={{ rotate: 0, opacity: 1 }}
-                exit={{ rotate: -90, opacity: 0 }}
+              <motion.div 
+                key="sparkles" 
+                initial={{ rotate: 90, scale: 0 }} 
+                animate={{ rotate: 0, scale: 1 }} 
+                exit={{ rotate: -90, scale: 0 }}
                 transition={{ duration: 0.2 }}
               >
-                <Sparkles className="w-7 h-7 text-white" />
+                <Sparkles className="w-6 h-6 md:w-7 md:h-7 text-white animate-pulse" />
               </motion.div>
             )}
           </AnimatePresence>
         </motion.button>
       </AnimatePresence>
 
-      {/* Chat Window */}
       <AnimatePresence>
         {isOpen && (
-          <motion.div
-            initial={{ opacity: 0, y: 20, scale: 0.95 }}
-            animate={{ opacity: 1, y: 0, scale: 1 }}
-            exit={{ opacity: 0, y: 20, scale: 0.95 }}
-            transition={{ duration: 0.2 }}
-            className="fixed bottom-24 right-6 w-[380px] h-[600px] bg-white dark:bg-gray-900 rounded-2xl shadow-2xl flex flex-col z-[999] overflow-hidden border border-gray-200 dark:border-gray-700"
-          >
-            {/* Header */}
-            <div className="bg-gradient-to-r from-purple-600 via-blue-600 to-indigo-700 text-white p-4 flex items-center gap-3">
-              <div className="w-10 h-10 rounded-full bg-white/20 flex items-center justify-center">
-                <Sparkles className="w-5 h-5" />
-              </div>
-              <div>
-                <h3 className="font-semibold text-lg">AI Assistant</h3>
-                <p className="text-xs text-white/80">Always here to help</p>
-              </div>
-            </div>
-
-            {/* Messages */}
-            <div className="flex-1 overflow-y-auto p-4 space-y-4 bg-gray-50 dark:bg-gray-800">
-              {messages.map((msg, idx) => (
-                <motion.div
-                  key={idx}
-                  initial={{ opacity: 0, y: 10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.3 }}
-                  className={`flex ${msg.role === "user" ? "justify-end" : "justify-start"}`}
+          <>
+            <motion.div 
+              initial={{ opacity: 0 }} 
+              animate={{ opacity: 1 }} 
+              exit={{ opacity: 0 }} 
+              className="fixed inset-0 bg-black/60 backdrop-blur-sm z-[998] md:hidden" 
+              onClick={() => setIsOpen(false)} 
+            />
+            
+            <motion.div
+              initial={{ opacity: 0, y: 50, scale: 0.9 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              exit={{ opacity: 0, y: 50, scale: 0.9 }}
+              transition={{ type: "spring", damping: 25, stiffness: 300 }}
+              className="fixed inset-x-0 bottom-0 md:bottom-20 md:right-6 md:left-auto md:w-[420px] h-[85vh] md:h-[680px] bg-gradient-to-br from-white via-purple-50/30 to-blue-50/30 dark:from-gray-900 dark:via-purple-900/10 dark:to-blue-900/10 md:rounded-3xl rounded-t-3xl shadow-2xl flex flex-col z-[999] overflow-hidden border-t md:border border-purple-200/50 dark:border-purple-800/50 backdrop-blur-xl"
+            >
+              <div className="bg-gradient-to-r from-purple-600 via-blue-600 to-indigo-700 text-white p-5 md:p-6 flex items-center gap-4 relative overflow-hidden">
+                <div className="absolute inset-0 bg-gradient-to-r from-purple-400/20 to-blue-400/20 animate-pulse" />
+                <motion.div 
+                  className="w-12 h-12 md:w-14 md:h-14 rounded-2xl bg-white/20 backdrop-blur-sm flex items-center justify-center relative z-10"
+                  animate={{ rotate: [0, 5, -5, 0] }}
+                  transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
                 >
-                  <div
-                    className={`max-w-[80%] rounded-2xl px-4 py-3 ${
-                      msg.role === "user"
-                        ? "bg-gradient-to-r from-purple-600 to-blue-600 text-white"
-                        : "bg-white dark:bg-gray-700 text-gray-800 dark:text-gray-100 shadow-md"
-                    }`}
+                  <Sparkles className="w-6 h-6 md:w-7 md:h-7" />
+                </motion.div>
+                <div className="flex-1 relative z-10">
+                  <h3 className="font-bold text-lg md:text-xl">AI Assistant</h3>
+                  <p className="text-xs md:text-sm text-white/90">Powered by Groq AI ⚡</p>
+                </div>
+                <button 
+                  onClick={() => setIsOpen(false)} 
+                  className="md:hidden w-10 h-10 rounded-xl bg-white/20 backdrop-blur-sm flex items-center justify-center hover:bg-white/30 transition-colors relative z-10"
+                >
+                  <X className="w-5 h-5" />
+                </button>
+              </div>
+
+              <div className="flex-1 overflow-y-auto p-4 md:p-5 space-y-4 md:space-y-5">
+                {messages.map((msg, idx) => (
+                  <motion.div 
+                    key={idx} 
+                    initial={{ opacity: 0, y: 20, scale: 0.95 }} 
+                    animate={{ opacity: 1, y: 0, scale: 1 }} 
+                    transition={{ duration: 0.4, type: "spring" }}
+                    className={`flex ${msg.role === "user" ? "justify-end" : "justify-start"}`}
                   >
-                    {msg.role === "assistant" ? (
-                      <div className="prose prose-sm dark:prose-invert max-w-none">
+                    <div className={`max-w-[85%] md:max-w-[80%] rounded-2xl px-4 py-3 md:px-5 md:py-4 ${
+                      msg.role === "user" 
+                        ? "bg-gradient-to-r from-purple-600 to-blue-600 text-white shadow-lg shadow-purple-500/30" 
+                        : "bg-white/80 dark:bg-gray-800/80 text-gray-800 dark:text-gray-100 shadow-lg backdrop-blur-sm border border-purple-100 dark:border-purple-800"
+                    }`}>
+                      {msg.role === "assistant" ? (
+                        <div className="prose prose-sm dark:prose-invert max-w-none text-sm md:text-base leading-relaxed">
+                          <ReactMarkdown
+                            components={{
+                              p: ({ children }) => <p className="mb-2 last:mb-0">{children}</p>,
+                              strong: ({ children }) => <strong className="font-bold text-purple-700 dark:text-purple-400">{children}</strong>,
+                              em: ({ children }) => <em className="italic">{children}</em>,
+                              ul: ({ children }) => <ul className="list-disc ml-4 space-y-1">{children}</ul>,
+                              ol: ({ children }) => <ol className="list-decimal ml-4 space-y-1">{children}</ol>,
+                            }}
+                          >
+                            {msg.text}
+                          </ReactMarkdown>
+                        </div>
+                      ) : (
+                        <p className="text-sm md:text-base leading-relaxed">{msg.text}</p>
+                      )}
+                    </div>
+                  </motion.div>
+                ))}
+
+                {streamingText && (
+                  <motion.div 
+                    initial={{ opacity: 0, y: 20 }} 
+                    animate={{ opacity: 1, y: 0 }} 
+                    className="flex justify-start"
+                  >
+                    <div className="max-w-[85%] md:max-w-[80%] rounded-2xl px-4 py-3 md:px-5 md:py-4 bg-white/80 dark:bg-gray-800/80 text-gray-800 dark:text-gray-100 shadow-lg backdrop-blur-sm border border-purple-100 dark:border-purple-800">
+                      <div className="prose prose-sm dark:prose-invert max-w-none text-sm md:text-base leading-relaxed">
                         <ReactMarkdown
                           components={{
                             p: ({ children }) => <p className="mb-2 last:mb-0">{children}</p>,
-                            strong: ({ children }) => <strong className="font-bold">{children}</strong>,
-                            ul: ({ children }) => <ul className="list-disc pl-4 mb-2">{children}</ul>,
-                            ol: ({ children }) => <ol className="list-decimal pl-4 mb-2">{children}</ol>,
-                            li: ({ children }) => <li className="mb-1">{children}</li>,
+                            strong: ({ children }) => <strong className="font-bold text-purple-700 dark:text-purple-400">{children}</strong>,
                           }}
                         >
-                          {msg.text}
+                          {streamingText}
                         </ReactMarkdown>
+                        <motion.span 
+                          className="inline-block w-2 h-4 bg-purple-600 ml-1"
+                          animate={{ opacity: [1, 0] }}
+                          transition={{ duration: 0.5, repeat: Infinity }}
+                        />
                       </div>
-                    ) : (
-                      <p className="text-sm">{msg.text}</p>
-                    )}
-                  </div>
-                </motion.div>
-              ))}
-
-              {/* Streaming message */}
-              {streamingText && (
-                <motion.div
-                  initial={{ opacity: 0, y: 10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  className="flex justify-start"
-                >
-                  <div className="max-w-[80%] rounded-2xl px-4 py-3 bg-white dark:bg-gray-700 text-gray-800 dark:text-gray-100 shadow-md">
-                    <div className="prose prose-sm dark:prose-invert max-w-none">
-                      <ReactMarkdown
-                        components={{
-                          p: ({ children }) => <p className="mb-2 last:mb-0">{children}</p>,
-                          strong: ({ children }) => <strong className="font-bold">{children}</strong>,
-                        }}
-                      >
-                        {streamingText}
-                      </ReactMarkdown>
                     </div>
-                  </div>
-                </motion.div>
-              )}
+                  </motion.div>
+                )}
 
-              {/* Typing indicator */}
-              {loading && !streamingText && (
-                <motion.div
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  className="flex justify-start"
-                >
-                  <div className="bg-white dark:bg-gray-700 rounded-2xl px-5 py-3 shadow-md">
-                    <div className="flex gap-1">
-                      <motion.div
-                        animate={{ y: [0, -8, 0] }}
-                        transition={{ duration: 0.6, repeat: Infinity, delay: 0 }}
-                        className="w-2 h-2 bg-gray-400 rounded-full"
-                      />
-                      <motion.div
-                        animate={{ y: [0, -8, 0] }}
-                        transition={{ duration: 0.6, repeat: Infinity, delay: 0.2 }}
-                        className="w-2 h-2 bg-gray-400 rounded-full"
-                      />
-                      <motion.div
-                        animate={{ y: [0, -8, 0] }}
-                        transition={{ duration: 0.6, repeat: Infinity, delay: 0.4 }}
-                        className="w-2 h-2 bg-gray-400 rounded-full"
-                      />
+                {loading && !streamingText && (
+                  <motion.div 
+                    initial={{ opacity: 0 }} 
+                    animate={{ opacity: 1 }} 
+                    className="flex justify-start"
+                  >
+                    <div className="bg-white/80 dark:bg-gray-800/80 rounded-2xl px-5 py-4 shadow-lg backdrop-blur-sm border border-purple-100 dark:border-purple-800">
+                      <div className="flex gap-2">
+                        {[0, 0.2, 0.4].map((delay, i) => (
+                          <motion.div 
+                            key={i} 
+                            animate={{ y: [0, -10, 0] }} 
+                            transition={{ duration: 0.6, repeat: Infinity, delay }} 
+                            className="w-2.5 h-2.5 bg-gradient-to-r from-purple-600 to-blue-600 rounded-full" 
+                          />
+                        ))}
+                      </div>
                     </div>
-                  </div>
-                </motion.div>
-              )}
+                  </motion.div>
+                )}
 
-              <div ref={messagesEndRef} />
-            </div>
-
-            {/* Input */}
-            <div className="p-4 bg-white dark:bg-gray-900 border-t border-gray-200 dark:border-gray-700">
-              <div className="flex gap-2">
-                <input
-                  type="text"
-                  value={input}
-                  onChange={(e) => setInput(e.target.value)}
-                  onKeyPress={(e) => e.key === "Enter" && handleSend()}
-                  placeholder="Ask me anything..."
-                  disabled={loading}
-                  className="flex-1 px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-xl focus:outline-none focus:ring-2 focus:ring-purple-500 dark:bg-gray-800 dark:text-white disabled:opacity-50"
-                />
-                <motion.button
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                  onClick={handleSend}
-                  disabled={loading || !input.trim()}
-                  className="px-4 py-3 bg-gradient-to-r from-purple-600 to-blue-600 text-white rounded-xl font-medium disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2"
-                >
-                  <Send className="w-4 h-4" />
-                </motion.button>
+                <div ref={messagesEndRef} />
               </div>
-            </div>
-          </motion.div>
+
+              <div className="p-4 md:p-5 bg-white/50 dark:bg-gray-900/50 backdrop-blur-xl border-t border-purple-200/50 dark:border-purple-800/50">
+                <div className="flex gap-2 md:gap-3">
+                  <input
+                    type="text"
+                    value={input}
+                    onChange={(e) => setInput(e.target.value)}
+                    onKeyPress={(e) => e.key === "Enter" && !e.shiftKey && handleSend()}
+                    placeholder="Ask me anything..."
+                    disabled={loading}
+                    className="flex-1 px-4 py-3 md:px-5 md:py-3.5 text-sm md:text-base border-2 border-purple-200 dark:border-purple-800 rounded-xl focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent dark:bg-gray-800/50 dark:text-white disabled:opacity-50 backdrop-blur-sm transition-all"
+                  />
+                  <motion.button 
+                    whileHover={{ scale: 1.05, rotate: 5 }} 
+                    whileTap={{ scale: 0.95 }} 
+                    onClick={handleSend} 
+                    disabled={loading || !input.trim()} 
+                    className="px-4 py-3 md:px-5 md:py-3.5 bg-gradient-to-r from-purple-600 to-blue-600 text-white rounded-xl font-semibold disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2 shadow-lg shadow-purple-500/30 hover:shadow-purple-500/50 transition-all"
+                  >
+                    {loading ? (
+                      <Loader2 className="w-5 h-5 animate-spin" />
+                    ) : (
+                      <Send className="w-5 h-5" />
+                    )}
+                  </motion.button>
+                </div>
+              </div>
+            </motion.div>
+          </>
         )}
       </AnimatePresence>
     </>

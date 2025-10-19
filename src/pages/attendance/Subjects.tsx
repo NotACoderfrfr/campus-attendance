@@ -36,12 +36,11 @@ export default function Subjects() {
   );
 
   const incrementMutation = useMutation(api.attendance.incrementAttendance);
-  const decrementMutation = useMutation(api.attendance.decrementAttendance);
+  const decrementMutation = useMutation(api.attendance.decrementTotal);
   const addSubjectMutation = useMutation(api.attendance.addSubjectManual);
   const deleteSubjectMutation = useMutation(api.attendance.deleteSubject);
   const updateAttendanceMutation = useMutation(api.attendance.updateAttendance);
 
-  // Store current state before making changes
   const saveUndoState = (subject: string, held: number, attended: number) => {
     setUndoHistory(prev => ({
       ...prev,
@@ -52,7 +51,6 @@ export default function Subjects() {
   const handleIncrement = async (subject: string, field: "held" | "attended") => {
     if (!rollNumber) return;
     
-    // Find current values and save BEFORE making changes
     const currentSubject = attendanceSummary?.find(s => s.subject === subject);
     if (!currentSubject) return;
     
@@ -74,7 +72,6 @@ export default function Subjects() {
   const handleDecrement = async (subject: string, field: "held" | "attended") => {
     if (!rollNumber) return;
     
-    // Find current values and save BEFORE making changes
     const currentSubject = attendanceSummary?.find(s => s.subject === subject);
     if (!currentSubject) return;
     
@@ -84,7 +81,6 @@ export default function Subjects() {
       await decrementMutation({
         roll_number: rollNumber,
         subject,
-        date: new Date().toISOString().split("T")[0],
         field,
       });
       toast.success(`${field === "held" ? "Held" : "Attended"} periods decremented`);
@@ -111,7 +107,6 @@ export default function Subjects() {
         periods_attended: previousState.attended,
       });
       
-      // Remove from undo history after successful undo
       setUndoHistory(prev => {
         const newHistory = { ...prev };
         delete newHistory[subject];
@@ -142,7 +137,6 @@ export default function Subjects() {
 
   const handleRefresh = async () => {
     setIsRefreshing(true);
-    // The query will automatically refresh due to Convex's reactivity
     setTimeout(() => {
       setIsRefreshing(false);
       toast.success("Attendance data refreshed");
@@ -279,7 +273,6 @@ export default function Subjects() {
           </div>
         </div>
 
-        {/* Overall Attendance Summary Card */}
         <Card className="bg-gradient-to-r from-blue-500 to-purple-600 text-white">
           <CardContent className="pt-6">
             <div className="flex items-center justify-between">

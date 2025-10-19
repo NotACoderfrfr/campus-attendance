@@ -1,0 +1,41 @@
+// WORKING DECREMENT
+export const decrementTotal = mutation({
+  args: {
+    roll_number: v.string(),
+    subject: v.string(),
+    field: v.string(),
+  },
+  handler: async (ctx, args) => {
+    const allRecords = await ctx.db
+      .query("attendanceRecords")
+      .filter((q) =>
+        q.and(
+          q.eq(q.field("roll_number"), args.roll_number),
+          q.eq(q.field("subject"), args.subject)
+        )
+      )
+      .collect();
+
+    if (allRecords.length === 0) {
+      throw new Error(`No records found for ${args.subject}`);
+    }
+
+    const latestRecord = allRecords.sort((a, b) => b.timestamp - a.timestamp)[0];
+    let newHeld = latestRecord.periods_held;
+    let newAttended = latestRecord.periods_attended;
+
+    if (args.field === "held") {
+      newHeld = Math.max(0, latestRecord.periods_held - 1);
+      newAttended = Math.min(latestRecord.periods_attended, newHeld);
+    } else {
+      newAttended = Math.max(0, latestRecord.periods_attended - 1);
+    }
+
+    await ctx.db.patch(latestRecord._id, {
+      periods_held: newHeld,
+      periods_attended: newAttended,
+    });
+
+    return { success: true, newHeld, newAttended };
+  },
+});
