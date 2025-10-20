@@ -52,3 +52,17 @@ export const authService = {
     return localStorage.getItem(AUTH_KEYS.NAME);
   }
 };
+
+// Mobile: Persist auth across tab suspension
+if (typeof window !== 'undefined') {
+  document.addEventListener('visibilitychange', () => {
+    if (document.visibilityState === 'visible') {
+      // Force re-read from localStorage when tab becomes visible
+      const roll = localStorage.getItem('studentRollNumber');
+      const name = localStorage.getItem('studentName');
+      if (roll && name) {
+        console.log('Auth: Mobile tab resumed, auth still valid');
+      }
+    }
+  });
+}

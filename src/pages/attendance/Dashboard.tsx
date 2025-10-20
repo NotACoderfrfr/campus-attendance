@@ -6,7 +6,7 @@ import { api } from "@/convex/_generated/api";
 import { useQuery, useMutation } from "convex/react";
 import { motion } from "framer-motion";
 import { BookOpen, Calendar, Loader2, Users, TrendingUp, TrendingDown, Coffee, Award, Flame, Download } from "lucide-react";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, ReferenceLine } from "recharts";
 import { toast } from "sonner";
@@ -14,8 +14,8 @@ import { QuickActionsFAB } from "@/components/attendance/QuickActionsFAB";
 
 export default function Dashboard() {
   const navigate = useNavigate();
-  const rollNumber = authService.getRollNumber();
-  const studentName = authService.getName();
+  const [rollNumber, setRollNumber] = useState<string | null>(authService.getRollNumber());
+  const [studentName, setStudentName] = useState<string | null>(authService.getName());
 
   useEffect(() => {
     if (!rollNumber) {

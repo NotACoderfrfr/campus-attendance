@@ -1,0 +1,30 @@
+--- a/src/pages/attendance/Dashboard.tsx
++++ b/src/pages/attendance/Dashboard.tsx
+@@ -15,11 +15,23 @@ import { QuickActionsFAB } from "@/components/attendance/QuickActionsFAB";
+ 
+ export default function Dashboard() {
+   const navigate = useNavigate();
+-  const rollNumber = authService.getRollNumber();
+-  const studentName = authService.getName();
++  const [rollNumber, setRollNumber] = useState<string | null>(null);
++  const [studentName, setStudentName] = useState<string | null>(null);
++  const [isCheckingAuth, setIsCheckingAuth] = useState(true);
+ 
++  // Mobile-friendly auth check with retry
+   useEffect(() => {
+-    if (!rollNumber) {
++    const checkAuth = () => {
++      const roll = authService.getRollNumber();
++      const name = authService.getName();
++      
++      setRollNumber(roll);
++      setStudentName(name);
++      setIsCheckingAuth(false);
++    };
++    
++    // Small delay for mobile localStorage to be ready
++    setTimeout(checkAuth, 100);
++    
++    if (!isCheckingAuth && !rollNumber) {
+       navigate("/attendance/login");
+     }
