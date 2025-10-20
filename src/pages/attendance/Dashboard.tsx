@@ -14,7 +14,6 @@ import { QuickActionsFAB } from "@/components/attendance/QuickActionsFAB";
 
 export default function Dashboard() {
   const navigate = useNavigate();
-  import { authService } from "@/utils/auth";
   const rollNumber = authService.getRollNumber();
   const studentName = authService.getName();
 
