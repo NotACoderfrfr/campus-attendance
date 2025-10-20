@@ -60,15 +60,14 @@ createRoot(document.getElementById("root")!).render(
             <Route path="/" element={<Landing />} />
             <Route path="/auth" element={<AuthPage redirectAfterAuth="/" />} />
             
-            {/* Attendance System Routes */}
+            {/* Attendance System Routes - NO ProtectedRoute! */}
             <Route path="/attendance/auth" element={<AttendanceAuth />} />
             <Route path="/attendance/dashboard" element={<Dashboard />} />
             <Route path="/attendance/subjects" element={<Subjects />} />
             <Route path="/attendance/history" element={<History />} />
             <Route path="/attendance/history/undo" element={<UndoHistory />} />
             <Route path="/attendance/import" element={<ImportData />} />
-<Route path="/attendance/admin-import" element={<AdminImport />} />
-
+            <Route path="/attendance/admin-import" element={<AdminImport />} />
             <Route path="/attendance/peers" element={<Peers />} />
             <Route path="/attendance/bunk-calculator" element={<BunkCalculatorPage />} />
             <Route path="/attendance/achievements" element={<Achievements />} />

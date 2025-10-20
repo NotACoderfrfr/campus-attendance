@@ -59,7 +59,8 @@ export default function AttendanceAuth() {
       if (!student) {
         throw new Error("Registration failed");
       }
-      authService.login(student.roll_number, student.name);
+      localStorage.setItem("studentName", student.name);
+      localStorage.setItem("studentRollNumber", student.roll_number);
       setCurrentRollNumber(student.roll_number);
       toast.success("Registration successful!");
       setIsLoading(false);
@@ -82,7 +83,8 @@ export default function AttendanceAuth() {
       if (!student) {
         throw new Error("Student not found. Please register first.");
       }
-      authService.login(student.roll_number, student.name);
+      localStorage.setItem("studentName", student.name);
+      localStorage.setItem("studentRollNumber", student.roll_number);
       setCurrentRollNumber(student.roll_number);
       toast.success("Login successful!");
       setIsLoading(false);
