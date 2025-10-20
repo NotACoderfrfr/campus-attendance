@@ -1,3 +1,9 @@
+#!/bin/bash
+
+# This script fixes the authentication persistence issue
+
+# Update the auth service to be more robust
+cat > src/utils/auth.ts << 'AUTH_END'
 const AUTH_KEYS = {
   ROLL_NUMBER: 'studentRollNumber',
   NAME: 'studentName',
@@ -52,3 +58,15 @@ export const authService = {
     return localStorage.getItem(AUTH_KEYS.NAME);
   }
 };
+AUTH_END
+
+echo "✅ Auth service updated with persistence"
+
+# Deploy
+git add .
+git commit -m "Fix: Auth persistence with better logging"
+git push origin main
+npx convex deploy
+vercel --prod
+
+echo "✅ Deployed! Check browser console for 'Auth:' logs to debug"
