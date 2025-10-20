@@ -2,7 +2,7 @@ import { useState, useRef, useEffect } from "react";
 import { useQuery, useAction } from "convex/react";
 import { api } from "@/convex/_generated/api";
 import { motion, AnimatePresence } from "framer-motion";
-import { Sparkles, X, Send, Loader2 } from "lucide-react";
+import { MessageCircle, X, Send, Loader2 } from "lucide-react";
 import ReactMarkdown from "react-markdown";
 
 export default function AttendanceAIChatbot({ userId }: { userId: string }) {
@@ -62,7 +62,6 @@ export default function AttendanceAIChatbot({ userId }: { userId: string }) {
     setLoading(true);
 
     try {
-      // Try multiple possible keys for student name
       const studentName = 
         localStorage.getItem("studentName") || 
         localStorage.getItem("student_name") ||
@@ -70,8 +69,6 @@ export default function AttendanceAIChatbot({ userId }: { userId: string }) {
         localStorage.getItem("userName") ||
         localStorage.getItem("user_name") ||
         undefined;
-      
-      console.log("Sending student name:", studentName); // Debug log
       
       const result = await chatWithAI({
         roll_number: userId,
@@ -96,101 +93,92 @@ export default function AttendanceAIChatbot({ userId }: { userId: string }) {
 
   return (
     <>
+      {/* Floating Button - Positioned perfectly on both mobile & desktop */}
       <AnimatePresence>
-        <motion.button
-          onClick={() => setIsOpen(!isOpen)}
-          initial={{ scale: 0, rotate: -180 }}
-          animate={{ scale: 1, rotate: 0 }}
-          whileHover={{ scale: 1.1, rotate: 5 }}
-          whileTap={{ scale: 0.9 }}
-          transition={{ type: "spring", stiffness: 260, damping: 20 }}
-          className="fixed bottom-4 right-4 md:bottom-6 md:right-6 w-14 h-14 md:w-16 md:h-16 rounded-full shadow-2xl flex items-center justify-center z-[1000] bg-gradient-to-br from-purple-600 via-blue-600 to-indigo-700 hover:shadow-purple-500/50"
-        >
-          <AnimatePresence mode="wait">
-            {isOpen ? (
-              <motion.div 
-                key="close" 
-                initial={{ rotate: -90, scale: 0 }} 
-                animate={{ rotate: 0, scale: 1 }} 
-                exit={{ rotate: 90, scale: 0 }} 
-                transition={{ duration: 0.2 }}
-              >
-                <X className="w-6 h-6 md:w-7 md:h-7 text-white" />
-              </motion.div>
-            ) : (
-              <motion.div 
-                key="sparkles" 
-                initial={{ rotate: 90, scale: 0 }} 
-                animate={{ rotate: 0, scale: 1 }} 
-                exit={{ rotate: -90, scale: 0 }}
-                transition={{ duration: 0.2 }}
-              >
-                <Sparkles className="w-6 h-6 md:w-7 md:h-7 text-white animate-pulse" />
-              </motion.div>
-            )}
-          </AnimatePresence>
-        </motion.button>
+        {!isOpen && (
+          <motion.button
+            onClick={() => setIsOpen(true)}
+            initial={{ scale: 0, opacity: 0 }}
+            animate={{ scale: 1, opacity: 1 }}
+            exit={{ scale: 0, opacity: 0 }}
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            transition={{ type: "spring", stiffness: 300, damping: 25 }}
+            className="fixed bottom-4 right-4 sm:bottom-6 sm:right-6 w-14 h-14 sm:w-16 sm:h-16 rounded-full shadow-lg flex items-center justify-center z-[1000] bg-blue-600 hover:bg-blue-700 transition-colors"
+          >
+            <MessageCircle className="w-6 h-6 sm:w-7 sm:h-7 text-white" />
+          </motion.button>
+        )}
       </AnimatePresence>
 
+      {/* Chat Window */}
       <AnimatePresence>
         {isOpen && (
           <>
+            {/* Mobile Backdrop Only */}
             <motion.div 
               initial={{ opacity: 0 }} 
               animate={{ opacity: 1 }} 
-              exit={{ opacity: 0 }} 
-              className="fixed inset-0 bg-black/60 backdrop-blur-sm z-[998] md:hidden" 
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.2 }}
+              className="fixed inset-0 bg-black/40 backdrop-blur-sm z-[998] md:hidden" 
               onClick={() => setIsOpen(false)} 
             />
             
+            {/* Chat Container - Full screen on mobile, floating on desktop */}
             <motion.div
-              initial={{ opacity: 0, y: 50, scale: 0.9 }}
+              initial={{ opacity: 0, y: 100, scale: 0.95 }}
               animate={{ opacity: 1, y: 0, scale: 1 }}
-              exit={{ opacity: 0, y: 50, scale: 0.9 }}
-              transition={{ type: "spring", damping: 25, stiffness: 300 }}
-              className="fixed inset-x-0 bottom-0 md:bottom-20 md:right-6 md:left-auto md:w-[420px] h-[85vh] md:h-[680px] bg-gradient-to-br from-white via-purple-50/30 to-blue-50/30 dark:from-gray-900 dark:via-purple-900/10 dark:to-blue-900/10 md:rounded-3xl rounded-t-3xl shadow-2xl flex flex-col z-[999] overflow-hidden border-t md:border border-purple-200/50 dark:border-purple-800/50 backdrop-blur-xl"
+              exit={{ opacity: 0, y: 100, scale: 0.95 }}
+              transition={{ type: "spring", damping: 30, stiffness: 300 }}
+              className="fixed 
+                inset-x-0 bottom-0 h-[92vh]
+                md:inset-x-auto md:bottom-6 md:right-6 md:w-[420px] md:h-[650px] md:max-h-[85vh]
+                bg-white dark:bg-gray-900 
+                rounded-t-3xl md:rounded-2xl 
+                shadow-2xl flex flex-col z-[999] overflow-hidden 
+                border-t md:border border-gray-200 dark:border-gray-800"
             >
-              <div className="bg-gradient-to-r from-purple-600 via-blue-600 to-indigo-700 text-white p-5 md:p-6 flex items-center gap-4 relative overflow-hidden">
-                <div className="absolute inset-0 bg-gradient-to-r from-purple-400/20 to-blue-400/20 animate-pulse" />
-                <motion.div 
-                  className="w-12 h-12 md:w-14 md:h-14 rounded-2xl bg-white/20 backdrop-blur-sm flex items-center justify-center relative z-10"
-                  animate={{ rotate: [0, 5, -5, 0] }}
-                  transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
-                >
-                  <Sparkles className="w-6 h-6 md:w-7 md:h-7" />
-                </motion.div>
-                <div className="flex-1 relative z-10">
-                  <h3 className="font-bold text-lg md:text-xl">AI Assistant</h3>
-                  <p className="text-xs md:text-sm text-white/90">Powered by Groq AI ⚡</p>
+              {/* Header - Same height on both mobile & desktop */}
+              <div className="bg-blue-600 text-white px-4 py-3.5 sm:px-5 sm:py-4 flex items-center justify-between flex-shrink-0">
+                <div className="flex items-center gap-3">
+                  <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-white/20 flex items-center justify-center">
+                    <MessageCircle className="w-5 h-5" />
+                  </div>
+                  <div>
+                    <h3 className="font-semibold text-sm sm:text-base">AI Assistant</h3>
+                    <p className="text-xs text-blue-100">Always here to help</p>
+                  </div>
                 </div>
                 <button 
                   onClick={() => setIsOpen(false)} 
-                  className="md:hidden w-10 h-10 rounded-xl bg-white/20 backdrop-blur-sm flex items-center justify-center hover:bg-white/30 transition-colors relative z-10"
+                  className="w-9 h-9 rounded-lg bg-white/10 hover:bg-white/20 flex items-center justify-center transition-colors flex-shrink-0"
                 >
                   <X className="w-5 h-5" />
                 </button>
               </div>
 
-              <div className="flex-1 overflow-y-auto p-4 md:p-5 space-y-4 md:space-y-5">
+              {/* Messages Area - Flexible scrollable area */}
+              <div className="flex-1 overflow-y-auto p-3 sm:p-4 space-y-3 sm:space-y-4 bg-gray-50 dark:bg-gray-950">
                 {messages.map((msg, idx) => (
                   <motion.div 
                     key={idx} 
-                    initial={{ opacity: 0, y: 20, scale: 0.95 }} 
-                    animate={{ opacity: 1, y: 0, scale: 1 }} 
-                    transition={{ duration: 0.4, type: "spring" }}
+                    initial={{ opacity: 0, y: 10 }} 
+                    animate={{ opacity: 1, y: 0 }} 
+                    transition={{ duration: 0.3 }}
                     className={`flex ${msg.role === "user" ? "justify-end" : "justify-start"}`}
                   >
-                    <div className={`max-w-[85%] md:max-w-[80%] rounded-2xl px-4 py-3 md:px-5 md:py-4 ${
+                    <div className={`max-w-[85%] sm:max-w-[80%] rounded-2xl px-3 py-2 sm:px-4 sm:py-2.5 ${
                       msg.role === "user" 
-                        ? "bg-gradient-to-r from-purple-600 to-blue-600 text-white shadow-lg shadow-purple-500/30" 
-                        : "bg-white/80 dark:bg-gray-800/80 text-gray-800 dark:text-gray-100 shadow-lg backdrop-blur-sm border border-purple-100 dark:border-purple-800"
+                        ? "bg-blue-600 text-white" 
+                        : "bg-white dark:bg-gray-800 text-gray-800 dark:text-gray-100 border border-gray-200 dark:border-gray-700"
                     }`}>
                       {msg.role === "assistant" ? (
-                        <div className="prose prose-sm dark:prose-invert max-w-none text-sm md:text-base leading-relaxed">
+                        <div className="prose prose-sm dark:prose-invert max-w-none text-sm leading-relaxed">
                           <ReactMarkdown
                             components={{
                               p: ({ children }) => <p className="mb-2 last:mb-0">{children}</p>,
-                              strong: ({ children }) => <strong className="font-bold text-purple-700 dark:text-purple-400">{children}</strong>,
+                              strong: ({ children }) => <strong className="font-semibold text-blue-600 dark:text-blue-400">{children}</strong>,
                               em: ({ children }) => <em className="italic">{children}</em>,
                               ul: ({ children }) => <ul className="list-disc ml-4 space-y-1">{children}</ul>,
                               ol: ({ children }) => <ol className="list-decimal ml-4 space-y-1">{children}</ol>,
@@ -200,52 +188,54 @@ export default function AttendanceAIChatbot({ userId }: { userId: string }) {
                           </ReactMarkdown>
                         </div>
                       ) : (
-                        <p className="text-sm md:text-base leading-relaxed">{msg.text}</p>
+                        <p className="text-sm leading-relaxed">{msg.text}</p>
                       )}
                     </div>
                   </motion.div>
                 ))}
 
+                {/* Streaming Message */}
                 {streamingText && (
                   <motion.div 
-                    initial={{ opacity: 0, y: 20 }} 
-                    animate={{ opacity: 1, y: 0 }} 
+                    initial={{ opacity: 0 }} 
+                    animate={{ opacity: 1 }} 
                     className="flex justify-start"
                   >
-                    <div className="max-w-[85%] md:max-w-[80%] rounded-2xl px-4 py-3 md:px-5 md:py-4 bg-white/80 dark:bg-gray-800/80 text-gray-800 dark:text-gray-100 shadow-lg backdrop-blur-sm border border-purple-100 dark:border-purple-800">
-                      <div className="prose prose-sm dark:prose-invert max-w-none text-sm md:text-base leading-relaxed">
+                    <div className="max-w-[85%] sm:max-w-[80%] rounded-2xl px-3 py-2 sm:px-4 sm:py-2.5 bg-white dark:bg-gray-800 text-gray-800 dark:text-gray-100 border border-gray-200 dark:border-gray-700">
+                      <div className="prose prose-sm dark:prose-invert max-w-none text-sm leading-relaxed">
                         <ReactMarkdown
                           components={{
                             p: ({ children }) => <p className="mb-2 last:mb-0">{children}</p>,
-                            strong: ({ children }) => <strong className="font-bold text-purple-700 dark:text-purple-400">{children}</strong>,
+                            strong: ({ children }) => <strong className="font-semibold text-blue-600 dark:text-blue-400">{children}</strong>,
                           }}
                         >
                           {streamingText}
                         </ReactMarkdown>
                         <motion.span 
-                          className="inline-block w-2 h-4 bg-purple-600 ml-1"
+                          className="inline-block w-1.5 h-4 bg-blue-600 ml-1 rounded-sm"
                           animate={{ opacity: [1, 0] }}
-                          transition={{ duration: 0.5, repeat: Infinity }}
+                          transition={{ duration: 0.6, repeat: Infinity }}
                         />
                       </div>
                     </div>
                   </motion.div>
                 )}
 
+                {/* Loading Indicator */}
                 {loading && !streamingText && (
                   <motion.div 
                     initial={{ opacity: 0 }} 
                     animate={{ opacity: 1 }} 
                     className="flex justify-start"
                   >
-                    <div className="bg-white/80 dark:bg-gray-800/80 rounded-2xl px-5 py-4 shadow-lg backdrop-blur-sm border border-purple-100 dark:border-purple-800">
-                      <div className="flex gap-2">
-                        {[0, 0.2, 0.4].map((delay, i) => (
+                    <div className="bg-white dark:bg-gray-800 rounded-2xl px-4 py-3 border border-gray-200 dark:border-gray-700">
+                      <div className="flex gap-1.5">
+                        {[0, 0.15, 0.3].map((delay, i) => (
                           <motion.div 
                             key={i} 
-                            animate={{ y: [0, -10, 0] }} 
+                            animate={{ y: [0, -8, 0] }} 
                             transition={{ duration: 0.6, repeat: Infinity, delay }} 
-                            className="w-2.5 h-2.5 bg-gradient-to-r from-purple-600 to-blue-600 rounded-full" 
+                            className="w-2 h-2 bg-blue-600 rounded-full" 
                           />
                         ))}
                       </div>
@@ -256,23 +246,24 @@ export default function AttendanceAIChatbot({ userId }: { userId: string }) {
                 <div ref={messagesEndRef} />
               </div>
 
-              <div className="p-4 md:p-5 bg-white/50 dark:bg-gray-900/50 backdrop-blur-xl border-t border-purple-200/50 dark:border-purple-800/50">
-                <div className="flex gap-2 md:gap-3">
+              {/* Input Area - Fixed at bottom with proper padding */}
+              <div className="p-3 sm:p-4 bg-white dark:bg-gray-900 border-t border-gray-200 dark:border-gray-800 flex-shrink-0">
+                <div className="flex gap-2">
                   <input
                     type="text"
                     value={input}
                     onChange={(e) => setInput(e.target.value)}
                     onKeyPress={(e) => e.key === "Enter" && !e.shiftKey && handleSend()}
-                    placeholder="Ask me anything..."
+                    placeholder="Type your message..."
                     disabled={loading}
-                    className="flex-1 px-4 py-3 md:px-5 md:py-3.5 text-sm md:text-base border-2 border-purple-200 dark:border-purple-800 rounded-xl focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent dark:bg-gray-800/50 dark:text-white disabled:opacity-50 backdrop-blur-sm transition-all"
+                    className="flex-1 px-3 py-2.5 sm:px-4 text-sm border border-gray-300 dark:border-gray-700 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-800 dark:text-white disabled:opacity-50 transition-all"
                   />
                   <motion.button 
-                    whileHover={{ scale: 1.05, rotate: 5 }} 
+                    whileHover={{ scale: 1.05 }} 
                     whileTap={{ scale: 0.95 }} 
                     onClick={handleSend} 
                     disabled={loading || !input.trim()} 
-                    className="px-4 py-3 md:px-5 md:py-3.5 bg-gradient-to-r from-purple-600 to-blue-600 text-white rounded-xl font-semibold disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2 shadow-lg shadow-purple-500/30 hover:shadow-purple-500/50 transition-all"
+                    className="px-3 py-2.5 sm:px-4 bg-blue-600 hover:bg-blue-700 text-white rounded-xl font-medium disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2 transition-colors flex-shrink-0"
                   >
                     {loading ? (
                       <Loader2 className="w-5 h-5 animate-spin" />
