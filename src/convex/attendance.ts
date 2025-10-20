@@ -403,3 +403,38 @@ export const decrementTotal = mutation({
     return { success: true, newHeld, newAttended };
   },
 });
+
+export const verifyStudent = mutation({
+  args: {
+    roll_number: v.string(),
+  },
+  handler: async (ctx, args) => {
+    // Check if student exists in database
+    const existingRecord = await ctx.db
+      .query("attendanceRecords")
+      .withIndex("by_roll_number", (q) => q.eq("roll_number", args.roll_number))
+      .first();
+
+    if (existingRecord) {
+      // Student exists, extract name from roll number
+      const rollEnding = args.roll_number.slice(-3);
+      const rollNumeric = parseInt(rollEnding);
+      
+      // You can customize names here or fetch from a students table
+      const name = args.roll_number; // Default to roll number
+      
+      return {
+        success: true,
+        name: name,
+        roll_number: args.roll_number,
+      };
+    }
+
+    // Allow any roll number to login (create on first login)
+    return {
+      success: true,
+      name: args.roll_number,
+      roll_number: args.roll_number,
+    };
+  },
+});
