@@ -2,7 +2,7 @@
 
 import { v } from "convex/values";
 import { action } from "./_generated/server";
-import { api } from "./_generated/api";
+// import { api } from "./_generated/api"; // NOTE: api import is no longer needed
 
 export const chatWithAI = action({
   args: {
@@ -12,62 +12,32 @@ export const chatWithAI = action({
   },
   handler: async (ctx, args) => {
     const apiKey = process.env.GROQ_API_KEY;
-    
+
     if (!apiKey) {
       return {
         success: false,
-        message: "AI service is not configured.",
+        message: "AI service is not configured (Missing GROQ_API_KEY).",
       };
     }
 
     try {
-      const attendanceSummary = await ctx.runQuery(api.attendance.getAttendanceSummary, {
-        roll_number: args.roll_number,
-      });
-
-      const dailyTrend = await ctx.runQuery(api.attendance.getDailyAttendanceTrend, {
-        roll_number: args.roll_number,
-      });
-
-      const totalHeld: number = attendanceSummary.reduce((sum: number, s: any) => sum + s.periods_held, 0);
-      const totalAttended: number = attendanceSummary.reduce((sum: number, s: any) => sum + s.periods_attended, 0);
-      const overallPercentage: number = totalHeld > 0 ? Math.round((totalAttended / totalHeld) * 100) : 0;
-
+      // --- ATTENDANCE DEPENDENCIES REMOVED TO PREVENT CRASH ---
+      // These variables are set to 0/empty to ensure the code below runs without error.
+      const overallPercentage: number = 0;
+      const totalAttended: number = 0;
+      const totalHeld: number = 0;
+      const periodsNeededFor75: number = 0;
+      const maxBunkablePeriods: number = 0;
+      const daysCount: number = 0;
+      const bunkDays: number = 0;
+      const attendanceSummary: any[] = [];
+      // --- END REMOVED BLOCK ---
+      
       const studentName = args.student_name || "Student";
       
       const rollEnding = args.roll_number.slice(-3);
       const rollNumeric = parseInt(rollEnding);
       const batch = rollNumeric >= 1 && rollNumeric <= 45 ? "Batch 1" : "Batch 2";
-      
-      const periodsNeededFor75 = totalHeld > 0 
-        ? Math.max(0, Math.ceil((0.75 * totalHeld - totalAttended) / 0.25))
-        : 0;
-      
-      const weeklySchedule = [0, 6, 6, 5, 6, 4, 4];
-      const today = new Date();
-      let dayIndex = today.getDay();
-      let periodsAccumulated = 0;
-      let daysCount = 0;
-      
-      while (periodsAccumulated < periodsNeededFor75 && daysCount < 365) {
-        daysCount++;
-        dayIndex = (dayIndex + 1) % 7;
-        periodsAccumulated += weeklySchedule[dayIndex];
-      }
-      
-      const maxBunkablePeriods = totalAttended > 0
-        ? Math.max(0, Math.floor((totalAttended / 0.75) - totalHeld))
-        : 0;
-      
-      let bunkDays = 0;
-      let bunkPeriodsAccumulated = 0;
-      let bunkDayIndex = today.getDay();
-      
-      while (bunkPeriodsAccumulated < maxBunkablePeriods && bunkDays < 365) {
-        bunkDays++;
-        bunkDayIndex = (bunkDayIndex + 1) % 7;
-        bunkPeriodsAccumulated += weeklySchedule[bunkDayIndex];
-      }
       
       const now = new Date();
       const days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
@@ -129,7 +99,7 @@ You are NOT limited to just attendance topics - feel free to chat naturally!
 Name: ${studentName}
 Roll: ${args.roll_number} (ending: ${rollEnding})
 Batch: ${batch}
-Current Attendance: **${overallPercentage}%** (${totalAttended}/${totalHeld} periods)
+Current Attendance: **${overallPercentage}%** (${totalAttended}/${totalHeld} periods) - NOTE: Data is temporarily unavailable.
 
 === PRE-CALCULATED ATTENDANCE METRICS ===
 Days to reach 75%: ${daysCount} days (${periodsNeededFor75} periods)
@@ -157,7 +127,7 @@ Sat (4): BDE, M-IT, ${batch === "Batch 1" ? "BDE LAB" : "PYT LAB"}
 Sun: No classes
 
 === SUBJECT-WISE ATTENDANCE ===
-${attendanceSummary.map((s: any) => `${s.subject}: ${s.percentage}% (${s.periods_attended}/${s.periods_held})`).join('\n')}
+${attendanceSummary.map((s: any) => `${s.subject}: ${s.percentage}% (${s.periods_attended}/${s.periods_held})`).join('\n') || 'Attendance data unavailable.'}
 
 === CONVERSATION GUIDELINES ===
 - For attendance questions: Use the data above
@@ -165,6 +135,7 @@ ${attendanceSummary.map((s: any) => `${s.subject}: ${s.percentage}% (${s.periods
 - For study tips: Be encouraging and practical
 - For casual chat: Be friendly and engaging
 - Don't be overly formal - chat like a helpful friend!
+- **Inform the user that attendance data is currently unavailable if they ask for details.**
 
 Subjects full names:
 M-IT = Mathematics for IT, DM = Discrete Mathematics, BDE = Big Data Engineering
