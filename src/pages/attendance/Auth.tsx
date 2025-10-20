@@ -81,7 +81,7 @@ export default function AttendanceAuth() {
       const student = await loginQuery({ roll_number: loginRollNumber.trim() });
       if (!student) {
         throw new Error("Student not found. Please register first.");
-      authService.login(student.roll_number, student.name);
+      }
       authService.login(student.roll_number, student.name);
       setCurrentRollNumber(student.roll_number);
       toast.success("Login successful!");
