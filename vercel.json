@@ -1,8 +1,1 @@
-{
-  "rewrites": [
-    {
-      "source": "/(.*)",
-      "destination": "/index.html"
-    }
-  ]
-}
+{ "functions": { "api/**/*.js": { "maxDuration": 60 }, "api/**/*.ts": { "maxDuration": 60 } } }
