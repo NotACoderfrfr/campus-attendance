@@ -38,12 +38,12 @@ export function AIAssistant() {
       const rollNumber = localStorage.getItem("studentRollNumber");
       const response = await chatAI({
         message: userMessage,
-        rollNumber: rollNumber || "",
+        roll_number: rollNumber || "",
       });
 
       setMessages((prev) => [
         ...prev,
-        { role: "assistant", content: response },
+        { role: "assistant", content: response.message || response },
       ]);
     } catch (error) {
       setMessages((prev) => [
