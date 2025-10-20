@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect } from "react";
-import { MessageCircle, X, Send, Sparkles } from "lucide-react";
+import { X, Send, Sparkles } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useAction } from "convex/react";
 import { api } from "../../../convex/_generated/api";
@@ -123,19 +123,20 @@ export function AIAssistant() {
                         : "bg-white dark:bg-gray-700 text-gray-800 dark:text-gray-100 shadow-sm border border-gray-200 dark:border-gray-600"
                     }`}
                   >
-                    <ReactMarkdown
-                      className="text-sm leading-relaxed prose prose-sm dark:prose-invert max-w-none"
-                      components={{
-                        strong: ({ children }) => (
-                          <strong className="font-bold text-purple-600 dark:text-purple-400">
-                            {children}
-                          </strong>
-                        ),
-                        p: ({ children }) => <p className="mb-2 last:mb-0">{children}</p>,
-                      }}
-                    >
-                      {msg.content}
-                    </ReactMarkdown>
+                    <div className="text-sm leading-relaxed prose prose-sm dark:prose-invert max-w-none">
+                      <ReactMarkdown
+                        components={{
+                          strong: ({ children }) => (
+                            <strong className="font-bold text-purple-600 dark:text-purple-400">
+                              {children}
+                            </strong>
+                          ),
+                          p: ({ children }) => <p className="mb-2 last:mb-0">{children}</p>,
+                        }}
+                      >
+                        {msg.content}
+                      </ReactMarkdown>
+                    </div>
                   </div>
                 </motion.div>
               ))}
