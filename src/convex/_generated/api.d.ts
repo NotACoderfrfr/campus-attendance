@@ -12,6 +12,7 @@ import type * as achievements from "../achievements.js";
 import type * as actionHistory from "../actionHistory.js";
 import type * as adminImport from "../adminImport.js";
 import type * as ai from "../ai.js";
+import type * as attendance from "../attendance.js";
 import type * as auth_emailOtp from "../auth/emailOtp.js";
 import type * as auth from "../auth.js";
 import type * as crons from "../crons.js";
@@ -44,6 +45,7 @@ declare const fullApi: ApiFromModules<{
   actionHistory: typeof actionHistory;
   adminImport: typeof adminImport;
   ai: typeof ai;
+  attendance: typeof attendance;
   "auth/emailOtp": typeof auth_emailOtp;
   auth: typeof auth;
   crons: typeof crons;
