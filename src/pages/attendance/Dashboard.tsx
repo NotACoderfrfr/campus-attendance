@@ -1,4 +1,3 @@
-import { authService } from "@/utils/auth";
 import AttendanceAIChatbot from "@/components/AttendanceAIChatbot";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
@@ -14,8 +13,8 @@ import { QuickActionsFAB } from "@/components/attendance/QuickActionsFAB";
 
 export default function Dashboard() {
   const navigate = useNavigate();
-  const [rollNumber, setRollNumber] = useState<string | null>(authService.getRollNumber());
-  const [studentName, setStudentName] = useState<string | null>(authService.getName());
+  const [rollNumber, setRollNumber] = useState<string | null>(localStorage.getItem("studentRollNumber"));
+  const [studentName, setStudentName] = useState<string | null>(localStorage.getItem("studentName"));
 
   useEffect(() => {
     if (!rollNumber) {
