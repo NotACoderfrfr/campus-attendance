@@ -2,7 +2,7 @@ import { useState, useRef, useEffect } from "react";
 import { X, Send, Sparkles } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useAction } from "convex/react";
-import { api } from "../../../convex/_generated/api";
+import { api } from "@/convex/_generated/api";
 import ReactMarkdown from "react-markdown";
 
 export function AIAssistant() {
