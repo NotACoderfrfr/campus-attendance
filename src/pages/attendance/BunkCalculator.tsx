@@ -1,3 +1,4 @@
+import { authService } from "@/utils/auth";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { api } from "@/convex/_generated/api";
@@ -9,12 +10,12 @@ import { useNavigate } from "react-router";
 
 export default function BunkCalculatorPage() {
   const navigate = useNavigate();
-  const rollNumber = localStorage.getItem("studentRollNumber");
-  const studentName = localStorage.getItem("studentName");
+  const rollNumber = authService.getRollNumber();
+  const studentName = authService.getName();
 
   useEffect(() => {
     if (!rollNumber) {
-      navigate("/attendance/auth");
+      navigate("/attendance/login");
     }
   }, [rollNumber, navigate]);
 

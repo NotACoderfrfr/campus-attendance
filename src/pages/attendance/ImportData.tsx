@@ -1,3 +1,4 @@
+import { authService } from "@/utils/auth";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -13,7 +14,7 @@ import { toast } from "sonner";
 
 export default function ImportData() {
   const navigate = useNavigate();
-  const rollNumber = localStorage.getItem("studentRollNumber");
+  const rollNumber = authService.getRollNumber();
   const [isLoading, setIsLoading] = useState(false);
   const [manualEntry, setManualEntry] = useState({
     subject: "",
@@ -27,7 +28,7 @@ export default function ImportData() {
 
   useEffect(() => {
     if (!rollNumber) {
-      navigate("/attendance/auth");
+      navigate("/attendance/login");
     }
   }, [rollNumber, navigate]);
 

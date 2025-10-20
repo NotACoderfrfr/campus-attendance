@@ -1,3 +1,4 @@
+import { authService } from "@/utils/auth";
 import { Button } from "@/components/ui/button";
 import { WeeklyReport } from "@/components/attendance/WeeklyReport";
 import { motion } from "framer-motion";
@@ -7,11 +8,11 @@ import { useNavigate } from "react-router";
 
 export default function WeeklyProgress() {
   const navigate = useNavigate();
-  const rollNumber = localStorage.getItem("studentRollNumber");
+  const rollNumber = authService.getRollNumber();
 
   useEffect(() => {
     if (!rollNumber) {
-      navigate("/attendance/auth");
+      navigate("/attendance/login");
     }
   }, [rollNumber, navigate]);
 

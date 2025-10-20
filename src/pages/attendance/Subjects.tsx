@@ -1,3 +1,4 @@
+import { authService } from "@/utils/auth";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
@@ -13,7 +14,7 @@ import { toast } from "sonner";
 
 export default function Subjects() {
   const navigate = useNavigate();
-  const rollNumber = localStorage.getItem("studentRollNumber");
+  const rollNumber = authService.getRollNumber();
   const [isAddDialogOpen, setIsAddDialogOpen] = useState(false);
   const [isRefreshing, setIsRefreshing] = useState(false);
   const [undoHistory, setUndoHistory] = useState<Record<string, { held: number; attended: number }>>({});
@@ -26,7 +27,7 @@ export default function Subjects() {
 
   useEffect(() => {
     if (!rollNumber) {
-      navigate("/attendance/auth");
+      navigate("/attendance/login");
     }
   }, [rollNumber, navigate]);
 

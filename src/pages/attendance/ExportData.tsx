@@ -1,3 +1,4 @@
+import { authService } from "@/utils/auth";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { api } from "@/convex/_generated/api";
@@ -10,12 +11,12 @@ import { toast } from "sonner";
 
 export default function ExportData() {
   const navigate = useNavigate();
-  const rollNumber = localStorage.getItem("studentRollNumber");
+  const rollNumber = authService.getRollNumber();
   const [isExporting, setIsExporting] = useState(false);
 
   useEffect(() => {
     if (!rollNumber) {
-      navigate("/attendance/auth");
+      navigate("/attendance/login");
     }
   }, [rollNumber, navigate]);
 

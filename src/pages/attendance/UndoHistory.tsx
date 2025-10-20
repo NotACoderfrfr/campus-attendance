@@ -1,3 +1,4 @@
+import { authService } from "@/utils/auth";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -25,12 +26,12 @@ import type { Id } from "@/convex/_generated/dataModel";
 
 export default function UndoHistory() {
   const navigate = useNavigate();
-  const rollNumber = localStorage.getItem("studentRollNumber");
+  const rollNumber = authService.getRollNumber();
   const [filter, setFilter] = useState<string>("all");
 
   useEffect(() => {
     if (!rollNumber) {
-      navigate("/attendance/auth");
+      navigate("/attendance/login");
     }
   }, [rollNumber, navigate]);
 

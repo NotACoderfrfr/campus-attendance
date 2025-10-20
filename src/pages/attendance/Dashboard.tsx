@@ -13,12 +13,13 @@ import { QuickActionsFAB } from "@/components/attendance/QuickActionsFAB";
 
 export default function Dashboard() {
   const navigate = useNavigate();
-  const rollNumber = localStorage.getItem("studentRollNumber");
-  const studentName = localStorage.getItem("studentName");
+  import { authService } from "@/utils/auth";
+  const rollNumber = authService.getRollNumber();
+  const studentName = authService.getName();
 
   useEffect(() => {
     if (!rollNumber) {
-      navigate("/attendance/auth");
+      navigate("/attendance/login");
     }
   }, [rollNumber, navigate]);
 
@@ -175,7 +176,7 @@ export default function Dashboard() {
           <Button variant="outline" onClick={() => {
             localStorage.removeItem("studentName");
             localStorage.removeItem("studentRollNumber");
-            navigate("/attendance/auth");
+            navigate("/attendance/login");
           }}>
             Logout
           </Button>

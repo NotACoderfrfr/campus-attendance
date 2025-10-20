@@ -1,3 +1,4 @@
+import { authService } from "@/utils/auth";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -55,12 +56,12 @@ const ACHIEVEMENT_DEFINITIONS = [
 
 export default function Achievements() {
   const navigate = useNavigate();
-  const rollNumber = localStorage.getItem("studentRollNumber");
-  const studentName = localStorage.getItem("studentName");
+  const rollNumber = authService.getRollNumber();
+  const studentName = authService.getName();
 
   useEffect(() => {
     if (!rollNumber) {
-      navigate("/attendance/auth");
+      navigate("/attendance/login");
     }
   }, [rollNumber, navigate]);
 
