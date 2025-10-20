@@ -12,3 +12,22 @@ export default defineConfig({
     },
   },
 });
+
+import { VitePWA } from 'vite-plugin-pwa'
+
+export default defineConfig({
+  plugins: [
+    VitePWA({
+      registerType: 'autoUpdate',
+      workbox: {
+        globPatterns: ['**/*.{js,css,html,ico,png,svg}']
+      },
+      manifest: {
+        name: 'Campus Attendance',
+        short_name: 'Attendance',
+        start_url: '/attendance/dashboard',
+        display: 'standalone'
+      }
+    })
+  ]
+})
