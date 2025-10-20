@@ -14,6 +14,7 @@ import Achievements from "@/pages/attendance/Achievements.tsx";
 import UndoHistory from "@/pages/attendance/UndoHistory.tsx";
 import WeeklyProgress from "@/pages/attendance/WeeklyProgress.tsx";
 import ExportData from "@/pages/attendance/ExportData.tsx";
+import Debug from "./pages/Debug.tsx";
 import { ConvexAuthProvider } from "@convex-dev/auth/react";
 import { ConvexReactClient } from "convex/react";
 import { StrictMode, useEffect } from "react";
@@ -73,6 +74,7 @@ createRoot(document.getElementById("root")!).render(
             <Route path="/attendance/achievements" element={<Achievements />} />
             <Route path="/attendance/weekly-progress" element={<WeeklyProgress />} />
             <Route path="/attendance/export" element={<ExportData />} />
+            <Route path="/debug" element={<Debug />} />
             
             <Route path="*" element={<NotFound />} />
           </Routes>
