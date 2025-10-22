@@ -104,6 +104,15 @@ export const chatWithAI = action({
 
       const todayPeriods = countPeriods(todayClasses);
       const tomorrowPeriods = countPeriods(tomorrowClasses);
+      // Calculate all attendance scenarios for tomorrow
+      const scenarios = [];
+      for (let periodsAttended = 0; periodsAttended <= tomorrowPeriods; periodsAttended++) {
+        const newAttended = totalAttended + periodsAttended;
+        const newHeld = totalHeld + tomorrowPeriods;
+        const newPercentage = ((newAttended / newHeld) * 100).toFixed(2);
+        scenarios.push(`Attend ${periodsAttended}/${tomorrowPeriods}: ${newAttended}/${newHeld} = ${newPercentage}%`);
+      }
+      const scenarioText = scenarios.join('\n');
 
       // Build full week schedule
       const weekSchedule = Object.entries(schedule)
@@ -127,11 +136,10 @@ Today is ${currentDayName}.
 Weekly Schedule:
 ${weekSchedule}
 
-IMPORTANT: When calculating attendance changes, BOTH attended AND held periods increase by the same amount.
-Example: If current is 155/204 and student attends 6 periods tomorrow, new attendance is 161/210 (both increase by 6).
+Tomorrow's Attendance Scenarios (${tomorrowDayName}):
+${scenarioText}
 
 Subjects: ${attendanceSummary.map((s: any) => `${s.subject}: ${s.percentage}%`).join(", ")}`;
-
 Subjects: ${attendanceSummary.map((s: any) => `${s.subject}: ${s.percentage}%`).join(", ")}`;
 
       // Call GROQ with shorter timeout
