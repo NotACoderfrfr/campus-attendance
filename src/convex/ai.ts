@@ -36,8 +36,12 @@ export const chatWithAI = action({
       let totalHeld = 0;
       
       summaryData.forEach((subject: any) => {
-        totalAttended += subject.periods_attended;
-        totalHeld += subject.periods_held;
+        // Labs count as 2 periods each
+        const isLab = subject.subject?.toLowerCase().includes('lab');
+        const multiplier = isLab ? 2 : 1;
+        
+        totalAttended += subject.periods_attended * multiplier;
+        totalHeld += subject.periods_held * multiplier;
       });
 
       const overallPercentage: number = totalHeld > 0 ? Math.round((totalAttended / totalHeld) * 100) : 0;
