@@ -109,6 +109,15 @@ export const chatWithAI = action({
       const tomorrowPeriods = countPeriods(tomorrowClasses);
 
       // Simplified context to avoid timeouts
+      // Build full week schedule
+      const weekSchedule = Object.entries(schedule)
+        .filter(([day]) => day !== 'Sunday')
+        .map(([day, classes]) => {
+          const periods = countPeriods(classes);
+          return `${day}: ${periods} periods - ${classes.join(', ')}`;
+        })
+        .join('\n');
+
       const attendanceContext: string = `You are a friendly AI assistant. Answer concisely.
 
 Student: ${studentName} (${args.roll_number}, ${batch})
@@ -116,11 +125,12 @@ Attendance: ${overallPercentage}% (${totalAttended}/${totalHeld})
 To reach 75%: ${daysCount} days
 Can bunk: ${bunkDays} days
 
-Today (${currentDayName}): ${todayPeriods} periods - ${todayClasses.join(', ') || 'No classes'}
-Tomorrow (${tomorrowDayName}): ${tomorrowPeriods} periods - ${tomorrowClasses.join(', ') || 'No classes'}
+Today is ${currentDayName}.
+
+Weekly Schedule:
+${weekSchedule}
 
 Subjects: ${attendanceSummary.map((s: any) => `${s.subject}: ${s.percentage}%`).join(', ')}`;
-
       // Call GROQ with shorter timeout
       const controller = new AbortController();
       const timeout = setTimeout(() => controller.abort(), 8000); // 8 second timeout
