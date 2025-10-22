@@ -36,12 +36,9 @@ export const chatWithAI = action({
       let totalHeld = 0;
       
       summaryData.forEach((subject: any) => {
-        // Labs count as 2 periods each
-        const isLab = subject.subject?.toLowerCase().includes('lab');
-        const multiplier = isLab ? 2 : 1;
-        
-        totalAttended += subject.periods_attended * multiplier;
-        totalHeld += subject.periods_held * multiplier;
+        // Database already stores labs as 2 periods, so no multiplier needed
+        totalAttended += subject.periods_attended;
+        totalHeld += subject.periods_held;
       });
 
       const overallPercentage: number = totalHeld > 0 ? Math.round((totalAttended / totalHeld) * 100) : 0;
@@ -57,11 +54,14 @@ export const chatWithAI = action({
       
       const daysCount: number = Math.ceil(periodsNeededFor75 / 5);
       const bunkDays: number = Math.floor(maxBunkablePeriods / 5);
-      summaryData.forEach((subject: any) => {
-        // Don't multiply - database already stores labs as 2 periods
-        totalAttended += subject.periods_attended;
-        totalHeld += subject.periods_held;
-      });
+      
+      const attendanceSummary: any[] = summaryData || [];
+      const studentName: string = args.student_name || "Student";
+      
+      const rollEnding: string = args.roll_number.slice(-3);
+      const rollNumeric: number = parseInt(rollEnding);
+      const batch: string = rollNumeric >= 1 && rollNumeric <= 45 ? "Batch 1" : "Batch 2";
+      
       const now = new Date();
       const days: string[] = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
       const currentDayName: string = days[now.getDay()];
@@ -94,27 +94,7 @@ export const chatWithAI = action({
       const todayClasses: string[] = schedule[currentDayName] || [];
       const tomorrowClasses: string[] = schedule[tomorrowDayName] || [];
 
-      // Count periods (labs = 2, regular = 1)
-      const countPeriods = (classes: string[]) => {
-        return classes.reduce((total, subject) => {
-          const isLab = subject.toLowerCase().includes('lab');
-          return total + (isLab ? 2 : 1);
-        }, 0);
-      };
-
-      const todayPeriods = countPeriods(todayClasses);
-      const tomorrowPeriods = countPeriods(tomorrowClasses);
-
       // Simplified context to avoid timeouts
-      // Build full week schedule
-      const weekSchedule = Object.entries(schedule)
-        .filter(([day]) => day !== 'Sunday')
-        .map(([day, classes]) => {
-          const periods = countPeriods(classes);
-          return `${day}: ${periods} periods - ${classes.join(', ')}`;
-        })
-        .join('\n');
-
       const attendanceContext: string = `You are a friendly AI assistant. Answer concisely.
 
 Student: ${studentName} (${args.roll_number}, ${batch})
@@ -122,12 +102,11 @@ Attendance: ${overallPercentage}% (${totalAttended}/${totalHeld})
 To reach 75%: ${daysCount} days
 Can bunk: ${bunkDays} days
 
-Today is ${currentDayName}.
-
-Weekly Schedule:
-${weekSchedule}
+Today (${currentDayName}): ${todayClasses.join(', ') || 'No classes'}
+Tomorrow (${tomorrowDayName}): ${tomorrowClasses.join(', ') || 'No classes'}
 
 Subjects: ${attendanceSummary.map((s: any) => `${s.subject}: ${s.percentage}%`).join(', ')}`;
+
       // Call GROQ with shorter timeout
       const controller = new AbortController();
       const timeout = setTimeout(() => controller.abort(), 8000); // 8 second timeout
