@@ -97,6 +97,17 @@ export const chatWithAI = action({
       const todayClasses: string[] = schedule[currentDayName] || [];
       const tomorrowClasses: string[] = schedule[tomorrowDayName] || [];
 
+      // Count periods (labs = 2, regular = 1)
+      const countPeriods = (classes: string[]) => {
+        return classes.reduce((total, subject) => {
+          const isLab = subject.toLowerCase().includes('lab');
+          return total + (isLab ? 2 : 1);
+        }, 0);
+      };
+
+      const todayPeriods = countPeriods(todayClasses);
+      const tomorrowPeriods = countPeriods(tomorrowClasses);
+
       // Simplified context to avoid timeouts
       const attendanceContext: string = `You are a friendly AI assistant. Answer concisely.
 
@@ -105,8 +116,8 @@ Attendance: ${overallPercentage}% (${totalAttended}/${totalHeld})
 To reach 75%: ${daysCount} days
 Can bunk: ${bunkDays} days
 
-Today (${currentDayName}): ${todayClasses.join(', ') || 'No classes'}
-Tomorrow (${tomorrowDayName}): ${tomorrowClasses.join(', ') || 'No classes'}
+Today (${currentDayName}): ${todayPeriods} periods - ${todayClasses.join(', ') || 'No classes'}
+Tomorrow (${tomorrowDayName}): ${tomorrowPeriods} periods - ${tomorrowClasses.join(', ') || 'No classes'}
 
 Subjects: ${attendanceSummary.map((s: any) => `${s.subject}: ${s.percentage}%`).join(', ')}`;
 
