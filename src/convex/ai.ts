@@ -140,7 +140,6 @@ Tomorrow's Attendance Scenarios (${tomorrowDayName}):
 ${scenarioText}
 
 Subjects: ${attendanceSummary.map((s: any) => `${s.subject}: ${s.percentage}%`).join(", ")}`;
-Subjects: ${attendanceSummary.map((s: any) => `${s.subject}: ${s.percentage}%`).join(", ")}`;
 
       // Call GROQ with shorter timeout
       const controller = new AbortController();
