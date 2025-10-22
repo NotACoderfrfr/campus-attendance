@@ -1,3 +1,4 @@
+import { calculateAttendance } from "@/utils/attendanceCalculator";
 import { Button } from "@/components/ui/button";
 import {
   Popover,
