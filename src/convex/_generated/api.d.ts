@@ -18,6 +18,7 @@ import type * as auth from "../auth.js";
 import type * as crons from "../crons.js";
 import type * as dataExport from "../dataExport.js";
 import type * as dataExportQueries from "../dataExportQueries.js";
+import type * as fix_lab_records from "../fix_lab_records.js";
 import type * as http from "../http.js";
 import type * as importData from "../importData.js";
 import type * as quickActions from "../quickActions.js";
@@ -51,6 +52,7 @@ declare const fullApi: ApiFromModules<{
   crons: typeof crons;
   dataExport: typeof dataExport;
   dataExportQueries: typeof dataExportQueries;
+  fix_lab_records: typeof fix_lab_records;
   http: typeof http;
   importData: typeof importData;
   quickActions: typeof quickActions;
