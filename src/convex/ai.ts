@@ -57,14 +57,11 @@ export const chatWithAI = action({
       
       const daysCount: number = Math.ceil(periodsNeededFor75 / 5);
       const bunkDays: number = Math.floor(maxBunkablePeriods / 5);
-      
-      const attendanceSummary: any[] = summaryData || [];
-      const studentName: string = args.student_name || "Student";
-      
-      const rollEnding: string = args.roll_number.slice(-3);
-      const rollNumeric: number = parseInt(rollEnding);
-      const batch: string = rollNumeric >= 1 && rollNumeric <= 45 ? "Batch 1" : "Batch 2";
-      
+      summaryData.forEach((subject: any) => {
+        // Don't multiply - database already stores labs as 2 periods
+        totalAttended += subject.periods_attended;
+        totalHeld += subject.periods_held;
+      });
       const now = new Date();
       const days: string[] = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
       const currentDayName: string = days[now.getDay()];
