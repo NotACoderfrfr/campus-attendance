@@ -1,4 +1,5 @@
 import { calculateAttendance } from "@/utils/attendanceCalculator";
+import { calculateAttendance } from "@/utils/attendanceCalculator";
 import AttendanceAIChatbot from "@/components/AttendanceAIChatbot";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
