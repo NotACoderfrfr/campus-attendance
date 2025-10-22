@@ -127,6 +127,11 @@ Today is ${currentDayName}.
 Weekly Schedule:
 ${weekSchedule}
 
+IMPORTANT: When calculating attendance changes, BOTH attended AND held periods increase by the same amount.
+Example: If current is 155/204 and student attends 6 periods tomorrow, new attendance is 161/210 (both increase by 6).
+
+Subjects: ${attendanceSummary.map((s: any) => `${s.subject}: ${s.percentage}%`).join(", ")}`;
+
 Subjects: ${attendanceSummary.map((s: any) => `${s.subject}: ${s.percentage}%`).join(", ")}`;
 
       // Call GROQ with shorter timeout
