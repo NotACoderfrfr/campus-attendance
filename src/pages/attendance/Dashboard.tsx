@@ -6,9 +6,9 @@ import { api } from "@/convex/_generated/api";
 import { useQuery, useMutation } from "convex/react";
 import { motion } from "framer-motion";
 import { BookOpen, Calendar, Loader2, Users, TrendingUp, TrendingDown, Coffee, Award, Flame, Download } from "lucide-react";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { useNavigate } from "react-router";
-import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, ReferenceLine } from "recharts";
+import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, ReferenceLine, Brush } from "recharts";
 import { toast } from "sonner";
 import { QuickActionsFAB } from "@/components/attendance/QuickActionsFAB";
 
@@ -16,6 +16,8 @@ export default function Dashboard() {
   const navigate = useNavigate();
   const [rollNumber, setRollNumber] = useState<string | null>(localStorage.getItem("studentRollNumber"));
   const [studentName, setStudentName] = useState<string | null>(localStorage.getItem("studentName"));
+  const [brushDomain, setBrushDomain] = useState<[number, number] | null>(null);
+  const chartRef = useRef<any>(null);
 
   useEffect(() => {
     if (!rollNumber) {
@@ -161,6 +163,26 @@ export default function Dashboard() {
     percentage: item.percentage,
   })) || [];
 
+  const handleZoomIn = () => {
+    if (!brushDomain || !chartRef.current) return;
+    const [start, end] = brushDomain;
+    const mid = (start + end) / 2;
+    const newRange = Math.max(1, Math.floor((end - start) * 0.6));
+    setBrushDomain([Math.max(0, mid - newRange / 2), Math.min(chartData.length - 1, mid + newRange / 2)]);
+  };
+
+  const handleZoomOut = () => {
+    if (!brushDomain || !chartRef.current) return;
+    const [start, end] = brushDomain;
+    const currentRange = end - start;
+    const expand = Math.floor(currentRange * 0.4);
+    setBrushDomain([Math.max(0, start - expand), Math.min(chartData.length - 1, end + expand)]);
+  };
+
+  const handleResetZoom = () => {
+    setBrushDomain(null);
+  };
+
   return (
     <motion.div
       initial={{ opacity: 0 }}
@@ -228,35 +250,58 @@ export default function Dashboard() {
         {chartData.length > 0 && (
           <Card>
             <CardHeader>
-              <CardTitle>Attendance Trend</CardTitle>
-              <CardDescription>Your attendance percentage over time</CardDescription>
+              <div className="flex items-center justify-between">
+                <div>
+                  <CardTitle>Attendance Trend</CardTitle>
+                  <CardDescription>Your attendance percentage over time</CardDescription>
+                </div>
+                <div className="hidden sm:flex gap-2">
+                  <Button variant="outline" size="sm" onClick={handleZoomOut} title="Zoom Out">
+                    −
+                  </Button>
+                  <Button variant="outline" size="sm" onClick={handleZoomIn} title="Zoom In">
+                    +
+                  </Button>
+                  <Button variant="outline" size="sm" onClick={handleResetZoom} title="Reset Zoom">
+                    Reset
+                  </Button>
+                </div>
+              </div>
             </CardHeader>
             <CardContent>
               <div className="h-[300px] w-full">
                 <ResponsiveContainer width="100%" height="100%">
-                  <LineChart data={chartData}>
+                  <LineChart data={chartData} ref={chartRef}>
                     <CartesianGrid strokeDasharray="3 3" />
-                    <XAxis 
-                      dataKey="date" 
+                    <XAxis
+                      dataKey="date"
                       tick={{ fontSize: 12 }}
                       angle={-45}
                       textAnchor="end"
                       height={60}
                     />
-                    <YAxis 
+                    <YAxis
                       domain={[0, 100]}
                       tick={{ fontSize: 12 }}
                       label={{ value: 'Percentage (%)', angle: -90, position: 'insideLeft' }}
                     />
                     <Tooltip />
                     <ReferenceLine y={75} stroke="red" strokeDasharray="3 3" label="75% Target" />
-                    <Line 
-                      type="monotone" 
-                      dataKey="percentage" 
-                      stroke="#8b5cf6" 
+                    <Line
+                      type="monotone"
+                      dataKey="percentage"
+                      stroke="#8b5cf6"
                       strokeWidth={2}
                       dot={{ fill: '#8b5cf6', r: 4 }}
                       activeDot={{ r: 6 }}
+                    />
+                    <Brush
+                      dataKey="date"
+                      height={30}
+                      stroke="#8b5cf6"
+                      startIndex={brushDomain ? brushDomain[0] : undefined}
+                      endIndex={brushDomain ? brushDomain[1] : undefined}
+                      onChange={(e: any) => setBrushDomain([e.startIndex, e.endIndex])}
                     />
                   </LineChart>
                 </ResponsiveContainer>
@@ -397,4 +442,3 @@ export default function Dashboard() {
     </motion.div>
   );
 }
-
