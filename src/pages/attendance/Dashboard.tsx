@@ -166,9 +166,9 @@ export default function Dashboard() {
   const handleZoomIn = () => {
     if (!brushDomain || !chartRef.current) return;
     const [start, end] = brushDomain;
-    const mid = (start + end) / 2;
+    const mid = Math.floor((start + end) / 2);
     const newRange = Math.max(1, Math.floor((end - start) * 0.6));
-    setBrushDomain([Math.max(0, mid - newRange / 2), Math.min(chartData.length - 1, mid + newRange / 2)]);
+    setBrushDomain([Math.max(0, mid - Math.floor(newRange / 2)), Math.min(chartData.length - 1, mid + Math.floor(newRange / 2))]);
   };
 
   const handleZoomOut = () => {
