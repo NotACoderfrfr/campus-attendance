@@ -6,7 +6,7 @@ import { api } from "@/convex/_generated/api";
 import { useQuery, useMutation } from "convex/react";
 import { motion } from "framer-motion";
 import { BookOpen, Calendar, Loader2, Users, TrendingUp, TrendingDown, Coffee, Award, Flame, Download } from "lucide-react";
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState, useRef, useCallback } from "react";
 import { useNavigate } from "react-router";
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, ReferenceLine, Brush } from "recharts";
 import { toast } from "sonner";
@@ -18,6 +18,8 @@ export default function Dashboard() {
   const [studentName, setStudentName] = useState<string | null>(localStorage.getItem("studentName"));
   const [brushDomain, setBrushDomain] = useState<[number, number] | null>(null);
   const chartRef = useRef<any>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
+  const lastTouchDistance = useRef<number | null>(null);
 
   useEffect(() => {
     if (!rollNumber) {
@@ -163,25 +165,93 @@ export default function Dashboard() {
     percentage: item.percentage,
   })) || [];
 
-  const handleZoomIn = () => {
-    if (!brushDomain || !chartRef.current) return;
-    const [start, end] = brushDomain;
-    const mid = Math.floor((start + end) / 2);
-    const newRange = Math.max(1, Math.floor((end - start) * 0.6));
-    setBrushDomain([Math.max(0, mid - Math.floor(newRange / 2)), Math.min(chartData.length - 1, mid + Math.floor(newRange / 2))]);
-  };
+  // Ensure brushDomain is always valid
+  const safeBrushDomain = brushDomain && brushDomain[0] >= 0 && brushDomain[1] < chartData.length && brushDomain[0] < brushDomain[1]
+    ? brushDomain
+    : null;
 
-  const handleZoomOut = () => {
-    if (!brushDomain || !chartRef.current) return;
-    const [start, end] = brushDomain;
-    const currentRange = end - start;
-    const expand = Math.floor(currentRange * 0.4);
-    setBrushDomain([Math.max(0, start - expand), Math.min(chartData.length - 1, end + expand)]);
-  };
+  const handleZoomIn = useCallback(() => {
+    const len = chartData.length;
+    if (len === 0) return;
+    const current = safeBrushDomain || [0, len - 1];
+    const [start, end] = current;
+    const range = end - start;
+    const newRange = Math.max(3, Math.floor(range * 0.7));
+    const center = Math.floor((start + end) / 2);
+    const newStart = Math.max(0, center - Math.floor(newRange / 2));
+    const newEnd = Math.min(len - 1, center + Math.floor(newRange / 2));
+    setBrushDomain([newStart, newEnd]);
+  }, [chartData.length, safeBrushDomain]);
 
-  const handleResetZoom = () => {
+  const handleZoomOut = useCallback(() => {
+    const len = chartData.length;
+    if (len === 0) return;
+    const current = safeBrushDomain || [0, len - 1];
+    const [start, end] = current;
+    const range = end - start;
+    const expand = Math.max(1, Math.floor(range * 0.3));
+    const newStart = Math.max(0, start - expand);
+    const newEnd = Math.min(len - 1, end + expand);
+    setBrushDomain([newStart, newEnd]);
+  }, [chartData.length, safeBrushDomain]);
+
+  const handleResetZoom = useCallback(() => {
     setBrushDomain(null);
-  };
+  }, []);
+
+  // Mouse wheel zoom
+  useEffect(() => {
+    const container = containerRef.current;
+    if (!container) return;
+    const onWheel = (e: WheelEvent) => {
+      e.preventDefault();
+      if (e.deltaY < 0) {
+        handleZoomIn();
+      } else {
+        handleZoomOut();
+      }
+    };
+    container.addEventListener("wheel", onWheel, { passive: false });
+    return () => container.removeEventListener("wheel", onWheel);
+  }, [handleZoomIn, handleZoomOut]);
+
+  // Pinch to zoom
+  useEffect(() => {
+    const container = containerRef.current;
+    if (!container) return;
+    const onTouchStart = (e: TouchEvent) => {
+      if (e.touches.length === 2) {
+        const dx = e.touches[0].clientX - e.touches[1].clientX;
+        const dy = e.touches[0].clientY - e.touches[1].clientY;
+        lastTouchDistance.current = Math.sqrt(dx * dx + dy * dy);
+      }
+    };
+    const onTouchMove = (e: TouchEvent) => {
+      if (e.touches.length === 2 && lastTouchDistance.current !== null) {
+        e.preventDefault();
+        const dx = e.touches[0].clientX - e.touches[1].clientX;
+        const dy = e.touches[0].clientY - e.touches[1].clientY;
+        const distance = Math.sqrt(dx * dx + dy * dy);
+        if (distance > lastTouchDistance.current) {
+          handleZoomIn();
+        } else if (distance < lastTouchDistance.current) {
+          handleZoomOut();
+        }
+        lastTouchDistance.current = distance;
+      }
+    };
+    const onTouchEnd = () => {
+      lastTouchDistance.current = null;
+    };
+    container.addEventListener("touchstart", onTouchStart, { passive: false });
+    container.addEventListener("touchmove", onTouchMove, { passive: false });
+    container.addEventListener("touchend", onTouchEnd);
+    return () => {
+      container.removeEventListener("touchstart", onTouchStart);
+      container.removeEventListener("touchmove", onTouchMove);
+      container.removeEventListener("touchend", onTouchEnd);
+    };
+  }, [handleZoomIn, handleZoomOut]);
 
   return (
     <motion.div
@@ -250,12 +320,12 @@ export default function Dashboard() {
         {chartData.length > 0 && (
           <Card>
             <CardHeader>
-              <div className="flex items-center justify-between">
+              <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2">
                 <div>
                   <CardTitle>Attendance Trend</CardTitle>
                   <CardDescription>Your attendance percentage over time</CardDescription>
                 </div>
-                <div className="hidden sm:flex gap-2">
+                <div className="flex gap-2">
                   <Button variant="outline" size="sm" onClick={handleZoomOut} title="Zoom Out">
                     −
                   </Button>
@@ -269,7 +339,7 @@ export default function Dashboard() {
               </div>
             </CardHeader>
             <CardContent>
-              <div className="h-[300px] w-full">
+              <div className="h-[300px] w-full" ref={containerRef}>
                 <ResponsiveContainer width="100%" height="100%">
                   <LineChart data={chartData} ref={chartRef}>
                     <CartesianGrid strokeDasharray="3 3" />
@@ -299,8 +369,8 @@ export default function Dashboard() {
                       dataKey="date"
                       height={30}
                       stroke="#8b5cf6"
-                      startIndex={brushDomain ? brushDomain[0] : undefined}
-                      endIndex={brushDomain ? brushDomain[1] : undefined}
+                      startIndex={safeBrushDomain ? safeBrushDomain[0] : undefined}
+                      endIndex={safeBrushDomain ? safeBrushDomain[1] : undefined}
                       onChange={(e: any) => setBrushDomain([e.startIndex, e.endIndex])}
                     />
                   </LineChart>
